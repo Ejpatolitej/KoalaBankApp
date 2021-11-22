@@ -8,6 +8,7 @@ namespace KoalaBankApp
         {
             Console.WriteLine("Hello World!");
             Console.WriteLine("Hej från mac!");
+            Console.WriteLine("JACK WAS HERE");
         }
     }
 }
