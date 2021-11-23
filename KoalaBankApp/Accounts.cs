@@ -12,20 +12,17 @@ namespace KoalaBankApp
 
         public Accounts (string username,string password,BankAccount useraccount)
         {
-
+            this.UserName = username;
+            this.PassWord = password;
         }
     }
     class BankAccount
     {
-        public double Balance1 { get; set; }
-        public double Balance2 { get; set; }
-        public double Balance3 { get; set; }
-        public double Balance4 { get; set; }
-        public double Balance5 { get; set; }
+        public double Balance { get; set; }
 
-        public BankAccount (double balance1,double balance2, double balance3,double balance4,double balance5)
+        public BankAccount (double balance = 25000)
         {
-
+            this.Balance = balance;
         }
     }
 }
