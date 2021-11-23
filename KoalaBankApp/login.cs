@@ -12,7 +12,7 @@ namespace KoalaBankApp
 
         public void userLogin()
         {
-            while (loginAttempts < 4)
+            while (loginAttempts < 3 && loginSuccess == false)
             {
                 Console.WriteLine("Ange ditt användarnamn: ");
                 string username = Console.ReadLine();
@@ -22,6 +22,7 @@ namespace KoalaBankApp
 
                 if (username == "användare1" && password == "password")
                 {
+                    Console.WriteLine("Du är inloggad");
                     loginSuccess = true;
                 }
                 else
