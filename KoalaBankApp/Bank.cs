@@ -7,11 +7,12 @@ namespace KoalaBankApp
     class Bank
     {
         List<Accounts> Accounts = new List<Accounts>();
+        BankAccount[] Useraccount = new BankAccount[5];
 
         public void Run()
         {
-
-            LogIn(Accounts);
+            login l1 = new login();
+            l1.userLogin();
 
             //Meny
                 bool MenyAcitve = true;
@@ -65,12 +66,11 @@ namespace KoalaBankApp
             //No more meny
         }
 
+
         public bool LogIn(List<Accounts> Accounts)
         {
 
             return true;
         }
-
-
     }
 }
