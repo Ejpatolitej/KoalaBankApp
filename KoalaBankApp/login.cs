@@ -8,31 +8,39 @@ namespace KoalaBankApp
     {
 
         public bool loginSuccess;
-        public int loginAttempts = 0;
+        public int loginAttempts = 1;
 
         public void userLogin()
         {
-            while (loginAttempts < 4)
+            while (loginSuccess == false)
             {
                 Console.WriteLine("Ange ditt användarnamn: ");
                 string username = Console.ReadLine();
                 Console.WriteLine("Ange ditt lösenord: ");
                 string password = Console.ReadLine();
 
-
                 if (username == "användare1" && password == "password")
                 {
                     loginSuccess = true;
                 }
-                else
+                if (username != "användare1" && password != "password")
                 {
-                    Console.WriteLine("Fel användarnamn eller lösenord!");
-                    loginAttempts++;
-                    loginSuccess = false;
+                    if (loginAttempts == 3)
+                    {
+                        Console.WriteLine("Du har angett fel användarnamn eller lösenord tre gånger, programmet avslutas...");
+                        Environment.Exit(1);
+                    }
+
+                    else
+                    {
+                        Console.WriteLine("Fel användarnamn eller lösenord!");
+                        loginAttempts++;
+                        loginSuccess = false;
+                    }
                 }
             }
-            Console.WriteLine("Du har angett fel användarnamn eller lösenord tre gånger, programmet avslutas...");
-            Environment.Exit(1);
+
+            
 
         }
         public void adminLogin()
