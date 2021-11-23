@@ -7,6 +7,7 @@ namespace KoalaBankApp
     class Bank
     {
         List<Accounts> Accounts = new List<Accounts>();
+        BankAccount[] Useraccount = new BankAccount[5];
 
         public void Run()
         {
