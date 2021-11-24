@@ -6,11 +6,13 @@ namespace KoalaBankApp
 {
     public class Account
     {
-        public string _UserName { get; set; }
-        public string _PassWord { get; set; }
-        public string _FirstName { get; set; }
-        public string _LastName { get; set; }
-        public string _Email { get; set; }
+
+        private string _UserName { get; set; }
+        private string _PassWord { get; set; }
+        private string _FirstName { get; set; }
+        private string _LastName { get; set; }
+        private string _Email { get; set; }
+
         public List<BankAccount> _UserAccount { get; set; }
 
         public Account (string username,string password,string firstname,string lastname,string email,List<BankAccount> useraccount)
@@ -62,7 +64,7 @@ namespace KoalaBankApp
 
         public BankAccount(string accountname = "Privat-Konto", double balance = 0)
         {
-            this.AccountName = accountname;
+            this._AccountName = accountname;
             this._Balance = balance;
         }
 

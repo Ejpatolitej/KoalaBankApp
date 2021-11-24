@@ -14,6 +14,7 @@ namespace KoalaBankApp
         {
             while (loginSuccess == false)
             {
+
                 Console.WriteLine("Ange ditt användarnamn: ");
                 string username = Console.ReadLine();
                 Console.WriteLine("Ange ditt lösenord: ");
