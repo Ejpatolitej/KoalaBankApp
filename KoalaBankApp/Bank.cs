@@ -93,10 +93,5 @@ namespace KoalaBankApp
         }
 
 
-        public bool LogIn(List<Accounts> Accounts)
-        {
-
-
-        }
     }
 }
