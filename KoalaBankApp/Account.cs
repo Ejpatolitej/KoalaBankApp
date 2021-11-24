@@ -4,13 +4,15 @@ using System.Text;
 
 namespace KoalaBankApp
 {
-    class Account
+    public class Account
     {
+
         private string _UserName { get; set; }
         private string _PassWord { get; set; }
         private string _FirstName { get; set; }
         private string _LastName { get; set; }
         private string _Email { get; set; }
+
         public List<BankAccount> _UserAccount { get; set; }
 
         public Account (string username,string password,string firstname,string lastname,string email,List<BankAccount> useraccount)
@@ -57,8 +59,8 @@ namespace KoalaBankApp
     public class BankAccount
     {
 
-        private string _AccountName;
-        private double _Balance;
+        public string _AccountName;
+        public double _Balance;
 
         public BankAccount(string accountname = "Privat-Konto", double balance = 0)
         {

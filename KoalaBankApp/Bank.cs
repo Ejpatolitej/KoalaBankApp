@@ -7,7 +7,6 @@ namespace KoalaBankApp
     class Bank
     {
 
-
         public void Run()
         {
 
@@ -18,7 +17,17 @@ namespace KoalaBankApp
             Account Account1 = new Account("Lukkelele", "hejhej123", "Lucas", "Narfgren", "narfgren@hotmail.com", BAList1);
             Account1.Useraccount.Add(BAccount1);
             Accounts.Add(Account1);
-            
+
+
+
+
+            //BankAccount Test1BA1 = new BankAccount("Test1PrivateAcc1", 5050020);
+            //BankAccount Test1BA2 = new BankAccount("Test1PrivateAcc2", 3000100);
+            //List<BankAccount> Test1BAList = new List<BankAccount>();
+            //Test1BAList.Add(Test1BA1);
+            //Test1BAList.Add(Test1BA2);
+            //Account Test1 = new Account("Test1", "Test1", "Test1FirstName", "Test1LastName", "Test1@email.com", Test1BAList);
+
 
 
             //foreach (var item in Accounts)
@@ -72,16 +81,17 @@ namespace KoalaBankApp
                     switch (menyChoice)
                     {
                             case 1:
-                                Console.WriteLine("Check accounts"); // Placeholder
+                                Console.WriteLine(""); // Placeholder
                                 break;
                             case 2:
-                                Console.WriteLine("Move money between account"); // Placeholder
+                                Transfer Transaction = new Transfer();
+                                Transaction.TransferMenyOptions();
                                 break;
                             case 3:
-                                Console.WriteLine("Transfer to other account"); // Placeholder
+                                Console.WriteLine(""); // Placeholder
                                 break;
                             case 4:
-                                Console.WriteLine("Insert Money");
+                                Console.WriteLine(""); // placeholder
                                 break;
                             case 5:
                                 Console.WriteLine("Logout");
@@ -91,7 +101,5 @@ namespace KoalaBankApp
                 } while (MenyAcitve);
             //No more meny
         }
-
-
     }
 }
