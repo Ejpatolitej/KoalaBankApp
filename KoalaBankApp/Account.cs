@@ -4,6 +4,7 @@ using System.Text;
 
 namespace KoalaBankApp
 {
+
     public class Account : Bank
     {
         private string _UserName;
@@ -119,12 +120,12 @@ namespace KoalaBankApp
     public class BankAccount
     {
 
-        private string _AccountName;
-        private double _Balance;
+        public string _AccountName;
+        public double _Balance;
 
         public BankAccount(string accountname = "Privat-Konto", double balance = 0)
         {
-            this.AccountName = accountname;
+            this._AccountName = accountname;
             this._Balance = balance;
         }
 
