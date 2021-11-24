@@ -4,18 +4,19 @@ using System.Text;
 
 namespace KoalaBankApp
 {
-    public class Account
+
+    public class Account : Bank
     {
+        private string _UserName;
+        private string _PassWord;
+        private string _FirstName;
+        private string _LastName;
+        private string _Email;
+        private List<BankAccount> _UserAccount;
+        private bool _IsAdmin;
 
-        private string _UserName { get; set; }
-        private string _PassWord { get; set; }
-        private string _FirstName { get; set; }
-        private string _LastName { get; set; }
-        private string _Email { get; set; }
-
-        public List<BankAccount> _UserAccount { get; set; }
-
-        public Account (string username,string password,string firstname,string lastname,string email,List<BankAccount> useraccount)
+        public Account(string username = "Default Username", string password = "password123", string firstname = "Default First Name", string lastname = "Default Last Name", string email = "Default@Email.com",
+            List<BankAccount> useraccount = null, bool isadmin = false)
         {
             this._UserName = username;
             this._PassWord = password;
@@ -23,6 +24,7 @@ namespace KoalaBankApp
             this._LastName = lastname;
             this._Email = email;
             this._UserAccount = useraccount;
+            this._IsAdmin = isadmin;
         }
         public string Username
         {
@@ -54,6 +56,65 @@ namespace KoalaBankApp
             get { return _UserAccount; }
             set { _UserAccount = value; }
         }
+        public bool Isadmin
+        {
+            get { return _IsAdmin; }
+            set { _IsAdmin = value; }
+        }
+
+        public List<Account> CreateAccount(List<Account> Accounts,bool isadmin)
+        {
+            string UserAdmin;
+            bool Isadmin;
+            Console.Clear();
+            if (isadmin == true)
+            {
+                Console.Clear();
+                Console.Write("Välj ett Användarnamn: "); 
+                string UserName = Console.ReadLine().ToLower();
+                Console.Write("Välj ett Lösenord: ");
+                string PassWord = Console.ReadLine();
+                Console.Write("Vad heter Personen(Förnamn): ");
+                string FirstName = Console.ReadLine().ToLower();
+                Console.Write("Vad heter Personen(Efternamn): ");
+                string LastName = Console.ReadLine().ToLower();
+                Console.Write("Email Adress: ");
+                string Email = Console.ReadLine().ToLower();
+                do
+                {
+                    Console.WriteLine("Ska kontot vara Admin (Yes/No): ");
+                    UserAdmin = Console.ReadLine().ToLower();
+                    if (UserAdmin == "yes")
+                    {
+                        Isadmin = true;
+                        break;
+                    }
+                    else
+                    {
+                        Isadmin = false;
+                        break;
+                        
+                    }
+                } while (Isadmin == true || Isadmin == false);
+
+            List<BankAccount> NewBankAcc = new List<BankAccount>();
+            BankAccount NewAcc = new BankAccount();
+            Account NewAccount = new Account(UserName, PassWord, FirstName, LastName, Email, NewBankAcc, Isadmin);
+            NewAccount.Useraccount.Add(NewAcc);
+            Accounts.Add(NewAccount);
+            return Accounts;
+
+            }
+            else
+            {
+                Console.Clear();
+                Console.WriteLine("Du är inte Admin.");
+                Console.WriteLine("Press any key to continue . . .");
+                Console.ReadKey();
+                return null;
+            }
+
+        }
     }
 
     public class BankAccount
@@ -79,7 +140,20 @@ namespace KoalaBankApp
             set { _Balance = value; }
         }
 
-        
+        public void CreateNewBankAccount(List<Account> Accounts)
+        {
+            string AccountName;
+            double AccountBalance;
+            
+
+            Console.Clear();
+            Console.WriteLine("---Skapa nytt konto---");
+            Console.Write("Välj ett namn för kontot: ");
+            AccountName = Console.ReadLine().ToUpper();
+            AccountBalance = 0;
+            BankAccount NewBankAcc = new BankAccount(AccountName,AccountBalance);
+            
+        }
  
 
     }

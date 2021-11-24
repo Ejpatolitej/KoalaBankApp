@@ -4,7 +4,7 @@ using System.Text;
 
 namespace KoalaBankApp
 {
-    class Bank
+    public class Bank
     {
 
         public void Run()
@@ -13,49 +13,81 @@ namespace KoalaBankApp
             List<Account> Accounts = new List<Account>();
 
             List<BankAccount> BAList1 = new List<BankAccount>();
-            BankAccount BAccount1 = new BankAccount();
-            Account Account1 = new Account("Lukkelele", "hejhej123", "Lucas", "Narfgren", "narfgren@hotmail.com", BAList1);
+            BankAccount BAccount1 = new BankAccount("Privat-Konto",25000);
+            Account Account1 = new Account("Lukkelele", "hejhej123", "Lucas", "Narfgren", "narfgren@hotmail.com", BAList1, true);
             Account1.Useraccount.Add(BAccount1);
             Accounts.Add(Account1);
+            
+            // TESTNINGS MENY!
+            int menu = 0;
 
-
-
-
-            //BankAccount Test1BA1 = new BankAccount("Test1PrivateAcc1", 5050020);
-            //BankAccount Test1BA2 = new BankAccount("Test1PrivateAcc2", 3000100);
-            //List<BankAccount> Test1BAList = new List<BankAccount>();
-            //Test1BAList.Add(Test1BA1);
-            //Test1BAList.Add(Test1BA2);
-            //Account Test1 = new Account("Test1", "Test1", "Test1FirstName", "Test1LastName", "Test1@email.com", Test1BAList);
-
-
-
-            //foreach (var item in Accounts)
-            //{
-            //    Console.WriteLine(item._UserName);
-            //    Console.WriteLine(item.Firstname);
-            //    Console.WriteLine(item.Lastname);
-            //    Console.WriteLine(item.Password);
-            //    Console.WriteLine(item.Useraccount);
-            //    foreach (var i in B1)
-            //    {
-            //        Console.WriteLine(i.AccountName); 
-            //        Console.WriteLine(i.Balance);
-            //    }
-            //}
-
-
-
-            login l1 = new login();
-            l1.userLogin();
-
-            //Meny
-                bool MenyAcitve = true;
-                do
+            do
+            {
+                Console.Clear();
+                Console.WriteLine("Välkommen till KoalaBanken!");
+                try
                 {
-                    Console.Clear();
-                    Console.WriteLine("Welcome "+/*Name*/ " !");
-                    Console.WriteLine("Press 1 Account info\nPress 2 Move money between accounts\nPress 3 Transfer money to other account\nPress 4 loggout ");
+                    Console.WriteLine("1. Logga in");
+                    Console.WriteLine("2. Skapa Konto");
+                    Console.WriteLine("3. Skriv ut Konton");
+                    Console.WriteLine("4. Sök Användare");
+                    Console.WriteLine("5. Avsluta programmet");
+                    menu = int.Parse(Console.ReadLine());
+
+                    switch (menu)
+                    {
+                        case 1:
+                            login inlog = new login();
+                            inlog.userLogin(Accounts);
+                            break;
+                        case 2:
+                            Account newacc = new Account();
+                            newacc.CreateAccount(Accounts,true);
+                            break;
+                        case 3:
+                            foreach (var item in Accounts)
+                            {
+                                Console.WriteLine("-----------------------");
+                                Console.WriteLine("Username: {0}",item.Username);
+                                Console.WriteLine("First Name: {0}",item.Firstname);
+                                Console.WriteLine("Last Name: {0}",item.Lastname);
+                                Console.WriteLine("Email Adress: {0}",item.Email);
+                                Console.WriteLine("Admin: {0}",item.Isadmin);
+                                Console.WriteLine(item.Useraccount);
+                                Console.WriteLine("-----------------------");
+                            }
+                            Console.ReadKey();
+                            break;
+                        case 4:
+
+                            Console.Write("Skriv in ett Giltligt användarnamn: ");
+                            string userinput = Console.ReadLine();
+
+                            Account Check = Accounts.Find(c => c.Username == userinput);
+                            if (Check == null)
+                            {
+                                Console.WriteLine("Användare Existerar inte.");
+                            }
+                            else
+                            {
+                                Console.WriteLine("Användare: {0} finns i databasen.",Check.Username);
+                            }
+                            Console.ReadKey();
+                            break;
+                        case 5:
+                            Environment.Exit(0);
+                            break;
+
+                        default:
+                            break;
+                    }
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+            } while (true);
                     
                     int menyChoice = 0;
                     try
