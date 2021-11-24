@@ -6,7 +6,7 @@ namespace KoalaBankApp
 {
     class Bank
     {
-
+        
 
         public void Run()
         {
@@ -14,11 +14,73 @@ namespace KoalaBankApp
             List<Account> Accounts = new List<Account>();
 
             List<BankAccount> BAList1 = new List<BankAccount>();
-            BankAccount BAccount1 = new BankAccount();
-            Account Account1 = new Account("Lukkelele", "hejhej123", "Lucas", "Narfgren", "narfgren@hotmail.com", BAList1);
+            BankAccount BAccount1 = new BankAccount("Privat-Konto",25000);
+            Account Account1 = new Account("Lukkelele", "hejhej123", "Lucas", "Narfgren", "narfgren@hotmail.com", BAList1, true);
             Account1.Useraccount.Add(BAccount1);
             Accounts.Add(Account1);
+
+
+            // TESTNINGS MENY!
+            int menu = 0;
+
+            do
+            {
+                Console.Clear();
+                Console.WriteLine("Välkommen till KoalaBanken!");
+                try
+                {
+                    Console.WriteLine("1. Logga in");
+                    Console.WriteLine("2. Skapa Konto");
+                    Console.WriteLine("3. Skriv ut Konton");
+                    Console.WriteLine("4. Avsluta programmet");
+                    menu = int.Parse(Console.ReadLine());
+
+                    switch (menu)
+                    {
+                        case 1:
+                            login inlog = new login();
+                            inlog.userLogin();
+                            break;
+                        case 2:
+                            Account newacc = new Account();
+                            newacc.CreateAccount(Accounts,true);
+                            break;
+                        case 3:
+                            foreach (var item in Accounts)
+                            {
+                                Console.WriteLine("-----------------------");
+                                Console.WriteLine("Username: {0}",item.Username);
+                                Console.WriteLine("First Name: {0}",item.Firstname);
+                                Console.WriteLine("Last Name: {0}",item.Lastname);
+                                Console.WriteLine("Email Adress: {0}",item.Email);
+                                Console.WriteLine("Admin: {0}",item.Isadmin);
+                                Console.WriteLine(item.Useraccount);
+                                Console.WriteLine("-----------------------");
+                            }
+                            Console.ReadKey();
+                            break;
+                        case 4:
+                            Environment.Exit(0);
+                            break;
+
+                        default:
+                            break;
+                    }
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+            } while (true);
+
             
+            //Account1.CreateAccount(Accounts, Account1.Isadmin);
+
+            //foreach (var item in Accounts)
+            //{
+            //    Console.WriteLine(item.Firstname);
+            //}
 
 
             //foreach (var item in Accounts)
@@ -90,13 +152,6 @@ namespace KoalaBankApp
                     }
                 } while (MenyAcitve);
             //No more meny
-        }
-
-
-        public bool LogIn(List<Accounts> Accounts)
-        {
-
-
         }
     }
 }
