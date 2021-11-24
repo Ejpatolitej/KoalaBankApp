@@ -4,7 +4,7 @@ using System.Text;
 
 namespace KoalaBankApp
 {
-    class Bank
+    public class Bank
     {
         
 
@@ -19,7 +19,7 @@ namespace KoalaBankApp
             Account1.Useraccount.Add(BAccount1);
             Accounts.Add(Account1);
 
-
+            
             // TESTNINGS MENY!
             int menu = 0;
 
@@ -32,14 +32,15 @@ namespace KoalaBankApp
                     Console.WriteLine("1. Logga in");
                     Console.WriteLine("2. Skapa Konto");
                     Console.WriteLine("3. Skriv ut Konton");
-                    Console.WriteLine("4. Avsluta programmet");
+                    Console.WriteLine("4. Sök Användare");
+                    Console.WriteLine("5. Avsluta programmet");
                     menu = int.Parse(Console.ReadLine());
 
                     switch (menu)
                     {
                         case 1:
                             login inlog = new login();
-                            inlog.userLogin();
+                            inlog.userLogin(Accounts);
                             break;
                         case 2:
                             Account newacc = new Account();
@@ -60,6 +61,22 @@ namespace KoalaBankApp
                             Console.ReadKey();
                             break;
                         case 4:
+
+                            Console.Write("Skriv in ett Giltligt användarnamn: ");
+                            string userinput = Console.ReadLine();
+
+                            Account Check = Accounts.Find(c => c.Username == userinput);
+                            if (Check == null)
+                            {
+                                Console.WriteLine("Användare Existerar inte.");
+                            }
+                            else
+                            {
+                                Console.WriteLine("Användare: {0} finns i databasen.",Check.Username);
+                            }
+                            Console.ReadKey();
+                            break;
+                        case 5:
                             Environment.Exit(0);
                             break;
 
@@ -99,8 +116,8 @@ namespace KoalaBankApp
 
 
 
-            login l1 = new login();
-            l1.userLogin();
+            //login l1 = new login();
+            //l1.userLogin(Accounts);
 
             //Meny
                 bool MenyAcitve = true;

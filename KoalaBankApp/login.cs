@@ -7,10 +7,10 @@ namespace KoalaBankApp
     public class login
     {
 
-        public bool loginSuccess;
+        public bool loginSuccess = false;
         public int loginAttempts = 1;
 
-        public void userLogin()
+        public void userLogin(List<Account> Accounts)
         {
             while (loginSuccess == false)
             {
@@ -18,7 +18,18 @@ namespace KoalaBankApp
                 string username = Console.ReadLine();
                 Console.WriteLine("Ange ditt lösenord: ");
                 string password = Console.ReadLine();
+                //
+                foreach (var user in Accounts)
+                {
 
+
+                    if (username == user.Username && password == user.Password)
+                    {
+                        loginSuccess = true;
+                    }
+                }
+
+                //
                 if (username == "användare1" && password == "password")
                 {
                     loginSuccess = true;
@@ -37,12 +48,14 @@ namespace KoalaBankApp
                         loginAttempts++;
                         loginSuccess = false;
                     }
+
                 }
             }
 
             
 
         }
+
         public void adminLogin()
         {
 

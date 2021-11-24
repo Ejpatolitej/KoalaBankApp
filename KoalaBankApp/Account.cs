@@ -4,7 +4,7 @@ using System.Text;
 
 namespace KoalaBankApp
 {
-    class Account : Bank
+    public class Account : Bank
     {
         private string _UserName;
         private string _PassWord;
@@ -116,7 +116,7 @@ namespace KoalaBankApp
         }
     }
 
-    class BankAccount
+    public class BankAccount
     {
 
         private string _AccountName;
