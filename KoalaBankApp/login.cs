@@ -25,6 +25,18 @@ namespace KoalaBankApp
                     if (username == users.Username && password == users.Password)
                     {
                         Console.WriteLine("Inloggad!");
+                        if (users.Isadmin == true)
+                        {
+                            Account.CreateAccount(Accounts, true);
+                            Console.ReadKey();
+                        }
+                        if (users.Isadmin == false)
+                        {
+                            Console.WriteLine("som användare");
+                            Bank.userMenu(Accounts);
+                            Console.ReadKey();
+                        }
+
                         Console.ReadKey();
                         loginSuccess = true;
                     }

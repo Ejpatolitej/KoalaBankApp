@@ -62,7 +62,7 @@ namespace KoalaBankApp
             set { _IsAdmin = value; }
         }
 
-        public List<Account> CreateAccount(List<Account> Accounts,bool isadmin)
+        public static List<Account> CreateAccount(List<Account> Accounts,bool isadmin)
         {
             string UserAdmin;
             bool Isadmin;
