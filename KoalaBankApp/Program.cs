@@ -7,8 +7,8 @@ namespace KoalaBankApp
     {
         static void Main(string[] args)
         {
-            //Bank BankSession = new Bank();
-            //BankSession.Run();
+            Bank BankSession = new Bank();
+            BankSession.Run();
 
             BankAccount Test1BA1 = new BankAccount("Test1PrivateAcc1", 5050020);
             BankAccount Test1BA2 = new BankAccount("Test1PrivateAcc2", 3000100);

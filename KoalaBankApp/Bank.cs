@@ -127,11 +127,10 @@ namespace KoalaBankApp
                                 break;
                             case 5:
                                 Console.WriteLine("Logout");
-                                MenyAcitve = false;
+                                //MenyAcitve = false;
                                 break;
                     }
-                } while (MenyAcitve);
+                } //while (MenyAcitve);
             //No more meny
         }
     }
-}
