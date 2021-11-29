@@ -76,7 +76,7 @@ namespace KoalaBankApp
             {
                 case 1:
                     BankAccount newBankAcc = new BankAccount();
-                    newBankAcc.CreateBankAccount(ActiveUser);
+                    newBankAcc.CreateBankAccount(Accounts,ActiveUser);
                     break;
                 case 2:
                     login logout = new login();

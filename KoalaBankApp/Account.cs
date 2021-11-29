@@ -5,7 +5,7 @@ using System.Text;
 namespace KoalaBankApp
 {
 
-    public class Account : Bank
+    public class Account
     {
         private string _UserName;
         private string _PassWord;
@@ -148,27 +148,29 @@ namespace KoalaBankApp
             set { _Balance = value; }
         }
 
-        public void CreateNewBankAccount(List<Account> Accounts)
+        //public void CreateNewBankAccount(List<Account> Accounts)
+        //{
+        //    string AccountName;
+        //    double AccountBalance;
+
+
+        //    Console.Clear();
+        //    Console.WriteLine("---Skapa nytt konto---");
+        //    Console.Write("Välj ett namn för kontot: ");
+        //    AccountName = Console.ReadLine().ToUpper();
+        //    AccountBalance = 0;
+        //    BankAccount NewBankAcc = new BankAccount(AccountName, AccountBalance);
+
+        //}
+
+        public void CreateBankAccount(List<Account> Accounts,Account ActiveUser)
         {
-            string AccountName;
-            double AccountBalance;
-
-
-            Console.Clear();
-            Console.WriteLine("---Skapa nytt konto---");
-            Console.Write("Välj ett namn för kontot: ");
-            AccountName = Console.ReadLine().ToUpper();
-            AccountBalance = 0;
-            BankAccount NewBankAcc = new BankAccount(AccountName, AccountBalance);
-
-        }
-
-        public void CreateBankAccount(Account ActiveUser)
-        {
+            bool active = true;
             do
             {
                 try
                 {
+                    Console.Clear();
                     Console.WriteLine("1. Create new bank Account");
                     Console.WriteLine("2. Go Back");
                     int menu = int.Parse(Console.ReadLine());
@@ -177,7 +179,7 @@ namespace KoalaBankApp
                     {
                         case 1:
                             Console.Clear();
-                            Console.Write("Set name for Account");
+                            Console.Write("Set name for new Account: ");
                             string AccountName = Console.ReadLine();
                             BankAccount Account = new BankAccount();
                             Account.AccountName = AccountName;
@@ -190,8 +192,9 @@ namespace KoalaBankApp
                             break;
 
                         case 2:
-
+                            active = false;
                             break;
+                            
 
                         default:
                             break;
@@ -202,7 +205,7 @@ namespace KoalaBankApp
                 {
 
                 }
-            } while (true);
+            } while (active == true);
         }
     }
 }
