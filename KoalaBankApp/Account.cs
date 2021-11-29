@@ -71,7 +71,7 @@ namespace KoalaBankApp
             {
                 Console.Clear();
                 Console.Write("Välj ett Användarnamn: "); 
-                string UserName = Console.ReadLine().ToLower();
+                string UserName = Console.ReadLine();
                 Console.Write("Välj ett Lösenord: ");
                 string PassWord = Console.ReadLine();
                 Console.Write("Vad heter Personen(Förnamn): ");
@@ -80,29 +80,31 @@ namespace KoalaBankApp
                 string LastName = Console.ReadLine().ToLower();
                 Console.Write("Email Adress: ");
                 string Email = Console.ReadLine().ToLower();
-                do
-                {
+                
+                
                     Console.WriteLine("Ska kontot vara Admin (Yes/No): ");
                     UserAdmin = Console.ReadLine().ToLower();
                     if (UserAdmin == "yes")
                     {
-                        Isadmin = true;
-                        break;
+                       Isadmin = true;
                     }
                     else
                     {
-                        Isadmin = false;
-                        break;
-                        
+                       Isadmin = false;
                     }
-                } while (Isadmin == true || Isadmin == false);
 
-            List<BankAccount> NewBankAcc = new List<BankAccount>();
-            BankAccount NewAcc = new BankAccount();
-            Account NewAccount = new Account(UserName, PassWord, FirstName, LastName, Email, NewBankAcc, Isadmin);
-            NewAccount.Useraccount.Add(NewAcc);
-            Accounts.Add(NewAccount);
-            return Accounts;
+                List<BankAccount> NewBankAcc = new List<BankAccount>();
+                BankAccount NewAcc = new BankAccount();
+                Account NewAccount = new Account(UserName, PassWord, FirstName, LastName, Email, NewBankAcc, Isadmin);
+                NewAccount.Useraccount.Add(NewAcc);
+                Accounts.Add(NewAccount);
+
+                login n = new login();
+                n.userLogin(Accounts);
+
+                return Accounts;
+
+
 
             }
             else
@@ -113,6 +115,12 @@ namespace KoalaBankApp
                 Console.ReadKey();
                 return null;
             }
+
+        }
+        public void PrintAccountInfo(List<Account> Accounts)
+        {
+            string Userinput = "";
+            
 
         }
     }

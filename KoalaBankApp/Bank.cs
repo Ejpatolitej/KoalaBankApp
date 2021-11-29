@@ -14,16 +14,27 @@ namespace KoalaBankApp
 
             List<BankAccount> BAList1 = new List<BankAccount>();
             BankAccount BAccount1 = new BankAccount("Privat-Konto", 25000);
-            Account Account1 = new Account("Lukkelele", "hejhej123", "Lucas", "Narfgren", "narfgren@hotmail.com", BAList1, true);
+            Account Account1 = new Account("Lukke", "hejhej123", "Lucas", "Narfgren", "narfgren@hotmail.com", BAList1, true);
+
+
+            List<BankAccount> BAList2 = new List<BankAccount>();
+            BankAccount BAccount2 = new BankAccount("Privat-Konto", 25000);
+            Account Account2 = new Account("Ludde", "hejhej123", "Ludwig", "Oleby", "Ludwig1337@live.se", BAList2, false);
 
             Account1.Useraccount.Add(BAccount1);
             Accounts.Add(Account1);
 
+            Account2.Useraccount.Add(BAccount2);
+            Accounts.Add(Account2);
+
             login inlog = new login();
             inlog.userLogin(Accounts);
+
+
+
         }
 
-           public static void userMenu(List<Account> Accounts)
+           public static void userMenu(List<Account> Accounts,Account ActiveUser)
             {
                 // TESTNINGS MENY!
                 int menu = 0;
@@ -34,32 +45,32 @@ namespace KoalaBankApp
                     Console.WriteLine("Välkommen till KoalaBanken!");
                     try
                     {
-                        Console.WriteLine("1. Skapa Konto");
+                        Console.WriteLine("1. Överför Pengar");
                         Console.WriteLine("2. Skriv ut Konton");
                         Console.WriteLine("3. Sök Användare");
-                        Console.WriteLine("4. Avsluta programmet");
+                        Console.WriteLine("4. Logga ut");
                         menu = int.Parse(Console.ReadLine());
 
                         switch (menu)
                         {
                             
                             case 1:
-                                Account newacc = new Account();
-                            Account.CreateAccount(Accounts, true);
+
                                 break;
                             case 2:
-                                foreach (var item in Accounts)
-                                {
-                                    Console.WriteLine("-----------------------");
-                                    Console.WriteLine("Username: {0}", item.Username);
-                                    Console.WriteLine("First Name: {0}", item.Firstname);
-                                    Console.WriteLine("Last Name: {0}", item.Lastname);
-                                    Console.WriteLine("Email Adress: {0}", item.Email);
-                                    Console.WriteLine("Admin: {0}", item.Isadmin);
-                                    Console.WriteLine(item.Useraccount);
-                                    Console.WriteLine("-----------------------");
-                                }
-                                Console.ReadKey();
+                            Console.Clear();
+                            Console.WriteLine(ActiveUser.Firstname);
+                            Console.WriteLine(ActiveUser.Lastname);
+                            Console.WriteLine(ActiveUser.Email);
+                            foreach (var item in ActiveUser.Useraccount)
+                            {
+                                Console.WriteLine("Name: {0}",item.AccountName);
+                                Console.WriteLine("Balance: {0}",item.Balance);
+                            }
+
+
+
+                            Console.ReadKey();
                                 break;
                             case 3:
 
@@ -78,8 +89,9 @@ namespace KoalaBankApp
                                 Console.ReadKey();
                                 break;
                             case 4:
-                                Environment.Exit(0);
-                                break;
+                            login logout = new login();
+                            logout.userLogin(Accounts);
+                            break;
 
                             default:
                                 break;

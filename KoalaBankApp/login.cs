@@ -12,7 +12,7 @@ namespace KoalaBankApp
 
         public void userLogin(List<Account> Accounts)
         {
-
+            Console.Clear();
             while (loginSuccess == false)
             {
                 Console.WriteLine("Ange ditt användarnamn: ");
@@ -33,11 +33,14 @@ namespace KoalaBankApp
                         if (users.Isadmin == false)
                         {
                             Console.WriteLine("som användare");
-                            Bank.userMenu(Accounts);
+                            Account Check = Accounts.Find(s => s.Username == username);
+                            Bank.userMenu(Accounts,Check);
                             Console.ReadKey();
                         }
 
+                        
                         Console.ReadKey();
+                        
                         loginSuccess = true;
                     }
 
@@ -59,6 +62,11 @@ namespace KoalaBankApp
                     }
                 }
             }
+        }
+
+        public void loginAdmin()
+        {
+
         }
     }
 }
