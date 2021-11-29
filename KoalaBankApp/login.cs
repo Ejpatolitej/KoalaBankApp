@@ -27,6 +27,8 @@ namespace KoalaBankApp
                         Console.WriteLine("Inloggad!");
                         if (users.Isadmin == true)
                         {
+                            Account Check = Accounts.Find(s => s.Username == username);
+                            loginAdmin(Accounts,Check);
                             Account.CreateAccount(Accounts, true);
                             Console.ReadKey();
                         }
@@ -64,9 +66,25 @@ namespace KoalaBankApp
             }
         }
 
-        public void loginAdmin()
+        public void loginAdmin(List<Account> Accounts,Account ActiveUser)
         {
+            Console.WriteLine("1. Create Account");
+            Console.WriteLine("2. Log out");
+            int menu = int.Parse(Console.ReadLine());
 
+            switch (menu)
+            {
+                case 1:
+                    BankAccount newBankAcc = new BankAccount();
+                    newBankAcc.CreateBankAccount(ActiveUser);
+                    break;
+                case 2:
+                    login logout = new login();
+                    logout.userLogin(Accounts);
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }
