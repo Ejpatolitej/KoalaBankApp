@@ -34,13 +34,13 @@ namespace KoalaBankApp
                         {
                             Console.WriteLine("som användare");
                             Account Check = Accounts.Find(s => s.Username == username);
-                            Bank.userMenu(Accounts,Check);
+                            Bank.userMenu(Accounts, Check);
                             Console.ReadKey();
                         }
 
-                        
+
                         Console.ReadKey();
-                        
+
                         loginSuccess = true;
                     }
 

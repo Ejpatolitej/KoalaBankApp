@@ -8,7 +8,7 @@ namespace KoalaBankApp
     public class Loans
     {
         private static Random random = new Random();
-
+        //Create a random for the interest
         private static double RandomNumber(double minValue, double maxValue)
         {
             var next = random.NextDouble();
@@ -42,11 +42,13 @@ namespace KoalaBankApp
         }
 
         //Loan main method
-        static void Loan(List<BankAccount> BAList)
+        public void Loan(List<BankAccount> BAList, Account activeUser)
         {
+            BankAccount bankAccount = new BankAccount();
+
+
             double balanceTotal = TotalBalance(BAList);
             double loanMax = balanceTotal * 5;
-
             Console.WriteLine("You have a total of " + balanceTotal + " kr. in your account." +
                 "\nYour maximum for the loan is " + loanMax + " kr.");
             Console.WriteLine("Enter loan amount: ");
@@ -76,8 +78,28 @@ namespace KoalaBankApp
                     else if (userChoice == "YES")
                     {
                         Console.Clear();
-                        Console.WriteLine("Loan approved. The money will be transferred shortly." +
-                            "\nThank you for taking a loan with Koala Bank!");
+                        Console.WriteLine("Loan approved. Which account would you like the money transferred to?");
+                        int i = 0;
+                        List<double> balanceList = new List<double>();
+                        List<string> nameList = new List<string>();
+                        foreach (var item in BAList)
+                        {
+                            i++;
+                            Console.WriteLine("{0}: {1}", i, item.AccountName);
+                            Console.WriteLine("     {0} kr.", item.Balance);
+                            balanceList.Add(item.Balance);
+                            nameList.Add(item.AccountName);
+                        }
+                        foreach (var item in balanceList)
+                        {
+                            Console.WriteLine(item);
+                        }
+                        int index = Int32.Parse(Console.ReadLine());
+                        //Console.WriteLine(BAList[index]);
+                        //Console.WriteLine(accIndex);
+
+
+                        Console.ReadKey();
                         break;
                     }
                     else
