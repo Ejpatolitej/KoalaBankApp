@@ -162,6 +162,49 @@ namespace KoalaBankApp
             BankAccount NewBankAcc = new BankAccount(AccountName,AccountBalance);
             
         }
+
+        public void CreateBankAccount(Account ActiveUser)
+        {
+            do
+            {
+                try
+                {
+                    Console.WriteLine("1. Create new bank Account");
+                    Console.WriteLine("2. Go Back");
+                    int menu = int.Parse(Console.ReadLine());
+
+                    switch (menu)
+                    {
+                        case 1:
+                            Console.Clear();
+                            Console.Write("Set name for Account");
+                            string AccountName = Console.ReadLine();
+                            BankAccount Account = new BankAccount();
+                            Account.AccountName = AccountName;
+                            ActiveUser.Useraccount.Add(Account);
+
+                            Console.WriteLine("Account Succesfully Created.");
+                            Console.WriteLine("Press any key to continue.");
+                            Console.ReadKey();
+
+                            break;
+
+                        case 2:
+
+                            break;
+
+                        default:
+                            break;
+
+                    }
+                }
+                catch
+                {
+
+                }
+            } while (true);
+        }
+
  
 
     }
