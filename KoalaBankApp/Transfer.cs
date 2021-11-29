@@ -12,12 +12,12 @@ public class Transfer
     //- [ ]  (admin) Transactions dont happen instantly, limit it so it only happens every 15 mins
 
 
-        public int maxAccounts = 5; //Max number of user accounts isnt decided yet.
-        public int accountFrom = 0;
-        public int accountTo = 0;
-        public double amountTotransfer = 0;
-        public double amountLeft = 0;
-        public double amountAdd = 0;
+    public int maxAccounts = 5; //Max number of user accounts isnt decided yet.
+    public int accountFrom = 0;
+    public int accountTo = 0;
+    public double amountTotransfer = 0;
+    public double amountLeft = 0;
+    public double amountAdd = 0;
 
 
     public void TransferMenyOptions(Account TransferActiveUser, List<BankAccount> TransferActiveAccount)

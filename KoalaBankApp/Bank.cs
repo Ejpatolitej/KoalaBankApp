@@ -19,6 +19,7 @@ namespace KoalaBankApp
 
             List<BankAccount> BAList2 = new List<BankAccount>();
             BankAccount BAccount2 = new BankAccount("Privat-Konto", 25000);
+            BankAccount BAccount3 = new BankAccount("Extra-Konto", 2925000);
             Account Account2 = new Account("Ludde", "hejhej123", "Ludwig", "Oleby", "Ludwig1337@live.se", BAList2, false);
 
             Account1.Useraccount.Add(BAccount1);
@@ -26,12 +27,11 @@ namespace KoalaBankApp
 
             Account2.Useraccount.Add(BAccount2);
             Accounts.Add(Account2);
+            Account2.Useraccount.Add(BAccount3);
+            Accounts.Add(Account2);
 
             login inlog = new login();
             inlog.userLogin(Accounts);
-
-
-
         }
 
            public static void userMenu(List<Account> Accounts,Account ActiveUser)
@@ -45,8 +45,11 @@ namespace KoalaBankApp
                 Console.WriteLine("Welcome " +/*Name*/ " To KoalaBank!");
                 Console.WriteLine("Press 1 Transfer\nPress 2 See Accounts\nPress 3 Search user\nPress 4 Loggout");
 
-                int menyChoice = 0;
-                try
+            int menyChoice = 0;
+            try
+            {
+                menyChoice = Int32.Parse(Console.ReadLine());
+                if (menyChoice > 5) // to high number
                 {
                     menyChoice = Int32.Parse(Console.ReadLine());
                     if (menyChoice > 4) // to high numberT
@@ -62,11 +65,11 @@ namespace KoalaBankApp
 
                     }
                 }
-                catch (Exception)
+                else if (menyChoice < 1) // to low number
                 {
-                    Console.WriteLine("Please input a number instead");
+                    Console.WriteLine("please enter a number that is a option");
                 }
-                switch (menyChoice)
+                else //Purfect
                 {
                     case 1:
                         Transfer transaction = new Transfer();
