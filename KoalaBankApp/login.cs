@@ -13,11 +13,13 @@ namespace KoalaBankApp
         public void userLogin(List<Account> Accounts)
         {
             Console.Clear();
+            Console.WriteLine("Welcome to KoalaBank");
+            Console.WriteLine("Please enter username and password to log in.");
             while (loginSuccess == false)
             {
-                Console.WriteLine("Ange ditt användarnamn: ");
+                Console.Write("Username: ");
                 string username = Console.ReadLine();
-                Console.WriteLine("Ange ditt lösenord: ");
+                Console.Write("Password: ");
                 string password = Console.ReadLine();
 
                 foreach (var users in Accounts)
@@ -29,7 +31,7 @@ namespace KoalaBankApp
                         {
                             Account Check = Accounts.Find(s => s.Username == username);
                             loginAdmin(Accounts,Check);
-                            Account.CreateAccount(Accounts, true);
+                            Account.CreateUserAccount(Accounts, true);
                             Console.ReadKey();
                         }
                         if (users.Isadmin == false)
@@ -68,6 +70,7 @@ namespace KoalaBankApp
 
         public void loginAdmin(List<Account> Accounts,Account ActiveUser)
         {
+            Console.Clear();
             Console.WriteLine("1. Create Account");
             Console.WriteLine("2. Log out");
             int menu = int.Parse(Console.ReadLine());
@@ -75,8 +78,7 @@ namespace KoalaBankApp
             switch (menu)
             {
                 case 1:
-                    BankAccount newBankAcc = new BankAccount();
-                    newBankAcc.CreateBankAccount(Accounts,ActiveUser);
+                    Account.CreateUserAccount(Accounts,true);
                     break;
                 case 2:
                     login logout = new login();

@@ -80,9 +80,10 @@ namespace KoalaBankApp
                                 break;
                             case 2:
                                 Console.Clear();
-                                Console.WriteLine(ActiveUser.Firstname);
-                                Console.WriteLine(ActiveUser.Lastname);
-                                Console.WriteLine(ActiveUser.Email);
+                                Console.WriteLine("Firstname: {0}",ActiveUser.Firstname);
+                                Console.WriteLine("Lastname: {0}",ActiveUser.Lastname);
+                                Console.WriteLine("Email Adress: {0}",ActiveUser.Email);
+                                Console.WriteLine("----------------------");
                                 foreach (var item in ActiveUser.Useraccount)
                                 {
                                     Console.WriteLine("---{0}---", item.AccountName);
