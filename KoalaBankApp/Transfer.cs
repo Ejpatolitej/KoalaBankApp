@@ -20,7 +20,7 @@ public class Transfer
     public double amountAdd = 0;
 
 
-    public void TransferMenyOptions()
+    public void TransferMenyOptions(Account TransferActiveUser, List<BankAccount> TransferActiveAccount)
     {
         bool TransferMeny = true;
         do
@@ -56,7 +56,7 @@ public class Transfer
             {
                 case 1:
                     transfer();
-                    transferCalc();
+                    transferCalc(TransferActiveUser, TransferActiveAccount);
                     break;
                 case 2:
 
@@ -97,6 +97,7 @@ public class Transfer
         while (transferLoop)
         {
             Console.WriteLine("To what account you wanna move money too?");
+            accountTo = int.Parse(Console.ReadLine());
             try
             {
                 if (accountTo <= maxAccounts && accountTo != accountFrom && accountTo >= 0)
@@ -136,28 +137,31 @@ public class Transfer
             }
         }
     }
-    public void transferCalc(/*List<Account>Accounts*/)
+    public void transferCalc(Account TransferCalc, List<BankAccount> TransferAccount)
     {
-        BankAccount Test1BA1 = new BankAccount("Test1PrivateAcc1", 5050020);
-        BankAccount Test1BA2 = new BankAccount("Test1PrivateAcc2", 3000100);
-        List<BankAccount> Test1BAList = new List<BankAccount>();
-        Test1BAList.Add(Test1BA1);
-        Test1BAList.Add(Test1BA2);
-        Account Test1 = new Account("Test1", "Test1", "Test1FirstName", "Test1LastName", "Test1@email.com", Test1BAList);
+        //BankAccount Test1BA1 = new BankAccount("Test1PrivateAcc1", 5050020);
+        //BankAccount Test1BA2 = new BankAccount("Test1PrivateAcc2", 3000100);
+        //List<BankAccount> Test1BAList = new List<BankAccount>();
+        //Test1BAList.Add(Test1BA1);
+        //Test1BAList.Add(Test1BA2);
+        //Account Test1 = new Account("Test1", "Test1", "Test1FirstName", "Test1LastName", "Test1@email.com", Test1BAList);
 
         //Calculation of amount to be left on account after transfering
+        BankAccount transfer1 = TransferAccount.Find(c => c.AccountName == "Private account");
+        BankAccount transfer2 = TransferAccount.Find(c => c.AccountName == "Private account");
 
-        amountLeft = Test1BA1.Balance;
+
+        amountLeft = transfer1.Balance;
         amountLeft = amountLeft - amountTotransfer;
-        Test1BA1.Balance = amountLeft;
+        transfer1.Balance = amountLeft;
 
         //Calculation of amount to be added to account after transfering
-        amountAdd = Test1BA2.Balance;
+        amountAdd = transfer2.Balance;
         amountAdd = amountAdd + amountTotransfer;
-        Test1BA2.Balance = amountAdd;
+        transfer2.Balance = amountAdd;
 
-        Console.WriteLine(Test1BA1.Balance);
-        Console.WriteLine(Test1BA2.Balance);
+        Console.WriteLine(transfer1.Balance);
+        Console.WriteLine(transfer2.Balance);
         Console.ReadLine();
 
     }

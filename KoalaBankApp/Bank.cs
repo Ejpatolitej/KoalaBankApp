@@ -32,85 +32,18 @@ namespace KoalaBankApp
 
             login inlog = new login();
             inlog.userLogin(Accounts);
-
-
-
         }
 
-        public static void userMenu(List<Account> Accounts, Account ActiveUser)
-        {
-            // TESTNINGS MENY!
-            int menu = 0;
+           public static void userMenu(List<Account> Accounts,Account ActiveUser)
+            {
 
+            // Meny
+            bool MenyAcitve = true;
             do
             {
                 Console.Clear();
-                Console.WriteLine("Välkommen till KoalaBanken!");
-                try
-                {
-                    Console.WriteLine("1. Transfer funds");
-                    Console.WriteLine("2. Print accounts");
-                    Console.WriteLine("3. Search user");
-                    Console.WriteLine("4. Take loan");
-                    Console.WriteLine("5. Log out");
-                    menu = int.Parse(Console.ReadLine());
-
-                    switch (menu)
-                    {
-
-                        case 1:
-
-                            break;
-                        case 2:
-                            Console.Clear();
-                            Console.WriteLine(ActiveUser.Firstname);
-                            Console.WriteLine(ActiveUser.Lastname);
-                            Console.WriteLine(ActiveUser.Email);
-                            foreach (var item in ActiveUser.Useraccount)
-                            {
-                                Console.WriteLine("Name: {0}", item.AccountName);
-                                Console.WriteLine("Balance: {0}", item.Balance);
-                            }
-
-
-
-                            Console.ReadKey();
-                            break;
-                        case 3:
-
-                            Console.Write("Skriv in ett Giltligt användarnamn: ");
-                            string userinput = Console.ReadLine();
-
-                            Account Check = Accounts.Find(c => c.Username == userinput);
-                            if (Check == null)
-                            {
-                                Console.WriteLine("Användare Existerar inte.");
-                            }
-                            else
-                            {
-                                Console.WriteLine("Användare: {0} finns i databasen.", Check.Username);
-                            }
-                            Console.ReadKey();
-                            break;
-                        case 4:
-                            Loans loans = new Loans();
-                            loans.Loan(ActiveUser.Useraccount, ActiveUser);
-                            break;
-                        case 5:
-                            login logout = new login();
-                            logout.userLogin(Accounts);
-                            break;
-
-                        default:
-                            break;
-                    }
-                }
-                catch (Exception)
-                {
-
-                    throw;
-                }
-            } while (true);
+                Console.WriteLine("Welcome " +/*Name*/ " To KoalaBank!");
+                Console.WriteLine("Press 1 Transfer\nPress 2 See Accounts\nPress 3 Search user\nPress 4 Loggout");
 
             int menyChoice = 0;
             try
@@ -118,7 +51,19 @@ namespace KoalaBankApp
                 menyChoice = Int32.Parse(Console.ReadLine());
                 if (menyChoice > 5) // to high number
                 {
-                    Console.WriteLine("please enter a number that is a option");
+                    menyChoice = Int32.Parse(Console.ReadLine());
+                    if (menyChoice > 4) // to high numberT
+                    {
+                        Console.WriteLine("Please enter a number that is a option");
+                    }
+                    else if (menyChoice < 1) // to low number
+                    {
+                        Console.WriteLine("Please enter a number that is a option");
+                    }
+                    else //Purfect
+                    {
+
+                    }
                 }
                 else if (menyChoice < 1) // to low number
                 {
@@ -126,33 +71,44 @@ namespace KoalaBankApp
                 }
                 else //Purfect
                 {
+                    case 1:
+                        Transfer transaction = new Transfer();
+                        transaction.TransferMenyOptions(ActiveUser, ActiveUser.Useraccount);
+                        break;
+                    case 2:
+                        Console.Clear();
+                        Console.WriteLine(ActiveUser.Firstname);
+                        Console.WriteLine(ActiveUser.Lastname);
+                        Console.WriteLine(ActiveUser.Email);
+                        foreach (var item in ActiveUser.Useraccount)
+                        {
+                            Console.WriteLine("Name: {0}", item.AccountName);
+                            Console.WriteLine("Balance: {0}", item.Balance);
+                        }
+                        Console.ReadKey();
+                        break;
+                    case 3:
+                        Console.Write("Skriv in ett Giltligt användarnamn: ");
+                        string userinput = Console.ReadLine();
 
+                        Account Check = Accounts.Find(c => c.Username == userinput);
+                        if (Check == null)
+                        {
+                            Console.WriteLine("Användare Existerar inte.");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Användare: {0} finns i databasen.", Check.Username);
+                        }
+                        Console.ReadKey();
+                        break;
+                    case 4:
+                        login logout = new login();
+                        logout.userLogin(Accounts);
+                        break;
                 }
-            }
-            catch (Exception)
-            {
-                Console.WriteLine("Please input a number instead");
-            }
-            switch (menyChoice)
-            {
-                case 1:
-                    Console.WriteLine(""); // Placeholder
-                    break;
-                case 2:
-                    Transfer Transaction = new Transfer();
-                    Transaction.TransferMenyOptions();
-                    break;
-                case 3:
-                    Console.WriteLine(""); // Placeholder
-                    break;
-                case 4:
-                    Console.WriteLine(""); // placeholder
-                    break;
-                case 5:
-                    Console.WriteLine("Logout");
-                    //MenyAcitve = false;
-                    break;
-            }
+            } while (MenyAcitve);
+            //No more meny
         }
     }
 }
