@@ -135,7 +135,13 @@ namespace KoalaBankApp
             Console.ReadKey();
         }
     }
+    public class UsdBankAccount : BankAccount
+    {
+        public static void USDCurrency()
+        {
 
+        }
+    }
     public class BankAccount
     {
 
