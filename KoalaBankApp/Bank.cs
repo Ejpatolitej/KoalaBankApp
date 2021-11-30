@@ -43,7 +43,7 @@ namespace KoalaBankApp
             {
                 Console.Clear();
                 Console.WriteLine("Welcome " +/*Name*/ " To KoalaBank!");
-                Console.WriteLine("Press 1 Transfer\nPress 2 See Accounts\nPress 3 Search user\nPress 4 Loggout");
+                Console.WriteLine("Press 1 Transfer\nPress 2 See Accounts\nPress 3 Search user\nPress 4 Account Management\nPress 5 Loggout");
 
                 int menyChoice = 0;
                 try
@@ -93,6 +93,10 @@ namespace KoalaBankApp
                         Console.ReadKey();
                         break;
                     case 4:
+                        BankAccount B = new BankAccount();
+                        B.CreateBankAccount(Accounts,ActiveUser);
+                        break;
+                    case 5:
                         login logout = new login();
                         logout.userLogin(Accounts);
                         break;
