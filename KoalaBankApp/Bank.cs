@@ -43,7 +43,7 @@ namespace KoalaBankApp
             {
                 Console.Clear();
                 Console.WriteLine("Welcome " +/*Name*/ " To KoalaBank!");
-                Console.WriteLine("Press 1 Transfer\nPress 2 See Accounts\nPress 3 Search user\nPress 4 Account Management\nPress 5 Logout");
+                Console.WriteLine("Press 1 Transfer\nPress 2 Account information\nPress 3 Search user\nPress 4 Account Management\nPress 5 Logout");
 
                 int menyChoice = 0;
                 try
@@ -79,17 +79,8 @@ namespace KoalaBankApp
                                 transaction.TransferMenyOptions(ActiveUser, ActiveUser.Useraccount);
                                 break;
                             case 2:
-                                Console.Clear();
-                                Console.WriteLine("Firstname: {0}",ActiveUser.Firstname);
-                                Console.WriteLine("Lastname: {0}",ActiveUser.Lastname);
-                                Console.WriteLine("Email Adress: {0}",ActiveUser.Email);
-                                Console.WriteLine("----------------------");
-                                foreach (var item in ActiveUser.Useraccount)
-                                {
-                                    Console.WriteLine("---{0}---", item.AccountName);
-                                    Console.WriteLine("Balance: {0}", item.Balance);
-                                }
-                                Console.ReadKey();
+
+                                ActiveUser.PrintAccountInfo(Accounts,ActiveUser);
                                 break;
                             case 3:
                                 Console.Write("Skriv in ett Giltligt användarnamn: ");
