@@ -137,31 +137,27 @@ public class Transfer
             }
         }
     }
-    public void transferCalc(Account TransferCalc, List<BankAccount> TransferAccount)
+    public void transferCalc(Account ActiveUser, List<BankAccount> TransferAccount)
     {
-        //BankAccount Test1BA1 = new BankAccount("Test1PrivateAcc1", 5050020);
-        //BankAccount Test1BA2 = new BankAccount("Test1PrivateAcc2", 3000100);
-        //List<BankAccount> Test1BAList = new List<BankAccount>();
-        //Test1BAList.Add(Test1BA1);
-        //Test1BAList.Add(Test1BA2);
-        //Account Test1 = new Account("Test1", "Test1", "Test1FirstName", "Test1LastName", "Test1@email.com", Test1BAList);
 
-        //Calculation of amount to be left on account after transfering
-        BankAccount transfer1 = TransferAccount.Find(c => c.AccountName == "Private account");
-        BankAccount transfer2 = TransferAccount.Find(c => c.AccountName == "Private account");
+        foreach (var item in ActiveUser.Useraccount)
+        {
+            amountLeft = item.Balance;
+            break;
+        }
 
 
-        amountLeft = transfer1.Balance;
-        amountLeft = amountLeft - amountTotransfer;
-        transfer1.Balance = amountLeft;
+        //amountLeft = transfer1.Balance;
+        //amountLeft = amountLeft - amountTotransfer;
+        //transfer1.Balance = amountLeft;
 
-        //Calculation of amount to be added to account after transfering
-        amountAdd = transfer2.Balance;
-        amountAdd = amountAdd + amountTotransfer;
-        transfer2.Balance = amountAdd;
+        ////Calculation of amount to be added to account after transfering
+        //amountAdd = transfer2.Balance;
+        //amountAdd = amountAdd + amountTotransfer;
+        //transfer2.Balance = amountAdd;
 
-        Console.WriteLine(transfer1.Balance);
-        Console.WriteLine(transfer2.Balance);
+        //Console.WriteLine(transfer1.Balance);
+        //Console.WriteLine(transfer2.Balance);
         Console.ReadLine();
 
     }

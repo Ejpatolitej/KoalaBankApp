@@ -6,10 +6,8 @@ namespace KoalaBankApp
 {
     public class Bank
     {
-
         public void Run()
         {
-
             List<Account> Accounts = new List<Account>();
 
             List<BankAccount> BAList1 = new List<BankAccount>();
@@ -33,7 +31,6 @@ namespace KoalaBankApp
             login inlog = new login();
             inlog.userLogin(Accounts);
         }
-
            public static void userMenu(List<Account> Accounts,Account ActiveUser)
             {
 
@@ -45,25 +42,14 @@ namespace KoalaBankApp
                 Console.WriteLine("Welcome " +/*Name*/ " To KoalaBank!");
                 Console.WriteLine("Press 1 Transfer\nPress 2 Account information\nPress 3 Search user\nPress 4 Account Management\nPress 5 Logout");
 
-                int menyChoice = 0;
+            int menyChoice = 0;
+
                 try
                 {
                     menyChoice = Int32.Parse(Console.ReadLine());
                     if (menyChoice > 5) // to high number
                     {
-                        menyChoice = Int32.Parse(Console.ReadLine());
-                        if (menyChoice > 4) // to high numberT
-                        {
-                            Console.WriteLine("Please enter a number that is a option");
-                        }
-                        else if (menyChoice < 1) // to low number
-                        {
-                            Console.WriteLine("Please enter a number that is a option");
-                        }
-                        else //Purfect
-                        {
-
-                        }
+                        Console.WriteLine("please enter a number that is a option");
                     }
                     else if (menyChoice < 1) // to low number
                     {
@@ -108,11 +94,14 @@ namespace KoalaBankApp
                         }
                     }
                 }
-                catch(Exception ex)
+                catch (Exception)
+                {
+                    Console.WriteLine("Please input a number instead");
+                }
+                switch (menyChoice)
                 {
                     Console.WriteLine(ex.Message);
                 }
-
             } while (MenyAcitve);
         }
     }
