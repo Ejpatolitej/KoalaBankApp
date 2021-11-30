@@ -46,30 +46,27 @@ namespace KoalaBankApp
                 Console.WriteLine("Press 1 Transfer\nPress 2 See Accounts\nPress 3 Search user\nPress 4 Loggout");
 
             int menyChoice = 0;
-            try
-            {
-                menyChoice = Int32.Parse(Console.ReadLine());
-                if (menyChoice > 5) // to high number
+                try
                 {
                     menyChoice = Int32.Parse(Console.ReadLine());
-                    if (menyChoice > 4) // to high numberT
+                    if (menyChoice > 5) // to high number
                     {
-                        Console.WriteLine("Please enter a number that is a option");
+                        Console.WriteLine("please enter a number that is a option");
                     }
                     else if (menyChoice < 1) // to low number
                     {
-                        Console.WriteLine("Please enter a number that is a option");
+                        Console.WriteLine("please enter a number that is a option");
                     }
                     else //Purfect
                     {
 
                     }
                 }
-                else if (menyChoice < 1) // to low number
+                catch (Exception)
                 {
-                    Console.WriteLine("please enter a number that is a option");
+                    Console.WriteLine("Please input a number instead");
                 }
-                else //Purfect
+                switch (menyChoice)
                 {
                     case 1:
                         Transfer transaction = new Transfer();
