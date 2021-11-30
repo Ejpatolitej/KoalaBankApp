@@ -20,57 +20,15 @@ public class Transfer
     public double amountAdd = 0;
 
 
-    public void TransferMenyOptions(Account TransferActiveUser, List<BankAccount> TransferActiveAccount)
+    public void TransferMoney(List<BankAccount> AccountsTransfer, Account ActiveUserTransfer)
     {
-        bool TransferMeny = true;
-        do
-        {
-            Console.Clear();
-            Console.WriteLine("Welcome " +/*Name*/ " !");
-            Console.WriteLine("Press 1 Transfer Money between ur accounts \nPress 2 Make a payment  \nPress 3 Transaction logs \nPress 5 loggout ");
 
-            int TransferMenyChoice = 0;
+        BankAccount Transfermoney1 = ActiveUserTransfer.Useraccount.Find(c => c.AccountName == "Privat-Konto");
 
-            try
-            {
-                TransferMenyChoice = Int32.Parse(Console.ReadLine());
+        BankAccount Transfermoney2 = ActiveUserTransfer.Useraccount.Find(c => c.AccountName == "Extra-Konto");
 
-                if (TransferMenyChoice > 5) // to high number  Might switch the 5 for something else dont know how many options this class will have yet
-                {
-                    Console.WriteLine("please enter a number that is a option");
-                }
-                else if (TransferMenyChoice < 1) // to low number
-                {
-                    Console.WriteLine("please enter a number that is a option");
-                }
-                else //Purfect
-                {
 
-                }
-            }
-            catch (Exception)
-            {
-                Console.WriteLine("Please input a number instead");
-            }
-            switch (TransferMenyChoice)
-            {
-                case 1:
-                    transfer();
-                    transferCalc(TransferActiveUser, TransferActiveAccount);
-                    break;
-                case 2:
 
-                    break;
-                case 5:
-                    Console.WriteLine("Logout");
-                    TransferMeny = false;
-                    break;
-            }
-        } while (TransferMeny);
-    }
-
-    public void transfer(/*List<Account> Accounts*/)
-    {
         bool transferLoop = true;
         while (transferLoop)
         {
@@ -136,29 +94,31 @@ public class Transfer
                 Console.WriteLine("Please input the amount with numbers");
             }
         }
-    }
-    public void transferCalc(Account ActiveUser, List<BankAccount> TransferAccount)
-    {
 
-        foreach (var item in ActiveUser.Useraccount)
+        // ---------------------------------------------------------------
+        //The actual transfer
+
+        foreach (var item in ActiveUserTransfer.Useraccount)
         {
             amountLeft = item.Balance;
             break;
         }
 
+        amountLeft = Transfermoney1.Balance;
+        amountLeft = amountLeft - amountTotransfer;
+        Transfermoney1.Balance = amountLeft;
 
-        //amountLeft = transfer1.Balance;
-        //amountLeft = amountLeft - amountTotransfer;
-        //transfer1.Balance = amountLeft;
+        //Calculation of amount to be added to account after transfering
+        amountAdd = Transfermoney2.Balance;
+        amountAdd = amountAdd + amountTotransfer;
+        Transfermoney2.Balance = amountAdd;
 
-        ////Calculation of amount to be added to account after transfering
-        //amountAdd = transfer2.Balance;
-        //amountAdd = amountAdd + amountTotransfer;
-        //transfer2.Balance = amountAdd;
 
-        //Console.WriteLine(transfer1.Balance);
-        //Console.WriteLine(transfer2.Balance);
+
+        Console.WriteLine(Transfermoney1.Balance);
+        Console.WriteLine(Transfermoney2.Balance);
+        Console.ReadKey();
+
         Console.ReadLine();
-
     }
 }
