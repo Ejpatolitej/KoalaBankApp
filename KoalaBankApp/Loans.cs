@@ -24,7 +24,6 @@ namespace KoalaBankApp
             }
             return total;
         }
-
         //Calculates interest for the loan
         static void Interest(double loanAmount)
         {
@@ -40,14 +39,35 @@ namespace KoalaBankApp
                 }
             }
         }
+        private static void NewAccountBalance(List<string> nameList, List<double> balanceList, double loanAmount, Account activeUser)
+        {
+            bool keepTrying = true;
+            do
+            {
+                int index = Int32.Parse(Console.ReadLine()) - 1;
+                try
+                {
+                    BankAccount bankAccount = new BankAccount();
+                    bankAccount.Balance = balanceList[index] + loanAmount;
+                    bankAccount.AccountName = nameList[index];
+
+                    activeUser.Useraccount.RemoveAt(index);
+                    activeUser.Useraccount.Insert(index, bankAccount);
+                    keepTrying = false;
+                }
+                catch
+                {
+                    Console.WriteLine("Invalid choice. Try again.");
+                }
+            } while (keepTrying == true);
+        }
 
         //Loan main method
-        public void Loan(List<BankAccount> BAList, Account activeUser)
+        public void Loan(Account activeUser)
         {
-            BankAccount bankAccount = new BankAccount();
 
 
-            double balanceTotal = TotalBalance(BAList);
+            double balanceTotal = TotalBalance(activeUser.Useraccount);
             double loanMax = balanceTotal * 5;
             Console.WriteLine("You have a total of " + balanceTotal + " kr. in your account." +
                 "\nYour maximum for the loan is " + loanMax + " kr.");
@@ -82,7 +102,7 @@ namespace KoalaBankApp
                         int i = 0;
                         List<double> balanceList = new List<double>();
                         List<string> nameList = new List<string>();
-                        foreach (var item in BAList)
+                        foreach (var item in activeUser.Useraccount)
                         {
                             i++;
                             Console.WriteLine("{0}: {1}", i, item.AccountName);
@@ -90,15 +110,18 @@ namespace KoalaBankApp
                             balanceList.Add(item.Balance);
                             nameList.Add(item.AccountName);
                         }
-                        foreach (var item in balanceList)
+                        NewAccountBalance(nameList, balanceList, loanAmount, activeUser);
+
+                        Console.Clear();
+                        i = 0;
+                        foreach (var item in activeUser.Useraccount)
                         {
-                            Console.WriteLine(item);
+                            i++;
+                            Console.WriteLine("New balance in accounts: ");
+                            Console.WriteLine("{0}: {1}", i, item.AccountName);
+                            Console.WriteLine("     {0} kr.", item.Balance);
                         }
-                        int index = Int32.Parse(Console.ReadLine());
-                        //Console.WriteLine(BAList[index]);
-                        //Console.WriteLine(accIndex);
-
-
+                        Console.WriteLine("\nPress any key to go back to menu");
                         Console.ReadKey();
                         break;
                     }
