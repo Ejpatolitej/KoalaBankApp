@@ -5,7 +5,7 @@ using System.Text;
 namespace KoalaBankApp
 {
 
-    public class Account : Bank
+    public class Account
     {
         private string _UserName;
         private string _PassWord;
@@ -62,7 +62,7 @@ namespace KoalaBankApp
             set { _IsAdmin = value; }
         }
 
-        public static List<Account> CreateAccount(List<Account> Accounts, bool isadmin)
+        public static List<Account> CreateUserAccount(List<Account> Accounts, bool isadmin)
         {
             string UserAdmin;
             bool Isadmin;
@@ -117,14 +117,31 @@ namespace KoalaBankApp
             }
 
         }
-        public void PrintAccountInfo(List<Account> Accounts)
+        public void PrintAccountInfo(List<Account> Accounts,Account ActiveUser)
         {
-            string Userinput = "";
+            Console.Clear();
+            Console.WriteLine("Username: {0}",ActiveUser.Username);
+            Console.WriteLine("Full Name: {0} {1}",ActiveUser.Firstname,ActiveUser.Lastname);
+            Console.WriteLine("Email Adress: {0}",ActiveUser.Email);
+            Console.WriteLine();
+            foreach (var item in ActiveUser.Useraccount)
+            {
+                Console.WriteLine("----------------------");
+                Console.WriteLine(item.AccountName);
+                Console.WriteLine("Balance: {0}",item.Balance);
+                Console.WriteLine("----------------------");
+            }
 
+            Console.ReadKey();
+        }
+    }
+    public class UsdBankAccount : BankAccount
+    {
+        public static void USDCurrency()
+        {
 
         }
     }
-
     public class BankAccount
     {
 
@@ -148,27 +165,14 @@ namespace KoalaBankApp
             set { _Balance = value; }
         }
 
-        public void CreateNewBankAccount(List<Account> Accounts)
+        public void CreateBankAccount(List<Account> Accounts,Account ActiveUser)
         {
-            string AccountName;
-            double AccountBalance;
-
-
-            Console.Clear();
-            Console.WriteLine("---Skapa nytt konto---");
-            Console.Write("Välj ett namn för kontot: ");
-            AccountName = Console.ReadLine().ToUpper();
-            AccountBalance = 0;
-            BankAccount NewBankAcc = new BankAccount(AccountName, AccountBalance);
-
-        }
-
-        public void CreateBankAccount(Account ActiveUser)
-        {
+            bool active = true;
             do
             {
                 try
                 {
+                    Console.Clear();
                     Console.WriteLine("1. Create new bank Account");
                     Console.WriteLine("2. Go Back");
                     int menu = int.Parse(Console.ReadLine());
@@ -177,7 +181,7 @@ namespace KoalaBankApp
                     {
                         case 1:
                             Console.Clear();
-                            Console.Write("Set name for Account");
+                            Console.Write("Set name for new Account: ");
                             string AccountName = Console.ReadLine();
                             BankAccount Account = new BankAccount();
                             Account.AccountName = AccountName;
@@ -190,8 +194,9 @@ namespace KoalaBankApp
                             break;
 
                         case 2:
-
+                            active = false;
                             break;
+                            
 
                         default:
                             break;
@@ -202,7 +207,7 @@ namespace KoalaBankApp
                 {
 
                 }
-            } while (true);
+            } while (active == true);
         }
     }
 }
