@@ -104,8 +104,6 @@ namespace KoalaBankApp
 
                 return Accounts;
 
-
-
             }
             else
             {
@@ -124,6 +122,7 @@ namespace KoalaBankApp
             Console.WriteLine("Full Name: {0} {1}",ActiveUser.Firstname,ActiveUser.Lastname);
             Console.WriteLine("Email Adress: {0}",ActiveUser.Email);
             Console.WriteLine();
+            
             foreach (var item in ActiveUser.Useraccount)
             {
                 Console.WriteLine("----------------------");
@@ -135,20 +134,17 @@ namespace KoalaBankApp
             Console.ReadKey();
         }
     }
-    public class UsdBankAccount : BankAccount
-    {
-        public static void USDCurrency()
-        {
+    
+    
 
-        }
-    }
+    
     public class BankAccount
     {
 
         public string _AccountName;
         public double _Balance;
 
-        public BankAccount(string accountname = "Privat-Konto", double balance = 0)
+        public BankAccount(string accountname = "Privat-Konto", double balance = 25000)
         {
             this._AccountName = accountname;
             this._Balance = balance;
@@ -163,6 +159,12 @@ namespace KoalaBankApp
         {
             get { return _Balance; }
             set { _Balance = value; }
+        }
+
+        public static double USDCurrency(double Balance)
+        {
+            double converted = Balance / 9.04;
+            return converted;
         }
 
         public void CreateBankAccount(List<Account> Accounts,Account ActiveUser)
