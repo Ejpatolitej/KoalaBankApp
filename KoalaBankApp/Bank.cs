@@ -46,9 +46,11 @@ namespace KoalaBankApp
             {
                 Console.Clear();
                 Console.WriteLine("Welcome " +/*Name*/ " To KoalaBank!");
-                Console.WriteLine("Press 1 Transfer\nPress 2 See Accounts\nPress 3 Search user\nPress 4 Loggout");
+
+                Console.WriteLine("Press 1 Transfer\nPress 2 Account information\nPress 3 Search user\nPress 4 Account Management\nPress 5 Logout");
 
                 int menyChoice = 0;
+
                 try
                 {
                     menyChoice = Int32.Parse(Console.ReadLine());
@@ -62,50 +64,43 @@ namespace KoalaBankApp
                     }
                     else //Purfect
                     {
+                            case 1:
+                                Transfer transaction = new Transfer();
+                                transaction.TransferMenyOptions(ActiveUser, ActiveUser.Useraccount);
+                                break;
+                            case 2:
 
+                                ActiveUser.PrintAccountInfo(Accounts, ActiveUser);
+                                break;
+                            case 3:
+                                Console.Write("Skriv in ett Giltligt användarnamn: ");
+                                string userinput = Console.ReadLine();
+
+                                Account Check = Accounts.Find(c => c.Username == userinput);
+                                if (Check == null)
+                                {
+                                    Console.WriteLine("Användare Existerar inte.");
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Användare: {0} finns i databasen.", Check.Username);
+                                }
+                                Console.ReadKey();
+                                break;
+                            case 4:
+                                BankAccount n1 = new BankAccount();
+                                n1.CreateBankAccount(Accounts, ActiveUser);
+                                break;
+                            case 5:
+                                login logout = new login();
+                                logout.userLogin(Accounts);
+                                break;
+                        }
                     }
                 }
                 catch (Exception)
                 {
                     Console.WriteLine("Please input a number instead");
-                }
-                switch (menyChoice)
-                {
-                    case 1:
-                        Transfer transaction = new Transfer();
-                        transaction.TransferMenyOptions(ActiveUser, ActiveUser.Useraccount);
-                        break;
-                    case 2:
-                        Console.Clear();
-                        Console.WriteLine(ActiveUser.Firstname);
-                        Console.WriteLine(ActiveUser.Lastname);
-                        Console.WriteLine(ActiveUser.Email);
-                        foreach (var item in ActiveUser.Useraccount)
-                        {
-                            Console.WriteLine("Name: {0}", item.AccountName);
-                            Console.WriteLine("Balance: {0}", item.Balance);
-                        }
-                        Console.ReadKey();
-                        break;
-                    case 3:
-                        Console.Write("Skriv in ett Giltligt användarnamn: ");
-                        string userinput = Console.ReadLine();
-
-                        Account Check = Accounts.Find(c => c.Username == userinput);
-                        if (Check == null)
-                        {
-                            Console.WriteLine("Användare Existerar inte.");
-                        }
-                        else
-                        {
-                            Console.WriteLine("Användare: {0} finns i databasen.", Check.Username);
-                        }
-                        Console.ReadKey();
-                        break;
-                    case 4:
-                        login logout = new login();
-                        logout.userLogin(Accounts);
-                        break;
                 }
             } while (MenyAcitve);
             //No more meny
