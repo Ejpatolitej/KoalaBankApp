@@ -14,15 +14,25 @@ namespace KoalaBankApp
 
             List<BankAccount> BAList1 = new List<BankAccount>();
             BankAccount BAccount1 = new BankAccount("Privat-Konto", 25000);
-            Account Account1 = new Account("Lukke", "hejhej123", "Lucas", "Narfgren", "narfgren@hotmail.com", BAList1, true);
-
-
+            Account Account1 = new Account("Lukke", "hejhej123", "Lucas", "Narfgren", "narfgren@hotmail.com", BAList1, false);
+            //UNDER TESTNING
+            BankAccount dollar = new DollarBankAccount();
+            BankAccount euro = new EuroBankAccount();
+            BankAccount nor = new NORBankAccount();
+            BankAccount den = new DENBankAccount();
+            //--------------
             List<BankAccount> BAList2 = new List<BankAccount>();
             BankAccount BAccount2 = new BankAccount("Privat-Konto", 25000);
             BankAccount BAccount3 = new BankAccount("Extra-Konto", 2925000);
             Account Account2 = new Account("Ludde", "hejhej123", "Ludwig", "Oleby", "Ludwig1337@live.se", BAList2, false);
 
             Account1.Useraccount.Add(BAccount1);
+            // TESTNING
+            Account1.Useraccount.Add(dollar);
+            Account1.Useraccount.Add(euro);
+            Account1.Useraccount.Add(nor);
+            Account1.Useraccount.Add(den);
+            //--------------
             Accounts.Add(Account1);
 
             Account2.Useraccount.Add(BAccount2);
