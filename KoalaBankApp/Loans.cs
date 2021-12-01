@@ -8,12 +8,14 @@ namespace KoalaBankApp
     public class Loans
     {
         private static Random random = new Random();
+
         //Create a random for the interest
         private static double RandomNumber(double minValue, double maxValue)
         {
             var next = random.NextDouble();
             return minValue + (next * (maxValue - minValue));
         }
+
         //Adding all the accounts for the user for total balance
         private static double TotalBalance(List<BankAccount> BAList)
         {
@@ -24,6 +26,7 @@ namespace KoalaBankApp
             }
             return total;
         }
+
         //Calculates interest for the loan
         static void Interest(double loanAmount)
         {
@@ -39,6 +42,8 @@ namespace KoalaBankApp
                 }
             }
         }
+
+        //Takes balance from user account, adds the loan, and puts it back
         private static void NewAccountBalance(List<string> nameList, List<double> balanceList, double loanAmount, Account activeUser)
         {
             bool keepTrying = true;
