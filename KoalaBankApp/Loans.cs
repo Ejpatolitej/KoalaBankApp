@@ -32,7 +32,6 @@ namespace KoalaBankApp
         {
             double interest = RandomNumber(1.01, 1.25);
             Console.WriteLine("Interest: {0:f2}%", (interest - 1) * 100);
-
             for (int i = 1; i <= 20; i++)
             {
                 double total = loanAmount * Math.Pow(interest, i);
@@ -44,7 +43,7 @@ namespace KoalaBankApp
         }
 
         //Takes balance from user account, adds the loan, and puts it back
-        private static void NewAccountBalance(List<string> nameList, List<double> balanceList, double loanAmount, Account activeUser)
+        private static void NewAccountBalance(List<string> nameList, List<double> balanceList, double loanAmount, User activeUser)
         {
             bool keepTrying = true;
             do
@@ -56,8 +55,8 @@ namespace KoalaBankApp
                     bankAccount.Balance = balanceList[index] + loanAmount;
                     bankAccount.AccountName = nameList[index];
 
-                    activeUser.Useraccount.RemoveAt(index);
-                    activeUser.Useraccount.Insert(index, bankAccount);
+                    activeUser.BankAccountList.RemoveAt(index);
+                    activeUser.BankAccountList.Insert(index, bankAccount);
                     keepTrying = false;
                 }
                 catch
@@ -66,13 +65,10 @@ namespace KoalaBankApp
                 }
             } while (keepTrying == true);
         }
-
         //Loan main method
-        public void Loan(Account activeUser)
+        public void Loan(User activeUser)
         {
-
-
-            double balanceTotal = TotalBalance(activeUser.Useraccount);
+            double balanceTotal = TotalBalance(activeUser.BankAccountList);
             double loanMax = balanceTotal * 5;
             Console.WriteLine("You have a total of " + balanceTotal + " kr. in your account." +
                 "\nYour maximum for the loan is " + loanMax + " kr.");
@@ -89,7 +85,7 @@ namespace KoalaBankApp
             else
             {
                 Interest(loanAmount);
-                Console.WriteLine("\nWould you like to loan the amount " + loanAmount + " kr?");
+                Console.WriteLine("\nWould you like to approve the loan of " + loanAmount + " kr?");
                 Console.WriteLine("Yes / No");
                 string userChoice = Console.ReadLine().ToUpper();
                 do
@@ -107,7 +103,7 @@ namespace KoalaBankApp
                         int i = 0;
                         List<double> balanceList = new List<double>();
                         List<string> nameList = new List<string>();
-                        foreach (var item in activeUser.Useraccount)
+                        foreach (var item in activeUser.BankAccountList)
                         {
                             i++;
                             Console.WriteLine("{0}: {1}", i, item.AccountName);
@@ -119,7 +115,7 @@ namespace KoalaBankApp
 
                         Console.Clear();
                         i = 0;
-                        foreach (var item in activeUser.Useraccount)
+                        foreach (var item in activeUser.BankAccountList)
                         {
                             i++;
                             Console.WriteLine("New balance in accounts: ");
@@ -134,7 +130,7 @@ namespace KoalaBankApp
                     {
                         Console.Clear();
                         Console.WriteLine("Please enter YES or NO");
-                        Console.WriteLine("\nWould you like to loan the amount " + loanAmount + " kr?");
+                        Console.WriteLine("\nWould you like to approve the loan of " + loanAmount + " kr?");
                         userChoice = Console.ReadLine().ToUpper();
                     }
                 } while (userChoice != "NO" || userChoice != "YES");

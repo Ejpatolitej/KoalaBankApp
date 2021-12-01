@@ -7,16 +7,15 @@ namespace KoalaBankApp
 {
     public class Bank
     {
-
         public void Run()
         {
             welcome();
 
-            List<Account> Accounts = new List<Account>();
+            List<User> Accounts = new List<User>();
 
             List<BankAccount> BAList1 = new List<BankAccount>();
             BankAccount BAccount1 = new BankAccount("Privat-Konto", 25000);
-            Account Account1 = new Account("Lukke", "hejhej123", "Lucas", "Narfgren", "narfgren@hotmail.com", BAList1, false);
+            User Account1 = new User("Lukke", "hejhej123", "Lucas", "Narfgren", "narfgren@hotmail.com", BAList1, true);
             //UNDER TESTNING
             BankAccount dollar = new DollarBankAccount();
             BankAccount euro = new EuroBankAccount();
@@ -26,100 +25,103 @@ namespace KoalaBankApp
             List<BankAccount> BAList2 = new List<BankAccount>();
             BankAccount BAccount2 = new BankAccount("Privat-Konto", 25000);
             BankAccount BAccount3 = new BankAccount("Extra-Konto", 2925000);
-            Account Account2 = new Account("Ludde", "hejhej123", "Ludwig", "Oleby", "Ludwig1337@live.se", BAList2, false);
+            User Account2 = new User("Ludde", "hemlis", "Ludwig", "Oleby", "Ludwig1337@live.se", BAList2, false);
 
             List<BankAccount> BAList3 = new List<BankAccount>();
             BankAccount BAccount4 = new BankAccount("Privat-Konto", 2000000);
             BankAccount BAccount5 = new BankAccount("Extra-Konto", 1000000);
-            Account Account3 = new Account("Elias", "hejhej123", "EliasL", "Lövdinger", "Eliasmail@mail.nu", BAList3, false);
+            User Account3 = new User("Elias", "hejhej123", "EliasL", "Lövdinger", "Eliasmail@mail.nu", BAList3, false);
 
-            Account1.Useraccount.Add(BAccount1);
+            Account1.BankAccountList.Add(BAccount1);
             // TESTNING
-            Account1.Useraccount.Add(dollar);
-            Account1.Useraccount.Add(euro);
-            Account1.Useraccount.Add(nor);
-            Account1.Useraccount.Add(den);
+            Account1.BankAccountList.Add(dollar);
+            Account1.BankAccountList.Add(euro);
+            Account1.BankAccountList.Add(nor);
+            Account1.BankAccountList.Add(den);
             //--------------
             Accounts.Add(Account1);
 
-            Account2.Useraccount.Add(BAccount2);
-            Account2.Useraccount.Add(BAccount3);
+            Account2.BankAccountList.Add(BAccount2);
+            Account2.BankAccountList.Add(BAccount3);
             Accounts.Add(Account2);
 
-            Account3.Useraccount.Add(BAccount4);
-            Account3.Useraccount.Add(BAccount5);
+            Account3.BankAccountList.Add(BAccount4);
+            Account3.BankAccountList.Add(BAccount5);
             Accounts.Add(Account3);
-
 
             login inlog = new login();
             inlog.userLogin(Accounts);
         }
-
-        public static void userMenu(List<Account> Accounts, Account ActiveUser)
+        public static void userMenu(List<User> Accounts, User ActiveUser)
         {
-
             // Meny
-            bool MenyAcitve = true;
+            bool MenuActive = true;
             do
             {
                 Console.Clear();
                 Console.WriteLine("Welcome " +/*Name*/ " To KoalaBank!");
+                Console.WriteLine();
+                Console.WriteLine("1. Transfer" +
+                    "\n2. Account information" +
+                    "\n3. Search user" +
+                    "\n4. Account Management" +
+                    "\n5. Loans" +
+                    "\n6. PLACEHOLDER" +
+                    "\n7. PLACEHOLDER" +
+                    "\n8. Logout");
 
-                Console.WriteLine("Press 1 Transfer\nPress 2 Account information\nPress 3 Search user\nPress 4 Account Management\nPress 5 Logout");
-
-                int menyChoice = 0;
+                int menuChoice = 0;
                 try
                 {
-                    menyChoice = Int32.Parse(Console.ReadLine());
-                    if (menyChoice > 5) // to high number
-                    {
-                        Console.WriteLine("please enter a number that is a option");
-                    }
-                    else if (menyChoice < 1) // to low number
-                    {
-                        Console.WriteLine("please enter a number that is a option");
-                    }
-                    else //Purfect
-                    {
-                            case 1:
-                                Transfer Transaction = new Transfer();
-                                Transaction.TransferMoney(ActiveUser.Useraccount, ActiveUser);
-                                break;
-                            case 2:
-
-                                ActiveUser.PrintAccountInfo(Accounts, ActiveUser);
-                                break;
-                            case 3:
-                                Console.Write("Skriv in ett Giltligt användarnamn: ");
-                                string userinput = Console.ReadLine();
-
-                                Account Check = Accounts.Find(c => c.Username == userinput);
-                                if (Check == null)
-                                {
-                                    Console.WriteLine("Användare Existerar inte.");
-                                }
-                                else
-                                {
-                                    Console.WriteLine("Användare: {0} finns i databasen.", Check.Username);
-                                }
-                                Console.ReadKey();
-                                break;
-                            case 4:
-                                BankAccount B = new BankAccount();
-                                B.CreateBankAccount(Accounts, ActiveUser);
-                                break;
-                            case 5:
-                                login logout = new login();
-                                logout.userLogin(Accounts);
-                                break;
-                        }
-                    }
+                    menuChoice = Int32.Parse(Console.ReadLine());
                 }
                 catch (Exception)
                 {
                     Console.WriteLine("Please input a number instead");
+                    Console.ReadKey();
                 }
-            } while (MenyAcitve);
+                switch (menuChoice)
+                {
+                    case 1:
+                        Transfer Transaction = new Transfer();
+                        Transaction.TransferMoney(ActiveUser.BankAccountList, ActiveUser);
+                        break;
+                    case 2:
+                        ActiveUser.PrintAccountInfo(ActiveUser);
+                        break;
+                    case 3:
+                        Console.Write("Enter a valid username: ");
+                        string userinput = Console.ReadLine();
+                        User Check = Accounts.Find(c => c.Username == userinput);
+                        if (Check == null)
+                        {
+                            Console.WriteLine("User does not exist.");
+                        }
+                        else
+                        {
+                            Console.WriteLine("User {0} exists in the database.", Check.Username);
+                        }
+                        Console.ReadKey();
+                        break;
+                    case 4:
+                        BankAccount B = new BankAccount();
+                        B.CreateBankAccount(ActiveUser);
+                        break;
+                    case 5:
+                        Console.Clear();
+                        Loans loans = new Loans();
+                        loans.Loan(ActiveUser);
+                        break;
+                    case 6:
+                        break;
+                    case 7:
+                        break;
+                    case 8:
+                        login logout = new login();
+                        logout.userLogin(Accounts);
+                        break;
+                }
+            } while (MenuActive);
             //No more meny
         }
 
@@ -221,7 +223,6 @@ namespace KoalaBankApp
             Console.WriteLine(@"╚═════════════════════════════════════════════════════╝");
             Console.WriteLine("Press any key to start the application. . .");
             Console.ReadKey();
-
         }
     }
 }

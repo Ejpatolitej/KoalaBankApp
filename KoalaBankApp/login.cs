@@ -6,11 +6,10 @@ namespace KoalaBankApp
 {
     public class login
     {
-
         public bool loginSuccess = false;
-        public int loginAttempts = 1;
+        public int loginAttempts = 2;
 
-        public void userLogin(List<Account> Accounts)
+        public void userLogin(List<User> Accounts)
         {
             Console.Clear();
             Console.WriteLine("Please enter username and password to log in.");
@@ -25,51 +24,40 @@ namespace KoalaBankApp
                 {
                     if (username == users.Username && password == users.Password)
                     {
-                        if (users.Isadmin == true)
+                        if (users.IsAdmin == true)
                         {
                             loginSuccess = true;
-                            Account Check = Accounts.Find(s => s.Username == username);
-                            loginAdmin(Accounts,Check);
-                            Account.CreateUserAccount(Accounts, true);
+                            User Check = Accounts.Find(s => s.Username == username);
+                            loginAdmin(Accounts, Check);
+                            User.CreateUser(Accounts, true);
                             Console.ReadKey();
                         }
-                        if (users.Isadmin == false)
+                        else if (users.IsAdmin == false)
                         {
                             loginSuccess = true;
-                            Account Check = Accounts.Find(s => s.Username == username);
+                            User Check = Accounts.Find(s => s.Username == username);
                             Bank.userMenu(Accounts, Check);
                             Console.ReadKey();
                         }
-
-
-                        Console.ReadKey();
-
                         loginSuccess = true;
                     }
-
-                    if (username != users.Username && password != users.Password)
-                    {
-                        if (loginAttempts == 3)
-                        {
-                            loginSuccess = false;
-                            Console.WriteLine("You've entered the wrong username or password too many times, the program will now exit . . .");
-                            Environment.Exit(1);
-                        }
-
-                        else
-                        {
-                            loginSuccess = false;
-                            Console.WriteLine("Wrong username or password!");
-                            loginAttempts++;
-                            loginSuccess = false;
-                        }
-
-                    }
+                }
+                if (loginAttempts == 0)
+                {
+                    loginSuccess = false;
+                    Console.WriteLine("You've entered the wrong username or password too many times, the program will now exit . . .");
+                    Environment.Exit(1);
+                }
+                else
+                {
+                    loginSuccess = false;
+                    Console.WriteLine("Wrong username or password! You have " + loginAttempts + " attempts left");
+                    loginAttempts--;
+                    loginSuccess = false;
                 }
             }
         }
-
-        public void loginAdmin(List<Account> Accounts,Account ActiveUser)
+        public void loginAdmin(List<User> Accounts, User ActiveUser)
         {
             Console.Clear();
             Console.WriteLine("1. Create Account");
@@ -79,7 +67,7 @@ namespace KoalaBankApp
             switch (menu)
             {
                 case 1:
-                    Account.CreateUserAccount(Accounts,true);
+                    User.CreateUser(Accounts, true);
                     break;
                 case 2:
                     login logout = new login();

@@ -20,12 +20,12 @@ public class Transfer
     public double amountAdd = 0;
 
 
-    public void TransferMoney(List<BankAccount> AccountsTransfer, Account ActiveUserTransfer)
+    public void TransferMoney(List<BankAccount> AccountsTransfer, User ActiveUserTransfer)
     {
 
-        BankAccount Transfermoney1 = ActiveUserTransfer.Useraccount.Find(c => c.AccountName == "Privat-Konto");
+        BankAccount Transfermoney1 = ActiveUserTransfer.BankAccountList.Find(c => c.AccountName == "Privat-Konto");
 
-        BankAccount Transfermoney2 = ActiveUserTransfer.Useraccount.Find(c => c.AccountName == "Extra-Konto");
+        BankAccount Transfermoney2 = ActiveUserTransfer.BankAccountList.Find(c => c.AccountName == "Extra-Konto");
 
 
 
@@ -98,7 +98,7 @@ public class Transfer
         // ---------------------------------------------------------------
         //The actual transfer
 
-        foreach (var item in ActiveUserTransfer.Useraccount)
+        foreach (var item in ActiveUserTransfer.BankAccountList)
         {
             amountLeft = item.Balance;
             break;

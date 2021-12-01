@@ -4,27 +4,26 @@ using System.Text;
 
 namespace KoalaBankApp
 {
-
-    public class Account
+    public class User
     {
         private string _UserName;
         private string _PassWord;
         private string _FirstName;
         private string _LastName;
         private string _Email;
-        private List<BankAccount> _UserAccount;
+        private List<BankAccount> _BankAccountList;
         private bool _IsAdmin;
 
-        public Account(string username = "Default Username", string password = "password123", string firstname = "Default First Name", string lastname = "Default Last Name", string email = "Default@Email.com",
-            List<BankAccount> useraccount = null, bool isadmin = false)
+        public User(string username = "Default Username", string password = "password123", string firstname = "Default First Name", string lastname = "Default Last Name", string email = "Default@Email.com",
+            List<BankAccount> bankAccountList = null, bool isAdmin = false)
         {
             this._UserName = username;
             this._PassWord = password;
             this._FirstName = firstname;
             this._LastName = lastname;
             this._Email = email;
-            this._UserAccount = useraccount;
-            this._IsAdmin = isadmin;
+            this._BankAccountList = bankAccountList;
+            this._IsAdmin = isAdmin;
         }
         public string Username
         {
@@ -51,18 +50,18 @@ namespace KoalaBankApp
             get { return _Email; }
             set { _Email = value; }
         }
-        public List<BankAccount> Useraccount
+        public List<BankAccount> BankAccountList
         {
-            get { return _UserAccount; }
-            set { _UserAccount = value; }
+            get { return _BankAccountList; }
+            set { _BankAccountList = value; }
         }
-        public bool Isadmin
+        public bool IsAdmin
         {
             get { return _IsAdmin; }
             set { _IsAdmin = value; }
         }
 
-        public static List<Account> CreateUserAccount(List<Account> Accounts, bool isadmin)
+        public static List<User> CreateUser(List<User> Accounts, bool isadmin)
         {
             string UserAdmin;
             bool Isadmin;
@@ -81,7 +80,6 @@ namespace KoalaBankApp
                 Console.Write("Email Adress: ");
                 string Email = Console.ReadLine().ToLower();
 
-
                 Console.WriteLine("Ska kontot vara Admin (Yes/No): ");
                 UserAdmin = Console.ReadLine().ToLower();
                 if (UserAdmin == "yes")
@@ -95,8 +93,8 @@ namespace KoalaBankApp
 
                 List<BankAccount> NewBankAcc = new List<BankAccount>();
                 BankAccount NewAcc = new BankAccount();
-                Account NewAccount = new Account(UserName, PassWord, FirstName, LastName, Email, NewBankAcc, Isadmin);
-                NewAccount.Useraccount.Add(NewAcc);
+                User NewAccount = new User(UserName, PassWord, FirstName, LastName, Email, NewBankAcc, Isadmin);
+                NewAccount.BankAccountList.Add(NewAcc);
                 Accounts.Add(NewAccount);
 
                 login n = new login();
@@ -115,38 +113,35 @@ namespace KoalaBankApp
             }
 
         }
-        public void PrintAccountInfo(List<Account> Accounts,Account ActiveUser)
+        public void PrintAccountInfo(User ActiveUser)
         {
             Console.Clear();
-            Console.WriteLine("Username: {0}",ActiveUser.Username);
-            Console.WriteLine("Full Name: {0} {1}",ActiveUser.Firstname,ActiveUser.Lastname);
-            Console.WriteLine("Email Adress: {0}",ActiveUser.Email);
+            Console.WriteLine("Username: {0}", ActiveUser.Username);
+            Console.WriteLine("Full Name: {0} {1}", ActiveUser.Firstname, ActiveUser.Lastname);
+            Console.WriteLine("Email Adress: {0}", ActiveUser.Email);
             Console.WriteLine();
 
-            foreach (var item in ActiveUser.Useraccount)
+            foreach (var item in ActiveUser.BankAccountList)
             {
                 Console.WriteLine("----------------------");
                 Console.WriteLine(item.AccountName);
-                Console.WriteLine("Balance: {0}",item.Balance);
+                Console.WriteLine("Balance: {0}", item.Balance);
                 Console.WriteLine("----------------------");
             }
-
             Console.ReadKey();
         }
     }
 
     public class BankAccount
     {
-
         public string _AccountName;
         public double _Balance;
 
-        public BankAccount(string accountname = "Privat-Konto", double balance = 25000)
+        public BankAccount(string accountName = "Privat-Konto", double balance = 25000)
         {
-            this._AccountName = accountname;
+            this._AccountName = accountName;
             this._Balance = balance;
         }
-
         public string AccountName
         {
             get { return _AccountName; }
@@ -157,13 +152,11 @@ namespace KoalaBankApp
             get { return _Balance; }
             set { _Balance = value; }
         }
-
         public virtual double CurrencyCalc(double Balance)
         {
             return Balance;
         }
-
-        public void CreateBankAccount(List<Account> Accounts,Account ActiveUser)
+        public void CreateBankAccount(User ActiveUser)
         {
             bool active = true;
             do
@@ -183,30 +176,23 @@ namespace KoalaBankApp
                             string AccountName = Console.ReadLine();
                             BankAccount Account = new BankAccount();
                             Account.AccountName = AccountName;
-                            ActiveUser.Useraccount.Add(Account);
+                            ActiveUser.BankAccountList.Add(Account);
 
                             Console.WriteLine("Account Succesfully Created.");
                             Console.WriteLine("Press any key to continue.");
-                            
-
                             break;
-
                         case 2:
                             active = false;
                             break;
-                            
-
                         default:
                             break;
-
                     }
                 }
-                catch(FormatException)
+                catch (FormatException)
                 {
                     Console.WriteLine("Use a Number to choose from the menu.");
                 }
             } while (active == true);
-            
         }
     }
     public class EuroBankAccount : BankAccount
@@ -227,7 +213,7 @@ namespace KoalaBankApp
         {
             return Balance / 1.37;
         }
-        public DENBankAccount(string accountname = "Danish-Account", double balance = 25000 )
+        public DENBankAccount(string accountname = "Danish-Account", double balance = 25000)
         {
             this._AccountName = accountname;
             this._Balance = balance;
