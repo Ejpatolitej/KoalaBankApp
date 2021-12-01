@@ -31,8 +31,8 @@ namespace KoalaBankApp
             login inlog = new login();
             inlog.userLogin(Accounts);
         }
-           public static void userMenu(List<Account> Accounts,Account ActiveUser)
-            {
+        public static void userMenu(List<Account> Accounts, Account ActiveUser)
+        {
 
             // Meny
             bool MenyAcitve = true;
@@ -42,7 +42,7 @@ namespace KoalaBankApp
                 Console.WriteLine("Welcome " +/*Name*/ " To KoalaBank!");
                 Console.WriteLine("Press 1 Transfer\nPress 2 Account information\nPress 3 Search user\nPress 4 Account Management\nPress 5 Logout");
 
-            int menyChoice = 0;
+                int menyChoice = 0;
 
                 try
                 {
@@ -66,7 +66,7 @@ namespace KoalaBankApp
                                 break;
                             case 2:
 
-                                ActiveUser.PrintAccountInfo(Accounts,ActiveUser);
+                                ActiveUser.PrintAccountInfo(Accounts, ActiveUser);
                                 break;
                             case 3:
                                 Console.Write("Skriv in ett Giltligt användarnamn: ");
@@ -85,7 +85,7 @@ namespace KoalaBankApp
                                 break;
                             case 4:
                                 BankAccount n1 = new BankAccount();
-                                n1.CreateBankAccount(Accounts,ActiveUser);
+                                n1.CreateBankAccount(Accounts, ActiveUser);
                                 break;
                             case 5:
                                 login logout = new login();
@@ -98,11 +98,10 @@ namespace KoalaBankApp
                 {
                     Console.WriteLine("Please input a number instead");
                 }
-                switch (menyChoice)
-                {
-                    Console.WriteLine(ex.Message);
-                }
+                //switch (menyChoice)
+                //{
+                //    Console.WriteLine(ex.Message);
             } while (MenyAcitve);
         }
-    }
+}
 }
