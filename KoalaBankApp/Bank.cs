@@ -28,6 +28,11 @@ namespace KoalaBankApp
             BankAccount BAccount3 = new BankAccount("Extra-Konto", 2925000);
             Account Account2 = new Account("Ludde", "hejhej123", "Ludwig", "Oleby", "Ludwig1337@live.se", BAList2, false);
 
+            List<BankAccount> BAList3 = new List<BankAccount>();
+            BankAccount BAccount4 = new BankAccount("Privat-Konto", 2000000);
+            BankAccount BAccount5 = new BankAccount("Extra-Konto", 1000000);
+            Account Account3 = new Account("Elias", "hejhej123", "EliasL", "Lövdinger", "Eliasmail@mail.nu", BAList3, false);
+
             Account1.Useraccount.Add(BAccount1);
             // TESTNING
             Account1.Useraccount.Add(dollar);
@@ -38,9 +43,13 @@ namespace KoalaBankApp
             Accounts.Add(Account1);
 
             Account2.Useraccount.Add(BAccount2);
-            Accounts.Add(Account2);
             Account2.Useraccount.Add(BAccount3);
             Accounts.Add(Account2);
+
+            Account3.Useraccount.Add(BAccount4);
+            Account3.Useraccount.Add(BAccount5);
+            Accounts.Add(Account3);
+
 
             login inlog = new login();
             inlog.userLogin(Accounts);
@@ -73,8 +82,8 @@ namespace KoalaBankApp
                     else //Purfect
                     {
                             case 1:
-                                Transfer transaction = new Transfer();
-                                transaction.TransferMenyOptions(ActiveUser, ActiveUser.Useraccount);
+                                Transfer Transaction = new Transfer();
+                                Transaction.TransferMoney(ActiveUser.Useraccount, ActiveUser);
                                 break;
                             case 2:
 
