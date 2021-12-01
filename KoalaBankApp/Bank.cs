@@ -10,22 +10,31 @@ namespace KoalaBankApp
 
         public void Run()
         {
-
             welcome();
 
             List<Account> Accounts = new List<Account>();
 
             List<BankAccount> BAList1 = new List<BankAccount>();
             BankAccount BAccount1 = new BankAccount("Privat-Konto", 25000);
-            Account Account1 = new Account("Lukke", "hejhej123", "Lucas", "Narfgren", "narfgren@hotmail.com", BAList1, true);
-
-
+            Account Account1 = new Account("Lukke", "hejhej123", "Lucas", "Narfgren", "narfgren@hotmail.com", BAList1, false);
+            //UNDER TESTNING
+            BankAccount dollar = new DollarBankAccount();
+            BankAccount euro = new EuroBankAccount();
+            BankAccount nor = new NORBankAccount();
+            BankAccount den = new DENBankAccount();
+            //--------------
             List<BankAccount> BAList2 = new List<BankAccount>();
             BankAccount BAccount2 = new BankAccount("Privat-Konto", 25000);
             BankAccount BAccount3 = new BankAccount("Extra-Konto", 2925000);
             Account Account2 = new Account("Ludde", "hejhej123", "Ludwig", "Oleby", "Ludwig1337@live.se", BAList2, false);
 
             Account1.Useraccount.Add(BAccount1);
+            // TESTNING
+            Account1.Useraccount.Add(dollar);
+            Account1.Useraccount.Add(euro);
+            Account1.Useraccount.Add(nor);
+            Account1.Useraccount.Add(den);
+            //--------------
             Accounts.Add(Account1);
 
             Account2.Useraccount.Add(BAccount2);
@@ -50,7 +59,6 @@ namespace KoalaBankApp
                 Console.WriteLine("Press 1 Transfer\nPress 2 Account information\nPress 3 Search user\nPress 4 Account Management\nPress 5 Logout");
 
                 int menyChoice = 0;
-
                 try
                 {
                     menyChoice = Int32.Parse(Console.ReadLine());
@@ -88,8 +96,8 @@ namespace KoalaBankApp
                                 Console.ReadKey();
                                 break;
                             case 4:
-                                BankAccount n1 = new BankAccount();
-                                n1.CreateBankAccount(Accounts, ActiveUser);
+                                BankAccount B = new BankAccount();
+                                B.CreateBankAccount(Accounts, ActiveUser);
                                 break;
                             case 5:
                                 login logout = new login();
@@ -116,7 +124,6 @@ namespace KoalaBankApp
                 Console.CursorVisible = false;
                 if (i > 0 && i < 10)
                 {
-                    
                     Console.SetCursorPosition(0, 0);
                     Console.WriteLine("LOADING:" + i + "%");
                     Console.WriteLine("[■         ]");
