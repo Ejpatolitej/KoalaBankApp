@@ -5,7 +5,7 @@ using System.Text;
 namespace KoalaBankApp
 {
 
-    public class Account : Bank
+    public class Account
     {
         private string _UserName;
         private string _PassWord;
@@ -62,7 +62,7 @@ namespace KoalaBankApp
             set { _IsAdmin = value; }
         }
 
-        public static List<Account> CreateAccount(List<Account> Accounts, bool isadmin)
+        public static List<Account> CreateUserAccount(List<Account> Accounts, bool isadmin)
         {
             string UserAdmin;
             bool Isadmin;
@@ -104,8 +104,6 @@ namespace KoalaBankApp
 
                 return Accounts;
 
-
-
             }
             else
             {
@@ -117,11 +115,23 @@ namespace KoalaBankApp
             }
 
         }
-        public void PrintAccountInfo(List<Account> Accounts)
+        public void PrintAccountInfo(List<Account> Accounts,Account ActiveUser)
         {
-            string Userinput = "";
+            Console.Clear();
+            Console.WriteLine("Username: {0}",ActiveUser.Username);
+            Console.WriteLine("Full Name: {0} {1}",ActiveUser.Firstname,ActiveUser.Lastname);
+            Console.WriteLine("Email Adress: {0}",ActiveUser.Email);
+            Console.WriteLine();
 
+            foreach (var item in ActiveUser.Useraccount)
+            {
+                Console.WriteLine("----------------------");
+                Console.WriteLine(item.AccountName);
+                Console.WriteLine("Balance: {0}",item.Balance);
+                Console.WriteLine("----------------------");
+            }
 
+            Console.ReadKey();
         }
     }
 
@@ -131,7 +141,7 @@ namespace KoalaBankApp
         public string _AccountName;
         public double _Balance;
 
-        public BankAccount(string accountname = "Privat-Konto", double balance = 0)
+        public BankAccount(string accountname = "Privat-Konto", double balance = 25000)
         {
             this._AccountName = accountname;
             this._Balance = balance;
@@ -148,27 +158,19 @@ namespace KoalaBankApp
             set { _Balance = value; }
         }
 
-        public void CreateNewBankAccount(List<Account> Accounts)
+        public virtual double CurrencyCalc(double Balance)
         {
-            string AccountName;
-            double AccountBalance;
-
-
-            Console.Clear();
-            Console.WriteLine("---Skapa nytt konto---");
-            Console.Write("Välj ett namn för kontot: ");
-            AccountName = Console.ReadLine().ToUpper();
-            AccountBalance = 0;
-            BankAccount NewBankAcc = new BankAccount(AccountName, AccountBalance);
-
+            return Balance;
         }
 
-        public void CreateBankAccount(Account ActiveUser)
+        public void CreateBankAccount(List<Account> Accounts,Account ActiveUser)
         {
+            bool active = true;
             do
             {
                 try
                 {
+                    Console.Clear();
                     Console.WriteLine("1. Create new bank Account");
                     Console.WriteLine("2. Go Back");
                     int menu = int.Parse(Console.ReadLine());
@@ -177,7 +179,7 @@ namespace KoalaBankApp
                     {
                         case 1:
                             Console.Clear();
-                            Console.Write("Set name for Account");
+                            Console.Write("Set name for new Account: ");
                             string AccountName = Console.ReadLine();
                             BankAccount Account = new BankAccount();
                             Account.AccountName = AccountName;
@@ -185,24 +187,76 @@ namespace KoalaBankApp
 
                             Console.WriteLine("Account Succesfully Created.");
                             Console.WriteLine("Press any key to continue.");
-                            Console.ReadKey();
+                            
 
                             break;
 
                         case 2:
-
+                            active = false;
                             break;
+                            
 
                         default:
                             break;
 
                     }
                 }
-                catch
+                catch(FormatException)
                 {
-
+                    Console.WriteLine("Use a Number to choose from the menu.");
                 }
-            } while (true);
+            } while (active == true);
+            
+        }
+    }
+    public class EuroBankAccount : BankAccount
+    {
+        public override double CurrencyCalc(double Balance)
+        {
+            return Balance / 10.22;
+        }
+        public EuroBankAccount(string accountname = "Euro-Account", double balance = 25000)
+        {
+            this._AccountName = accountname;
+            this._Balance = balance;
+        }
+    }
+    public class DENBankAccount : BankAccount
+    {
+        public override double CurrencyCalc(double Balance)
+        {
+            return Balance / 1.37;
+        }
+        public DENBankAccount(string accountname = "Danish-Account", double balance = 25000 )
+        {
+            this._AccountName = accountname;
+            this._Balance = balance;
+        }
+    }
+    public class NORBankAccount : BankAccount
+    {
+        public override double CurrencyCalc(double Balance)
+        {
+            double Calc = Balance / 1;
+            return Balance / 1;
+        }
+        public NORBankAccount(string accountname = "Norwegian-Account", double balance = 25000)
+        {
+            this._AccountName = accountname;
+            this._Balance = balance;
+        }
+    }
+    public class DollarBankAccount : BankAccount
+    {
+        public override double CurrencyCalc(double Balance)
+        {
+            double Calc = Balance / 9.03;
+            return Balance / 9.03;
+        }
+        public DollarBankAccount(string accountname = "Dollar-Account", double balance = 25000)
+        {
+            this._AccountName = accountname;
+            this._Balance = balance;
         }
     }
 }
