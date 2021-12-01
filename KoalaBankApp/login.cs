@@ -13,7 +13,6 @@ namespace KoalaBankApp
         public void userLogin(List<Account> Accounts)
         {
             Console.Clear();
-            Console.WriteLine("Welcome to KoalaBank");
             Console.WriteLine("Please enter username and password to log in.");
             while (loginSuccess == false)
             {
@@ -26,9 +25,9 @@ namespace KoalaBankApp
                 {
                     if (username == users.Username && password == users.Password)
                     {
-                        Console.WriteLine("Inloggad!");
                         if (users.Isadmin == true)
                         {
+                            loginSuccess = true;
                             Account Check = Accounts.Find(s => s.Username == username);
                             loginAdmin(Accounts,Check);
                             Account.CreateUserAccount(Accounts, true);
@@ -36,7 +35,7 @@ namespace KoalaBankApp
                         }
                         if (users.Isadmin == false)
                         {
-                            Console.WriteLine("som användare");
+                            loginSuccess = true;
                             Account Check = Accounts.Find(s => s.Username == username);
                             Bank.userMenu(Accounts, Check);
                             Console.ReadKey();
@@ -52,13 +51,15 @@ namespace KoalaBankApp
                     {
                         if (loginAttempts == 3)
                         {
-                            Console.WriteLine("Du har angett fel användarnamn eller lösenord tre gånger, programmet avslutas...");
+                            loginSuccess = false;
+                            Console.WriteLine("You've entered the wrong username or password too many times, the program will now exit . . .");
                             Environment.Exit(1);
                         }
 
                         else
                         {
-                            Console.WriteLine("Fel användarnamn eller lösenord!");
+                            loginSuccess = false;
+                            Console.WriteLine("Wrong username or password!");
                             loginAttempts++;
                             loginSuccess = false;
                         }

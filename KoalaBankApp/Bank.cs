@@ -1,13 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 
 namespace KoalaBankApp
 {
     public class Bank
     {
+
         public void Run()
         {
+
+            welcome();
+
             List<Account> Accounts = new List<Account>();
 
             List<BankAccount> BAList1 = new List<BankAccount>();
@@ -31,6 +36,7 @@ namespace KoalaBankApp
             login inlog = new login();
             inlog.userLogin(Accounts);
         }
+
         public static void userMenu(List<Account> Accounts, Account ActiveUser)
         {
 
@@ -40,6 +46,7 @@ namespace KoalaBankApp
             {
                 Console.Clear();
                 Console.WriteLine("Welcome " +/*Name*/ " To KoalaBank!");
+
                 Console.WriteLine("Press 1 Transfer\nPress 2 Account information\nPress 3 Search user\nPress 4 Account Management\nPress 5 Logout");
 
                 int menyChoice = 0;
@@ -57,9 +64,6 @@ namespace KoalaBankApp
                     }
                     else //Purfect
                     {
-                        switch (menyChoice)
-                        {
-
                             case 1:
                                 Transfer transaction = new Transfer();
                                 transaction.TransferMenyOptions(ActiveUser, ActiveUser.Useraccount);
@@ -98,10 +102,110 @@ namespace KoalaBankApp
                 {
                     Console.WriteLine("Please input a number instead");
                 }
-                //switch (menyChoice)
-                //{
-                //    Console.WriteLine(ex.Message);
             } while (MenyAcitve);
+            //No more meny
         }
-}
+
+        public void welcome()
+        {
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.WriteLine("LOADING... ");
+
+            for (int i = 0; i < 100; i++)
+            {
+                Console.CursorVisible = false;
+                if (i > 0 && i < 10)
+                {
+                    
+                    Console.SetCursorPosition(0, 0);
+                    Console.WriteLine("LOADING:" + i + "%");
+                    Console.WriteLine("[■         ]");
+                    Thread.Sleep(50);
+                    Console.SetCursorPosition(0, 0);
+                }
+                if (i > 20 && i < 30)
+                {
+                    Console.WriteLine("LOADING:" + i + "%");
+                    Console.WriteLine("[■■        ]");
+                    Thread.Sleep(60);
+                    Console.SetCursorPosition(0, 0);
+                }
+                if (i > 30 && i < 40)
+                {
+                    Console.SetCursorPosition(0, 0);
+                    Console.WriteLine("LOADING:" + i + "%");
+                    Console.WriteLine("[■■■       ]");
+                    Thread.Sleep(70);
+                    Console.SetCursorPosition(0, 0);
+                }
+                if (i > 40 && i < 50)
+                {
+                    Console.SetCursorPosition(0, 0);
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("LOADING:" + i + "%");
+                    Console.WriteLine("[■■■■      ]");
+                    Thread.Sleep(30);
+                    Console.SetCursorPosition(0, 0);
+                }
+                if (i > 50 && i < 60)
+                {
+                    Console.SetCursorPosition(0, 0);
+                    Console.WriteLine("LOADING:" + i + "%");
+                    Console.WriteLine("[■■■■■     ]");
+                    Thread.Sleep(70);
+                    Console.SetCursorPosition(0, 0);
+                }
+                if (i > 60 && i < 70)
+                {
+                    Console.WriteLine("LOADING:" + i + "%");
+                    Console.WriteLine("[■■■■■■    ]");
+                    Thread.Sleep(50);
+                    Console.SetCursorPosition(0, 0);
+                }
+                if (i > 70 && i < 80)
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine("LOADING:" + i + "%");
+                    Console.WriteLine("[■■■■■■■   ]");
+                    Thread.Sleep(70);
+                    Console.SetCursorPosition(0, 0);
+                }
+                if (i > 80 && i < 90)
+                {
+                    Console.WriteLine("LOADING:" + i + "%");
+                    Console.WriteLine("[■■■■■■■■  ]");
+                    Thread.Sleep(70);
+                    Console.SetCursorPosition(0, 0);
+                }
+                if (i > 90 && i < 100)
+                {
+                    Console.WriteLine("LOADING:" + i + "%");
+                    Console.WriteLine("[■■■■■■■■■ ]");
+                    Thread.Sleep(70);
+                    Console.SetCursorPosition(0, 0);
+                }
+            }
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("100%");
+            Console.WriteLine("Koalabank.exe loading complete! ");
+            Thread.Sleep(2000);
+            Console.Clear();
+
+            Console.CursorVisible = true;
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine(@"╔═════════════════════════════════════════════════════╗");
+            Console.WriteLine(@"║ WELCOME TO                                          ║");
+            Console.WriteLine(@"║   _  __           _         ____              _     ║");
+            Console.WriteLine(@"║  | |/ /          | |       |     \           | |    ║");
+            Console.WriteLine(@"║  | ' / ___   __ _| | __ _  | |_) | __ _ _ __ | | __ ║");
+            Console.WriteLine(@"║  |  < / _ \ / _` | |/ _` | |  _ < / _` | '_ \| |/ / ║");
+            Console.WriteLine(@"║  | . \ (_) | (_| | | (_| | | |_) | (_| | | | |   <  ║");
+            Console.WriteLine(@"║  |_|\_\___/ \__,_|_|\__,_| |____/ \__,_|_| |_|_|\_\ ║");
+            Console.WriteLine(@"╚═════════════════════════════════════════════════════╝");
+            Console.WriteLine("Press any key to start the application. . .");
+            Console.ReadKey();
+
+        }
+    }
 }
