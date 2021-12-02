@@ -60,8 +60,20 @@ namespace KoalaBankApp
             get { return _IsAdmin; }
             set { _IsAdmin = value; }
         }
-
-        public static List<User> CreateUser(List<User> Accounts, bool isadmin)
+        public void PrintAllAccounts(List<User> Accounts,User ActiveUser)
+        {
+            Console.Clear();
+            int i = 1;
+            foreach (var item in Accounts)
+            {
+                Console.WriteLine("{0}. {1}", i, item.Username);
+                i++;
+            }
+            Console.ReadKey();
+            login back = new login();
+            back.loginAdmin(Accounts,ActiveUser);
+        }
+        public static List<User> CreateUser(List<User> Accounts,bool isadmin,User ActiveUser)
         {
             string UserAdmin;
             bool Isadmin;
@@ -97,8 +109,8 @@ namespace KoalaBankApp
                 NewAccount.BankAccountList.Add(NewAcc);
                 Accounts.Add(NewAccount);
 
-                login n = new login();
-                n.userLogin(Accounts);
+                login back = new login();
+                back.loginAdmin(Accounts,ActiveUser);
 
                 return Accounts;
 
@@ -130,8 +142,22 @@ namespace KoalaBankApp
             }
             Console.ReadKey();
         }
+
     }
 
+    public class DollarBankAccount : BankAccount
+    {
+        public override double CurrencyCalc(double Balance)
+        {
+            double Calc = Balance / 9.03;
+            return Balance / 9.03;
+        }
+        public DollarBankAccount(string accountname = "Dollar-Account", double balance = 0)
+        {
+            this._AccountName = accountname;
+            this._Balance = balance;
+        }
+    }
     public class BankAccount
     {
         public string _AccountName;
@@ -193,56 +219,6 @@ namespace KoalaBankApp
                     Console.WriteLine("Use a Number to choose from the menu.");
                 }
             } while (active == true);
-        }
-    }
-    public class EuroBankAccount : BankAccount
-    {
-        public override double CurrencyCalc(double Balance)
-        {
-            return Balance / 10.22;
-        }
-        public EuroBankAccount(string accountname = "Euro-Account", double balance = 25000)
-        {
-            this._AccountName = accountname;
-            this._Balance = balance;
-        }
-    }
-    public class DENBankAccount : BankAccount
-    {
-        public override double CurrencyCalc(double Balance)
-        {
-            return Balance / 1.37;
-        }
-        public DENBankAccount(string accountname = "Danish-Account", double balance = 25000)
-        {
-            this._AccountName = accountname;
-            this._Balance = balance;
-        }
-    }
-    public class NORBankAccount : BankAccount
-    {
-        public override double CurrencyCalc(double Balance)
-        {
-            double Calc = Balance / 1;
-            return Balance / 1;
-        }
-        public NORBankAccount(string accountname = "Norwegian-Account", double balance = 25000)
-        {
-            this._AccountName = accountname;
-            this._Balance = balance;
-        }
-    }
-    public class DollarBankAccount : BankAccount
-    {
-        public override double CurrencyCalc(double Balance)
-        {
-            double Calc = Balance / 9.03;
-            return Balance / 9.03;
-        }
-        public DollarBankAccount(string accountname = "Dollar-Account", double balance = 25000)
-        {
-            this._AccountName = accountname;
-            this._Balance = balance;
         }
     }
 }

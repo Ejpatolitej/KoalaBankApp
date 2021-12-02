@@ -9,7 +9,7 @@ namespace KoalaBankApp
     {
         public void Run()
         {
-            welcome();
+            //welcome();
 
             List<User> Accounts = new List<User>();
 
@@ -18,9 +18,7 @@ namespace KoalaBankApp
             User Account1 = new User("Lukke", "hejhej123", "Lucas", "Narfgren", "narfgren@hotmail.com", BAList1, true);
             //UNDER TESTNING
             BankAccount dollar = new DollarBankAccount();
-            BankAccount euro = new EuroBankAccount();
-            BankAccount nor = new NORBankAccount();
-            BankAccount den = new DENBankAccount();
+
             //--------------
             List<BankAccount> BAList2 = new List<BankAccount>();
             BankAccount BAccount2 = new BankAccount("Privat-Konto", 25000);
@@ -35,9 +33,6 @@ namespace KoalaBankApp
             Account1.BankAccountList.Add(BAccount1);
             // TESTNING
             Account1.BankAccountList.Add(dollar);
-            Account1.BankAccountList.Add(euro);
-            Account1.BankAccountList.Add(nor);
-            Account1.BankAccountList.Add(den);
             //--------------
             Accounts.Add(Account1);
 

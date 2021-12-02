@@ -29,7 +29,7 @@ namespace KoalaBankApp
                             loginSuccess = true;
                             User Check = Accounts.Find(s => s.Username == username);
                             loginAdmin(Accounts, Check);
-                            User.CreateUser(Accounts, true);
+                            //User.CreateUser(Accounts, true);
                             Console.ReadKey();
                         }
                         else if (users.IsAdmin == false)
@@ -59,23 +59,32 @@ namespace KoalaBankApp
         }
         public void loginAdmin(List<User> Accounts, User ActiveUser)
         {
-            Console.Clear();
-            Console.WriteLine("1. Create Account");
-            Console.WriteLine("2. Log out");
-            int menu = int.Parse(Console.ReadLine());
-
-            switch (menu)
+            do
             {
-                case 1:
-                    User.CreateUser(Accounts, true);
-                    break;
-                case 2:
-                    login logout = new login();
-                    logout.userLogin(Accounts);
-                    break;
-                default:
-                    break;
-            }
+
+
+                Console.Clear();
+                Console.WriteLine("1. Create Account");
+                Console.WriteLine("2. Show all Accounts");
+                Console.WriteLine("3. Log out");
+                int menu = int.Parse(Console.ReadLine());
+
+                switch (menu)
+                {
+                    case 1:
+                        User.CreateUser(Accounts,true,ActiveUser);
+                        break;
+                    case 2:
+                        ActiveUser.PrintAllAccounts(Accounts,ActiveUser);
+                        break;
+                    case 3:
+                        login logout = new login();
+                        logout.userLogin(Accounts);
+                        break;
+                    default:
+                        break;
+                }
+            } while (true);
         }
     }
 }
