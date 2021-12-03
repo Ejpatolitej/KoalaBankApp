@@ -9,13 +9,13 @@ namespace KoalaBankApp
     {
         public void Run()
         {
-            welcome();
+            //welcome();
 
             List<User> Accounts = new List<User>();
 
             List<BankAccount> BAList1 = new List<BankAccount>();
             BankAccount BAccount1 = new BankAccount("Privat-Konto", 25000);
-            User Account1 = new User("Lukke", "hejhej123", "Lucas", "Narfgren", "narfgren@hotmail.com", BAList1, true);
+            User Account1 = new User("Lukke", "hejhej123", "Lucas", "Narfgren", "narfgren@hotmail.com", BAList1, false);
             //UNDER TESTNING
             BankAccount dollar = new DollarBankAccount();
             BankAccount euro = new EuroBankAccount();
@@ -84,7 +84,7 @@ namespace KoalaBankApp
                 {
                     case 1:
                         Transfer Transaction = new Transfer();
-                        Transaction.TransferMoney(ActiveUser.BankAccountList, ActiveUser);
+                        Transaction.transferMenu(ActiveUser.BankAccountList, ActiveUser, Accounts);
                         break;
                     case 2:
                         ActiveUser.PrintAccountInfo(ActiveUser);
