@@ -75,7 +75,7 @@ namespace KoalaBankApp
                         User.CreateUser(Accounts,true,ActiveUser);
                         break;
                     case 2:
-                        ActiveUser.PrintAllAccounts(Accounts,ActiveUser);
+                        ActiveUser.PrintAllUsers(Accounts,ActiveUser);
                         break;
                     case 3:
                         login logout = new login();
