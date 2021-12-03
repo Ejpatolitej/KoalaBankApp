@@ -60,7 +60,7 @@ namespace KoalaBankApp
             get { return _IsAdmin; }
             set { _IsAdmin = value; }
         }
-        public void PrintAllAccounts(List<User> Accounts,User ActiveUser)
+        public void PrintAllAccounts(List<User> Accounts, User ActiveUser)
         {
             Console.Clear();
             int i = 1;
@@ -71,18 +71,35 @@ namespace KoalaBankApp
             }
             Console.ReadKey();
             login back = new login();
-            back.loginAdmin(Accounts,ActiveUser);
+            back.loginAdmin(Accounts, ActiveUser);
         }
-        public static List<User> CreateUser(List<User> Accounts,bool isadmin,User ActiveUser)
+        public static List<User> CreateUser(List<User> Accounts, bool isadmin, User ActiveUser)
         {
-            string UserAdmin;
-            bool Isadmin;
             Console.Clear();
             if (isadmin == true)
             {
                 Console.Clear();
-                Console.Write("Välj ett Användarnamn: ");
-                string UserName = Console.ReadLine();
+                bool CheckUsers = false;
+                string UserName = string.Empty;
+                string UserInput = string.Empty;
+                do
+                {
+                    Console.Clear();
+                    Console.Write("Välj ett Användarnamn: ");
+                    UserInput = Console.ReadLine();
+                    CheckUsers = Accounts.Exists(cu => cu.Username == UserInput);
+
+                    if (CheckUsers == true)
+                    {
+                        Console.WriteLine("Username already exists, please choose another one.");
+                        Console.ReadKey();
+                    }
+                    else
+                    {
+                        UserName = UserInput;
+                    }
+                } while (CheckUsers == true);
+
                 Console.Write("Välj ett Lösenord: ");
                 string PassWord = Console.ReadLine();
                 Console.Write("Vad heter Personen(Förnamn): ");
@@ -92,16 +109,31 @@ namespace KoalaBankApp
                 Console.Write("Email Adress: ");
                 string Email = Console.ReadLine().ToLower();
 
-                Console.WriteLine("Ska kontot vara Admin (Yes/No): ");
-                UserAdmin = Console.ReadLine().ToLower();
-                if (UserAdmin == "yes")
+                string UserAdmin = string.Empty;
+                bool Isadmin = false;
+                do
                 {
-                    Isadmin = true;
-                }
-                else
-                {
-                    Isadmin = false;
-                }
+                    Console.Clear();
+                    Console.WriteLine("Ska kontot vara Admin (Yes/No):");
+                    UserAdmin = Console.ReadLine().ToLower();
+
+                    if (UserAdmin == "yes")
+                    {
+                        Isadmin = true;
+                        break;
+                    }
+                    else if (UserAdmin == "no")
+                    {
+                        Isadmin = false;
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Please write YES or NO.");
+                        Console.ReadKey();
+                        continue;
+                    }
+                } while (true);
 
                 List<BankAccount> NewBankAcc = new List<BankAccount>();
                 BankAccount NewAcc = new BankAccount();
@@ -110,7 +142,7 @@ namespace KoalaBankApp
                 Accounts.Add(NewAccount);
 
                 login back = new login();
-                back.loginAdmin(Accounts,ActiveUser);
+                back.loginAdmin(Accounts, ActiveUser);
 
                 return Accounts;
 
