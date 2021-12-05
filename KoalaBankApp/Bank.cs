@@ -10,14 +10,17 @@ namespace KoalaBankApp
         public void Run()
         {
             //welcome();
-
             List<User> Accounts = new List<User>();
+            List<CurrencyRates> Rates = new List<CurrencyRates>();
+            CurrencyRates ObjRates = new CurrencyRates("USD",9.02);
+            Rates.Add(ObjRates);
+
             //user 1
             List<BankAccount> BAList1 = new List<BankAccount>();
             List<DollarBankAccount> DAList1 = new List<DollarBankAccount>();
             DollarBankAccount DAccount1 = new DollarBankAccount("Private-USD-Account",2500);
             BankAccount BAccount1 = new BankAccount("Privat-Konto", 25000);
-            User Account1 = new User("Lukke", "hejhej123", "Lucas", "Narfgren", "narfgren@hotmail.com", BAList1,DAList1 ,false);
+            User Account1 = new User("Lukke", "hejhej123", "Lucas", "Narfgren", "narfgren@hotmail.com", BAList1,DAList1 ,true);
             //user 2
             List<BankAccount> BAList2 = new List<BankAccount>();
             List<DollarBankAccount> DAList2 = new List<DollarBankAccount>();
@@ -49,9 +52,9 @@ namespace KoalaBankApp
             Accounts.Add(Account3);
 
             login inlog = new login();
-            inlog.userLogin(Accounts);
+            inlog.userLogin(Accounts,ObjRates);
         }
-        public static void userMenu(List<User> Accounts, User ActiveUser)
+        public static void userMenu(List<User> Accounts, User ActiveUser , CurrencyRates ObjRates)
         {
             // Meny
             bool MenuActive = true;
@@ -104,7 +107,7 @@ namespace KoalaBankApp
                         break;
                     case 4:
                         BankAccount B = new BankAccount();
-                        B.AccountManagement(ActiveUser,Accounts);
+                        B.AccountManagement(ActiveUser,Accounts,ObjRates);
                         break;
                     case 5:
                         Console.Clear();
@@ -117,7 +120,7 @@ namespace KoalaBankApp
                         break;
                     case 8:
                         login logout = new login();
-                        logout.userLogin(Accounts);
+                        logout.userLogin(Accounts,ObjRates);
                         break;
                 }
             } while (MenuActive);

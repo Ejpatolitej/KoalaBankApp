@@ -14,7 +14,6 @@ namespace KoalaBankApp
         private List<BankAccount> _BankAccountList;
         private List<DollarBankAccount> _DollarAccountList;
         private bool _IsAdmin;
-        public double DollarRate = 9.02;
 
         public User(string username = "Default Username", string password = "password123", string firstname = "Default First Name", string lastname = "Default Last Name", string email = "Default@Email.com",
             List<BankAccount> bankAccountList = null, List<DollarBankAccount> dollarAccountList = null, bool isAdmin = false)
@@ -68,7 +67,7 @@ namespace KoalaBankApp
             get { return _IsAdmin; }
             set { _IsAdmin = value; }
         }
-        public void PrintAllUsers(List<User> Accounts, User ActiveUser)
+        public void PrintAllUsers(List<User> Accounts, User ActiveUser, CurrencyRates ObjRates)
         {
             Console.Clear();
             int i = 1;
@@ -79,9 +78,9 @@ namespace KoalaBankApp
             }
             Console.ReadKey();
             login back = new login();
-            back.loginAdmin(Accounts, ActiveUser);
+            back.loginAdmin(Accounts, ActiveUser,ObjRates);
         }
-        public static List<User> CreateUser(List<User> Accounts, bool isadmin, User ActiveUser)
+        public static List<User> CreateUser(List<User> Accounts, bool isadmin, User ActiveUser, CurrencyRates ObjRates)
         {
             Console.Clear();
             if (isadmin == true)
@@ -153,7 +152,7 @@ namespace KoalaBankApp
                 Accounts.Add(NewAccount);
 
                 login back = new login();
-                back.loginAdmin(Accounts, ActiveUser);
+                back.loginAdmin(Accounts, ActiveUser,ObjRates);
 
                 return Accounts;
 
@@ -206,6 +205,7 @@ namespace KoalaBankApp
     {
         public string _DollarAccountName;
         public double _DollarBalance;
+        
 
         public DollarBankAccount(string DollarAccountName = "Private-USD-Account", double DollarAccount = 2500)
         {
@@ -222,9 +222,11 @@ namespace KoalaBankApp
             get { return _DollarBalance; }
             set { _DollarBalance = value; }
         }
-        public static double USDtoSEK(double AmounttoCheck)
+        
+        public static double USDtoSEK(double AmounttoCheck,CurrencyRates ObjRates)
         {
-            return AmounttoCheck * 9.02;
+            CurrencyRates Rate = new CurrencyRates();
+            return AmounttoCheck * ObjRates.DollarRate;
         }
 
     }
@@ -250,12 +252,12 @@ namespace KoalaBankApp
             set { _Balance = value; }
         }
 
-        public static double SEKtoUSD(double AmounttoCheck)
+        public static double SEKtoUSD(double AmounttoCheck,CurrencyRates ObjRates)
         {
-            return AmounttoCheck / 9.02;
-            
+            CurrencyRates Rate = new CurrencyRates();
+            return AmounttoCheck / ObjRates.DollarRate;   
         }
-        public void AccountManagement(User ActiveUser,List<User> Accounts)
+        public void AccountManagement(User ActiveUser,List<User> Accounts, CurrencyRates ObjRates)
         {
             bool active = true;
             do
@@ -263,9 +265,9 @@ namespace KoalaBankApp
                 try
                 {
                     Console.Clear();
-                    Console.WriteLine("1. Create new Bank Account");
-                    Console.WriteLine("2. Create new USD Bank Account");
-                    Console.WriteLine("3. Convert Account");
+                    Console.WriteLine("1. Create new Bank Account(SEK)");
+                    Console.WriteLine("2. Create new Bank Account(USD)");
+                    Console.WriteLine("3. Convert Currency Accounts");
                     Console.WriteLine("4. Go Back");
                     int menu = int.Parse(Console.ReadLine());
 
@@ -312,6 +314,7 @@ namespace KoalaBankApp
                                             int x = 1;
                                             Console.WriteLine("---------Convert SEK to USD---------");
                                             Console.WriteLine("Which account do you want to convert?");
+                                            
                                             foreach (var item in ActiveUser.BankAccountList)
                                             {
                                                 Console.WriteLine(x + ". " + item.AccountName + " : " + Math.Round(item.Balance,2));
@@ -320,17 +323,20 @@ namespace KoalaBankApp
 
                                             bool MenuLoop1 = false;
                                             int index1 = 0;
-
+                                            
+                                            
                                             while (MenuLoop1 == false)
                                             {
                                                 try
                                                 {
-                                                    index1 = int.Parse(Console.ReadLine()); ;
+                                                    index1 = int.Parse(Console.ReadLine());
+                                                    Console.Write("Set name for the converted Account:");
+                                                    string NewAccountNameUSD = Console.ReadLine();
                                                     if (index1 <= ActiveUser.BankAccountList.Count && index1 >= 0)
                                                     {
                                                         double Amount1 = ActiveUser.BankAccountList[index1 - 1].Balance;
                                                         ActiveUser.BankAccountList.RemoveAt(index1 - 1);
-                                                        DollarBankAccount ConvertedAcc1 = new DollarBankAccount("Converted Account", BankAccount.SEKtoUSD(Amount1));
+                                                        DollarBankAccount ConvertedAcc1 = new DollarBankAccount(NewAccountNameUSD, BankAccount.SEKtoUSD(Amount1,ObjRates));
                                                         ActiveUser.DollarAccountList.Add(ConvertedAcc1);
                                                         MenuLoop1 = true;
                                                     }
@@ -338,6 +344,8 @@ namespace KoalaBankApp
                                                 catch (FormatException)
                                                 {
                                                     Console.WriteLine("Please use a number to choose from the list.");
+                                                    Console.ReadKey();
+                                                    break;
                                                 }
                                             }
                                             break;
@@ -353,17 +361,19 @@ namespace KoalaBankApp
 
                                             bool MenuLoop2 = false;
                                             int index2 = 0;
-
+                                            
                                             while (MenuLoop2 == false)
                                             {
                                                 try
                                                 {
                                                     index2 = int.Parse(Console.ReadLine());
+                                                    Console.Write("Set name for the converted Account:");
+                                                    string NewAccountNameSEK = Console.ReadLine();
                                                     if (index2 <= ActiveUser.DollarAccountList.Count && index2 >= 0)
                                                     {
                                                         double Amount2 = ActiveUser.DollarAccountList[index2 - 1].DollarBalance;
                                                         ActiveUser.DollarAccountList.RemoveAt(index2 - 1);
-                                                        BankAccount ConvertedAcc2 = new BankAccount("Converted Account", DollarBankAccount.USDtoSEK(Amount2));
+                                                        BankAccount ConvertedAcc2 = new BankAccount(NewAccountNameSEK, DollarBankAccount.USDtoSEK(Amount2,ObjRates));
                                                         ActiveUser.BankAccountList.Add(ConvertedAcc2);
                                                         MenuLoop2 = true;
                                                     }
@@ -371,6 +381,8 @@ namespace KoalaBankApp
                                                 catch (FormatException)
                                                 {
                                                     Console.WriteLine("Please use a number to choose from the list.");
+                                                    Console.ReadKey();
+                                                    break;
                                                 }
                                             }
                                             break;
@@ -385,7 +397,8 @@ namespace KoalaBankApp
                                     Console.WriteLine("Please use a number to choose from the list.");
                                 }
                             } while (subMenu == true);
-
+                            
+                            
                             Console.WriteLine("Press any key to continue . . .");
                             Console.ReadKey();
                             break;
