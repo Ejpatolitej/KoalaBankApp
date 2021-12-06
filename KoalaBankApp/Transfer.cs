@@ -24,7 +24,7 @@ public class Transfer
     {
         Console.Clear();
         int menuChoice = 0;
-        Console.WriteLine("1. Transfer between personal accounts \n 2. Transfer to other users");
+        Console.WriteLine("1. Transfer between personal accounts \n2. Transfer to other users");
         menuChoice = Int32.Parse(Console.ReadLine());
         switch (menuChoice)
         {
@@ -56,7 +56,7 @@ public class Transfer
             try
             {
                 accountFrom = int.Parse(Console.ReadLine());
-                if (accountFrom <= maxAccounts && accountFrom >= 0)
+                if (accountFrom <= maxAccounts && accountFrom > 0)
                 {
                     accountFrom = accountFrom - 1;
                     transferLoop = false;
@@ -76,7 +76,7 @@ public class Transfer
         transferLoop = true;
         while (transferLoop)
         {
-            Console.WriteLine("To what account you wanna move money too? dont pick the same as before");
+            Console.WriteLine("To what account you wanna move money to? dont pick the same as before");
             int nr = 1;
             foreach (BankAccount item in AllAccounts)
             {
@@ -86,7 +86,7 @@ public class Transfer
             try
             {
                 accountTo = int.Parse(Console.ReadLine());
-                if (accountTo <= maxAccounts && accountTo != accountFrom && accountTo >= 0)
+                if (accountTo <= maxAccounts && accountTo != accountFrom && accountTo > 0)
                 {
                     accountTo = accountTo - 1;
                     transferLoop = false;
@@ -116,7 +116,7 @@ public class Transfer
                 }
                 else
                 {
-                    Console.WriteLine("You can not transfer a amount below zero or equal too");
+                    Console.WriteLine("You can not transfer a amount below zero or equal to");
                 }
             }
             catch (Exception)
@@ -161,7 +161,6 @@ public class Transfer
             Console.WriteLine("The tranfer was terminated due to insufficent funds");
             Console.ReadKey();
         }
-
     }
 
     public void transferToOtherUser(List<BankAccount> ActiveUserTransfer, User ActiveUser, List<User> Accounts)
@@ -179,10 +178,6 @@ public class Transfer
             Console.WriteLine("----------------------");
             nr++;
         }
-        
-        
-       
-
         // SELECT USERACCOUNT
         bool transferLoop = true;
         while (transferLoop)
@@ -191,7 +186,7 @@ public class Transfer
             try
             {
                 accountFrom = int.Parse(Console.ReadLine());
-                if (accountFrom <= maxAccounts && accountFrom >= 0)
+                if (accountFrom <= maxAccounts && accountFrom > 0)
                 {
                     accountFrom = accountFrom - 1;
                     transferLoop = false;
@@ -226,9 +221,6 @@ public class Transfer
             {
                 accountToName = Console.ReadLine();
                 User userTransfer1 = Accounts.Find(c => c.Username == accountToName);
-                Console.WriteLine(userTransfer1);
-                Console.ReadKey();
-                
 
                 if (accountToName == userTransfer1.Username)
                 {
@@ -238,13 +230,11 @@ public class Transfer
                 {
                     Console.WriteLine("User not found!");
                 }
-                
-               
             }
             catch (Exception)
             {
                 Console.Clear();
-                Console.WriteLine("Please input the accountnumber with a number/numbers");
+                Console.WriteLine("Please input the account number with a number/numbers");
             }
         }
         
@@ -261,7 +251,7 @@ public class Transfer
                 }
                 else
                 {
-                    Console.WriteLine("You can not transfer a amount below zero or equal too");
+                    Console.WriteLine("You can not transfer a amount below zero or equal to");
                 }
             }
             catch (Exception)
@@ -279,12 +269,12 @@ public class Transfer
 
         if (AllAccounts[accountTo].Balance >= amountTotransfer)
         {
-            amountLeft = AllAccounts[accountFrom].Balance; // Money from frist user
+            amountLeft = AllAccounts[accountFrom].Balance; // Money from first user
             amountLeft = amountLeft - amountTotransfer;
             AllAccounts[accountFrom].Balance = amountLeft;
             
 
-            amountAdd = namn[0].Balance; // Money too second user
+            amountAdd = namn[0].Balance; // Money to second user
             amountAdd = amountAdd + amountTotransfer;
             namn[0].Balance = amountAdd;
             coverage = 1;
@@ -311,14 +301,5 @@ public class Transfer
             Console.WriteLine("The tranfer was terminated due to insufficent funds");
             Console.ReadKey();
         }
-
-
-
-
-
-
-
-        Console.ReadKey();
     }
-
 }

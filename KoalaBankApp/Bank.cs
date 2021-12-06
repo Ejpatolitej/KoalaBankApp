@@ -15,7 +15,7 @@ namespace KoalaBankApp
 
             List<BankAccount> BAList1 = new List<BankAccount>();
             BankAccount BAccount1 = new BankAccount("Privat-Konto", 25000);
-            User Account1 = new User("Lukke", "hejhej123", "Lucas", "Narfgren", "narfgren@hotmail.com", BAList1, false);
+            User Account1 = new User("Lukke", "hejhej123", "Lucas", "Narfgren", "narfgren@hotmail.com", BAList1, true);
             //UNDER TESTNING
             BankAccount dollar = new DollarBankAccount();
             BankAccount euro = new EuroBankAccount();
