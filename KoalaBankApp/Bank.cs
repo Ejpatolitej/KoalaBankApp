@@ -10,49 +10,52 @@ namespace KoalaBankApp
         public void Run()
         {
             //welcome();
-
             List<User> Accounts = new List<User>();
+            List<CurrencyRates> Rates = new List<CurrencyRates>();
+            CurrencyRates ObjRates = new CurrencyRates("USD",9.02);
+            Rates.Add(ObjRates);
 
+            //user 1
             List<BankAccount> BAList1 = new List<BankAccount>();
+            List<DollarBankAccount> DAList1 = new List<DollarBankAccount>();
+            DollarBankAccount DAccount1 = new DollarBankAccount("Private-USD-Account",2500);
             BankAccount BAccount1 = new BankAccount("Privat-Konto", 25000);
-            User Account1 = new User("Lukke", "hejhej123", "Lucas", "Narfgren", "narfgren@hotmail.com", BAList1, true);
-            //UNDER TESTNING
-            BankAccount dollar = new DollarBankAccount();
-            BankAccount euro = new EuroBankAccount();
-            BankAccount nor = new NORBankAccount();
-            BankAccount den = new DENBankAccount();
-            //--------------
+
+            User Account1 = new User("Lukke", "hejhej123", "Lucas", "Narfgren", "narfgren@hotmail.com", BAList1,DAList1 ,true);
+            //user 2
             List<BankAccount> BAList2 = new List<BankAccount>();
+            List<DollarBankAccount> DAList2 = new List<DollarBankAccount>();
+            DollarBankAccount DAccount2 = new DollarBankAccount("Private-USD-Account", 2500);
             BankAccount BAccount2 = new BankAccount("Privat-Konto", 25000);
             BankAccount BAccount3 = new BankAccount("Extra-Konto", 2925000);
-            User Account2 = new User("Ludde", "hemlis", "Ludwig", "Oleby", "Ludwig1337@live.se", BAList2, false);
-
+            User Account2 = new User("Ludde", "hemlis", "Ludwig", "Oleby", "Ludwig1337@live.se", BAList2, DAList2, false);
+            //user 3
             List<BankAccount> BAList3 = new List<BankAccount>();
+            List<DollarBankAccount> DAList3 = new List<DollarBankAccount>();
+            DollarBankAccount DAccount3 = new DollarBankAccount("Private-USD-Account", 2500);
             BankAccount BAccount4 = new BankAccount("Privat-Konto", 2000000);
             BankAccount BAccount5 = new BankAccount("Extra-Konto", 1000000);
-            User Account3 = new User("Elias", "hejhej123", "EliasL", "Lövdinger", "Eliasmail@mail.nu", BAList3, false);
+            User Account3 = new User("Elias", "hejhej123", "EliasL", "Lövdinger", "Eliasmail@mail.nu", BAList3, DAList3, false);
 
+            //user 1 ADD
             Account1.BankAccountList.Add(BAccount1);
-            // TESTNING
-            Account1.BankAccountList.Add(dollar);
-            Account1.BankAccountList.Add(euro);
-            Account1.BankAccountList.Add(nor);
-            Account1.BankAccountList.Add(den);
-            //--------------
+            Account1.DollarAccountList.Add(DAccount1);
             Accounts.Add(Account1);
-
+            //user 2 ADD
             Account2.BankAccountList.Add(BAccount2);
             Account2.BankAccountList.Add(BAccount3);
+            Account2.DollarAccountList.Add(DAccount2);
             Accounts.Add(Account2);
-
+            //user 3 ADD
             Account3.BankAccountList.Add(BAccount4);
             Account3.BankAccountList.Add(BAccount5);
+            Account3.DollarAccountList.Add(DAccount3);
             Accounts.Add(Account3);
 
             login inlog = new login();
-            inlog.userLogin(Accounts);
+            inlog.userLogin(Accounts,ObjRates);
         }
-        public static void userMenu(List<User> Accounts, User ActiveUser)
+        public static void userMenu(List<User> Accounts, User ActiveUser , CurrencyRates ObjRates)
         {
             // Meny
             bool MenuActive = true;
@@ -105,7 +108,7 @@ namespace KoalaBankApp
                         break;
                     case 4:
                         BankAccount B = new BankAccount();
-                        B.CreateBankAccount(ActiveUser);
+                        B.AccountManagement(ActiveUser,Accounts,ObjRates);
                         break;
                     case 5:
                         Console.Clear();
@@ -118,7 +121,7 @@ namespace KoalaBankApp
                         break;
                     case 8:
                         login logout = new login();
-                        logout.userLogin(Accounts);
+                        logout.userLogin(Accounts,ObjRates);
                         break;
                 }
             } while (MenuActive);
