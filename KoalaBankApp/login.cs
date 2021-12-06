@@ -9,8 +9,9 @@ namespace KoalaBankApp
         public bool loginSuccess = false;
         public int loginAttempts = 2;
 
-        public void userLogin(List<User> Accounts)
+        public void userLogin(List<User> Accounts, CurrencyRates ObjRates)
         {
+
             Console.Clear();
             Console.WriteLine("Please enter username and password to log in.");
             while (loginSuccess == false)
@@ -28,15 +29,15 @@ namespace KoalaBankApp
                         {
                             loginSuccess = true;
                             User Check = Accounts.Find(s => s.Username == username);
-                            loginAdmin(Accounts, Check);
-                            User.CreateUser(Accounts, true);
+                            loginAdmin(Accounts, Check, ObjRates);
+                            //User.CreateUser(Accounts, true);
                             Console.ReadKey();
                         }
                         else if (users.IsAdmin == false)
                         {
                             loginSuccess = true;
                             User Check = Accounts.Find(s => s.Username == username);
-                            Bank.userMenu(Accounts, Check);
+                            Bank.userMenu(Accounts, Check, ObjRates);
                             Console.ReadKey();
                         }
                         loginSuccess = true;
@@ -57,25 +58,40 @@ namespace KoalaBankApp
                 }
             }
         }
-        public void loginAdmin(List<User> Accounts, User ActiveUser)
-        {
-            Console.Clear();
-            Console.WriteLine("1. Create Account");
-            Console.WriteLine("2. Log out");
-            int menu = int.Parse(Console.ReadLine());
 
-            switch (menu)
+        public void loginAdmin(List<User> Accounts, User ActiveUser,CurrencyRates ObjRates)
+        {
+            do
             {
-                case 1:
-                    User.CreateUser(Accounts, true);
-                    break;
-                case 2:
-                    login logout = new login();
-                    logout.userLogin(Accounts);
-                    break;
-                default:
-                    break;
-            }
+                
+                
+                Console.Clear();
+                Console.WriteLine("1. Update Currency Rates (Current Rate: {0})", Math.Round(ObjRates.DollarRate, 2));
+                Console.WriteLine("2. Create Account");
+                Console.WriteLine("3. Show all Accounts");
+                Console.WriteLine("4. Log out");
+                int menu = int.Parse(Console.ReadLine());
+
+                switch (menu)
+                {
+                    case 1:
+
+                        CurrencyRates.UpdateCurrencyRate(ObjRates);
+                        break;
+                    case 2:
+                        User.CreateUser(Accounts,true,ActiveUser,ObjRates);
+                        break;
+                    case 3:
+                        ActiveUser.PrintAllUsers(Accounts,ActiveUser,ObjRates);
+                        break;
+                    case 4:
+                        login logout = new login();
+                        logout.userLogin(Accounts,ObjRates);
+                        break;
+                    default:
+                        break;
+                }
+            } while (true);
         }
     }
 }
