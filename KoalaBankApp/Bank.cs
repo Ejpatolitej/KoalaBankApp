@@ -20,6 +20,7 @@ namespace KoalaBankApp
             List<DollarBankAccount> DAList1 = new List<DollarBankAccount>();
             DollarBankAccount DAccount1 = new DollarBankAccount("Private-USD-Account",2500);
             BankAccount BAccount1 = new BankAccount("Privat-Konto", 25000);
+
             User Account1 = new User("Lukke", "hejhej123", "Lucas", "Narfgren", "narfgren@hotmail.com", BAList1,DAList1 ,true);
             //user 2
             List<BankAccount> BAList2 = new List<BankAccount>();
@@ -86,7 +87,7 @@ namespace KoalaBankApp
                 {
                     case 1:
                         Transfer Transaction = new Transfer();
-                        Transaction.TransferMoney(ActiveUser.BankAccountList, ActiveUser);
+                        Transaction.transferMenu(ActiveUser.BankAccountList, ActiveUser, Accounts);
                         break;
                     case 2:
                         ActiveUser.PrintAccountInfo(ActiveUser);
