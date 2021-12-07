@@ -6,26 +6,31 @@ namespace KoalaBankApp
 {
     public class CurrencyRates
     {
-        public string Name;
-        public double DollarRate;
+        public string _Type;
+        public double _Rate;
         
-        public CurrencyRates(string name = "USD",double dollarRate = 9.02)
+        public CurrencyRates(string Type,double Rate)
         {
-            this.DollarRate = dollarRate;
-            this.Name = name;
+            this._Rate = Rate;
+            this._Type = Type;
         }
 
-
-        public static void PrintRate()
-        {
-
-        }
         public static void UpdateCurrencyRate(CurrencyRates ObjRates)
         {
             double minValue = 8.5;
             Random R = new Random();
             double NewRate = R.NextDouble();
-            ObjRates.DollarRate = NewRate + minValue;
+            ObjRates._Rate = NewRate + minValue;
+        }
+
+        public static double SEKtoUSD(double AmounttoCheck, CurrencyRates ObjRates)
+        {
+            return AmounttoCheck / ObjRates._Rate;
+        }
+
+        public static double USDtoSEK(double AmounttoCheck, CurrencyRates ObjRates)
+        {
+            return AmounttoCheck * ObjRates._Rate;
         }
     }
 }

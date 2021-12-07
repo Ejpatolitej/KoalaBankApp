@@ -66,7 +66,7 @@ namespace KoalaBankApp
                 
                 
                 Console.Clear();
-                Console.WriteLine("1. Update Currency Rates (Current Rate: {0})", Math.Round(ObjRates.DollarRate, 2));
+                Console.WriteLine("1. Update Currency Rates (Current Rate: {0})", Math.Round(ObjRates._Rate, 2));
                 Console.WriteLine("2. Create Account");
                 Console.WriteLine("3. Show all Accounts");
                 Console.WriteLine("4. Log out");
