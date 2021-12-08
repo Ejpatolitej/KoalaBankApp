@@ -19,23 +19,26 @@ namespace KoalaBankApp
 
             //user 1
             List<BankAccount> BAList1 = new List<BankAccount>();
+            List<SavingsAccount> SavingsList1 = new List<SavingsAccount>();
             
             BankAccount DAccount1 = new BankAccount("Private-USD-Account",250000,"USD");
             BankAccount BAccount1 = new BankAccount("Privat-Konto", 25000,"SEK");
             
 
-            User Account1 = new User("Lukke", "hejhej123", "Lucas", "Narfgren", "narfgren@hotmail.com", BAList1,false);
+            User Account1 = new User("Lukke", "hejhej123", "Lucas", "Narfgren", "narfgren@hotmail.com", BAList1, SavingsList1, false);
             //user 2
             List<BankAccount> BAList2 = new List<BankAccount>();
+            List<SavingsAccount> SavingsList2 = new List<SavingsAccount>();
 
             BankAccount BAccount2 = new BankAccount("Privat-Konto", 25000,"SEK");
             BankAccount BAccount3 = new BankAccount("Extra-Konto", 2925000,"USD");
-            User Account2 = new User("Ludde", "hemlis", "Ludwig", "Oleby", "Ludwig1337@live.se", BAList2, false);
+            User Account2 = new User("Ludde", "hemlis", "Ludwig", "Oleby", "Ludwig1337@live.se", BAList2, SavingsList2, false);
             //user 3
             List<BankAccount> BAList3 = new List<BankAccount>();
+            List<SavingsAccount> SavingsList3 = new List<SavingsAccount>();
             BankAccount BAccount4 = new BankAccount("Privat-Konto", 2000000);
             BankAccount BAccount5 = new BankAccount("Extra-Konto", 1000000);
-            User Account3 = new User("Elias", "hejhej123", "EliasL", "Lövdinger", "Eliasmail@mail.nu", BAList3, false);
+            User Account3 = new User("Elias", "hejhej123", "EliasL", "Lövdinger", "Eliasmail@mail.nu", BAList3, SavingsList3, false);
 
             //user 1 ADD
             Account1.BankAccountList.Add(BAccount1);
