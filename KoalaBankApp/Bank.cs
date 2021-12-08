@@ -9,7 +9,7 @@ namespace KoalaBankApp
     {
         public void Run()
         {
-            //welcome();
+            welcome();
             List<User> Accounts = new List<User>();
             List<CurrencyRates> Rates = new List<CurrencyRates>();
             CurrencyRates ObjRates = new CurrencyRates("USD",9.02);
@@ -224,8 +224,21 @@ namespace KoalaBankApp
             Console.WriteLine(@"║  | . \ (_) | (_| | | (_| | | |_) | (_| | | | |   <  ║");
             Console.WriteLine(@"║  |_|\_\___/ \__,_|_|\__,_| |____/ \__,_|_| |_|_|\_\ ║");
             Console.WriteLine(@"╚═════════════════════════════════════════════════════╝");
+            Console.WriteLine();
+            Console.WriteLine(@"             __                      __         ");
+            Console.WriteLine(@"          .-'  `'.._...-----..._..-'`  ' -.     ");
+            Console.WriteLine(@"         /                                \     ");
+            Console.WriteLine(@"         |  ,   ,'                '.   ,  |     ");
+            Console.WriteLine(@"          \  '-/                    \-'  /      ");
+            Console.WriteLine(@"              |    /\   / \    /\    |          ");
+            Console.WriteLine(@"              |    \/   | |    \/    |          ");
+            Console.WriteLine(@"               \        \ /         /           ");
+            Console.WriteLine(@"                '.   ==' ^ '==    .'            ");
+            Console.WriteLine(@"                  `'------------'`              ");
+
             Console.WriteLine("Press any key to start the application. . .");
             Console.ReadKey();
+
         }
     }
 }
