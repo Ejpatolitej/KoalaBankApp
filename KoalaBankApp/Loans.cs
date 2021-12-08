@@ -15,7 +15,6 @@ namespace KoalaBankApp
             var next = random.NextDouble();
             return minValue + (next * (maxValue - minValue));
         }
-
         //Adding all the accounts for the user for total balance
         private static double TotalBalance(List<BankAccount> BAList)
         {
@@ -26,7 +25,6 @@ namespace KoalaBankApp
             }
             return total;
         }
-
         //Calculates interest for the loan
         static void Interest(double loanAmount)
         {
@@ -41,9 +39,8 @@ namespace KoalaBankApp
                 }
             }
         }
-
         //Takes balance from user account, adds the loan, and puts it back
-        private static void NewAccountBalance(List<string> nameList, List<double> balanceList, double loanAmount, User activeUser)
+        private static void NewAccountBalance(double loanAmount, User activeUser)
         {
             bool keepTrying = true;
             do
@@ -51,12 +48,7 @@ namespace KoalaBankApp
                 int index = Int32.Parse(Console.ReadLine()) - 1;
                 try
                 {
-                    BankAccount bankAccount = new BankAccount();
-                    bankAccount.Balance = balanceList[index] + loanAmount;
-                    bankAccount.AccountName = nameList[index];
-
-                    activeUser.BankAccountList.RemoveAt(index);
-                    activeUser.BankAccountList.Insert(index, bankAccount);
+                    activeUser.BankAccountList[index].Balance += loanAmount;
                     keepTrying = false;
                 }
                 catch
@@ -101,17 +93,13 @@ namespace KoalaBankApp
                         Console.Clear();
                         Console.WriteLine("Loan approved. Which account would you like the money transferred to?");
                         int i = 0;
-                        List<double> balanceList = new List<double>();
-                        List<string> nameList = new List<string>();
                         foreach (var item in activeUser.BankAccountList)
                         {
                             i++;
                             Console.WriteLine("{0}: {1}", i, item.AccountName);
                             Console.WriteLine("     {0} kr.", item.Balance);
-                            balanceList.Add(item.Balance);
-                            nameList.Add(item.AccountName);
                         }
-                        NewAccountBalance(nameList, balanceList, loanAmount, activeUser);
+                        NewAccountBalance(loanAmount, activeUser);
 
                         Console.Clear();
                         i = 0;

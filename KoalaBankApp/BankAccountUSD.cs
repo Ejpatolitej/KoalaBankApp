@@ -8,7 +8,6 @@ namespace KoalaBankApp
     {
         public static void PrintAccounts(User ActiveUser, CurrencyRates Rates)
         {
-            
             List<BankAccount> CheckSEK = ActiveUser.BankAccountList.FindAll(c => c.Type == "SEK");
             foreach (var i in CheckSEK)
             {
@@ -16,7 +15,6 @@ namespace KoalaBankApp
                 Console.WriteLine("{0}: {1} SEK", i.AccountName, Math.Round(BalanceSEK, 2));
                 Console.WriteLine();
             }
-            
             List<BankAccount> CheckUSD = ActiveUser.BankAccountList.FindAll(c => c.Type == "USD");
             foreach (var i in CheckUSD)
             {
@@ -24,7 +22,12 @@ namespace KoalaBankApp
                 Console.WriteLine("{0}: ${1}", i.AccountName, Math.Round(BalanceUSD, 2));
                 Console.WriteLine();
             }
-
+            List<SavingsAccount> savingsAccounts = ActiveUser.SavingsAccountList;
+            foreach (var item in savingsAccounts)
+            {
+                Console.WriteLine("{0}: {1}", item.AccountName, item.Balance);
+                Console.WriteLine("Interest: {0:f2}%", item.Interest);
+            }
         }
     }
 }
