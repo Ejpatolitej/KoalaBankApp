@@ -12,10 +12,11 @@ namespace KoalaBankApp
         private string _LastName;
         private string _Email;
         private List<BankAccount> _BankAccountList;
+        private List<SavingsAccount> _SavingsAccountList;
         private bool _IsAdmin;
 
         public User(string username = "Default Username", string password = "password123", string firstname = "Default First Name", string lastname = "Default Last Name", string email = "Default@Email.com",
-            List<BankAccount> bankAccountList = null, bool isAdmin = false)
+            List<BankAccount> bankAccountList = null, List<SavingsAccount> savingsAccountList= null, bool isAdmin = false)
         {
             this._UserName = username;
             this._PassWord = password;
@@ -23,6 +24,7 @@ namespace KoalaBankApp
             this._LastName = lastname;
             this._Email = email;
             this._BankAccountList = bankAccountList;
+            this._SavingsAccountList = savingsAccountList;
             this._IsAdmin = isAdmin;
         }
         public string Username
@@ -54,6 +56,11 @@ namespace KoalaBankApp
         {
             get { return _BankAccountList; }
             set { _BankAccountList = value; }
+        }
+        public List<SavingsAccount> SavingsAccountList
+        {
+            get { return _SavingsAccountList; }
+            set { _SavingsAccountList = value; }
         }
         public bool IsAdmin
         {
@@ -137,8 +144,9 @@ namespace KoalaBankApp
                 } while (true);
 
                 List<BankAccount> NewBankAcc = new List<BankAccount>();
+                List<SavingsAccount> NewSavingsAcc = new List<SavingsAccount>();
                 BankAccount NewAcc = new BankAccount();
-                User NewAccount = new User(UserName, PassWord, FirstName, LastName, Email, NewBankAcc, Isadmin);
+                User NewAccount = new User(UserName, PassWord, FirstName, LastName, Email, NewBankAcc, NewSavingsAcc, Isadmin);
                 NewAccount.BankAccountList.Add(NewAcc);
                 Accounts.Add(NewAccount);
 
@@ -146,7 +154,6 @@ namespace KoalaBankApp
                 back.loginAdmin(Accounts, ActiveUser, Rates);
 
                 return Accounts;
-
             }
             else
             {
@@ -156,7 +163,6 @@ namespace KoalaBankApp
                 Console.ReadKey();
                 return null;
             }
-
         }
         public void PrintAccountInfo(User ActiveUser, CurrencyRates Rates)
         {
@@ -167,27 +173,6 @@ namespace KoalaBankApp
             Console.WriteLine();
 
             BankAccount.PrintAccounts(ActiveUser,Rates);
-            //int i = 1;
-            //Console.WriteLine("-----Swedish Accounts-----");
-            //foreach (var item in ActiveUser.BankAccountList)
-            //{
-            //    Console.WriteLine();
-            //    //Console.WriteLine(i + ". " + item.AccountName + " : {0} SEK", Math.Round(item.Balance, 2));
-            //    Console.WriteLine(i + ". " + item.AccountName + ": " + BankAccount.PrintBalance(ActiveUser, Rates));
-            //    Console.WriteLine();
-            //    Console.WriteLine("--------------------------");
-            //    i++;
-            //}
-            //int x = 1;
-            //Console.WriteLine("-----American Accounts----");
-            //foreach (var item in ActiveUser.BankAccountList)
-            //{
-            //    Console.WriteLine();
-            //    Console.WriteLine(BankAccount.PrintBalance(ActiveUser, Rates));
-            //    Console.WriteLine();
-            //    Console.WriteLine("--------------------------");
-            //    x++;
-            //}
             Console.ReadKey();
         }
     }
