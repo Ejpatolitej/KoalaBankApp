@@ -8,7 +8,7 @@ public class Transfer
 {
     //- [x]  Transfer between personal accounts
     //- [x]  transfer to other users
-    //- [ ]  User transaction log
+    //- [x]  User transaction log
     //- [ ]  (admin) Transactions dont happen instantly, limit it so it only happens every 15 mins
 
     public int accountFrom = 0;
@@ -17,13 +17,13 @@ public class Transfer
     public double amountLeft = 0;
     public double amountAdd = 0;
 
-    public void transferMenu(List<BankAccount> AccountsTransfer, User ActiveUserTransfer, List<User> Accounts)
+    public void transferMenu(List<BankAccount> AccountsTransfer, User ActiveUserTransfer, List<User> Accounts, Transactions ActiveTransaction)
     {
         bool MenuActive = true;
         do
         {
             Console.Clear();
-            Console.WriteLine("1. Transfer between personal accounts \n2. Transfer to other users\n3. PLACEHOLDER\n4. Go Back");
+            Console.WriteLine("1. Transfer between personal accounts \n2. Transfer to other users\n3. See Transaction log\n4. Go Back");
             int menuChoice = 0;
             try
             {
@@ -37,12 +37,16 @@ public class Transfer
             switch (menuChoice)
             {
                 case 1:
-                    TransferMoney(AccountsTransfer, ActiveUserTransfer);
+                    TransferMoney(AccountsTransfer, ActiveUserTransfer, ActiveTransaction);
                     break;
                 case 2:
                     transferToOtherUser(AccountsTransfer, ActiveUserTransfer, Accounts);
                     break;
                 case 3:
+                    Console.Clear();
+                    ActiveTransaction.printTransactions();
+                    Console.WriteLine("\nPress any key to return to transfer menu");
+                    Console.ReadKey();
                     //Transaction log
                     break;
                 case 4:
@@ -51,7 +55,7 @@ public class Transfer
             }
         } while (MenuActive);
     }
-    public void TransferMoney(List<BankAccount> AccountsTransfer, User ActiveUserTransfer)
+    public void TransferMoney(List<BankAccount> AccountsTransfer, User ActiveUserTransfer,Transactions ActiveTransaction)
     {
         List<BankAccount> AllAccounts = AccountsTransfer.FindAll(a => a.Balance > 0);
         int maxAccounts = AllAccounts.Count;
@@ -164,31 +168,18 @@ public class Transfer
         accountFrom = accountFrom - 1;
         accountTo = accountTo - 1;
         int coverage = 0;
-        if (AllAccounts[accountTo].Balance >= amountTotransfer)
+        if (AllAccounts[accountFrom].Balance >= amountTotransfer)
         {
-            amountAdd = AllAccounts[accountTo].Balance;
-            amountAdd = amountAdd + amountTotransfer;
-            AllAccounts[accountTo].Balance = amountAdd;
+            ActiveTransaction.AddTransactions1(amountTotransfer);
+            ActiveTransaction.AddTransactions2(AllAccounts[accountFrom].AccountName);
+            ActiveTransaction.AddTransactions3(AllAccounts[accountTo].AccountName);
 
-            amountLeft = AllAccounts[accountFrom].Balance;
-            amountLeft = amountLeft - amountTotransfer;
-            AllAccounts[accountFrom].Balance = amountLeft;
+            AllAccounts[accountFrom].Balance -= amountTotransfer;
+            AllAccounts[accountTo].Balance += amountTotransfer;
             coverage = 1;
         }
         if (coverage == 1)
         {
-            // The actual transfer
-            BankAccount bankAccount1 = new BankAccount();
-            bankAccount1.Balance = AllAccounts[accountFrom].Balance;
-            BankAccount bankAccount2 = new BankAccount();
-            bankAccount2.Balance = AllAccounts[accountTo].Balance;
-
-            AllAccounts.RemoveAt(accountFrom);
-            AllAccounts.Insert(accountFrom, bankAccount1);
-            AllAccounts.RemoveAt(accountTo);
-            AllAccounts.Insert(accountTo, bankAccount2);
-
-            //Variables to be used to round of the decimals to two
             double newAmountFrom = AllAccounts[accountFrom].Balance;
             double newAmountTo = AllAccounts[accountTo].Balance;
 
@@ -246,6 +237,11 @@ public class Transfer
             }
         }
         transferLoop = true;
+
+        //!
+        //Change to index instead of name in future
+        //!
+
         while (transferLoop)
         {
             Console.Clear();
@@ -311,31 +307,16 @@ public class Transfer
         List<BankAccount> namn = userTransfer.BankAccountList.FindAll(c => c.Balance > 0);
         BankAccount name = namn.Find(c => c.Balance > 0);
         int coverage = 0;
-        if (AllAccounts[accountTo].Balance >= amountTotransfer)
+
+        if (AllAccounts[accountFrom].Balance >= amountTotransfer)
+
         {
-            amountLeft = AllAccounts[accountFrom].Balance; // Money from first user
-            amountLeft = amountLeft - amountTotransfer;
-            AllAccounts[accountFrom].Balance = amountLeft;
-
-
-            amountAdd = namn[0].Balance; // Money to second user
-            amountAdd = amountAdd + amountTotransfer;
-            namn[0].Balance = amountAdd;
+            AllAccounts[accountFrom].Balance -= amountTotransfer;
+            namn[0].Balance += amountTotransfer;
             coverage = 1;
         }
         if (coverage == 1)
         {
-            // The actual transfer
-            BankAccount bankAccount1 = new BankAccount();
-            bankAccount1.Balance = AllAccounts[accountFrom].Balance;
-            BankAccount bankAccount2 = new BankAccount();
-            bankAccount2.AccountName = Accounts[accountTo].Username;
-
-            AllAccounts.RemoveAt(accountFrom);
-            AllAccounts.Insert(accountFrom, bankAccount1);
-            namn.RemoveAt(0);
-            namn.Insert(0, bankAccount2);
-
             double newAmountFrom = AllAccounts[accountFrom].Balance;
             double newAmountTo = amountTotransfer;
 

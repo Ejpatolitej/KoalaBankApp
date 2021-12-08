@@ -9,7 +9,7 @@ namespace KoalaBankApp
     {
         public void Run()
         {
-            welcome();
+            //welcome();
             List<User> Accounts = new List<User>();
             List<CurrencyRates> Rates = new List<CurrencyRates>();
             CurrencyRates USDRates = new CurrencyRates("USD",9.02);
@@ -55,9 +55,12 @@ namespace KoalaBankApp
 
             login inlog = new login();
             inlog.userLogin(Accounts,USDRates);
+
         }
         public static void userMenu(List<User> Accounts, User ActiveUser , CurrencyRates Rates)
         {
+            //Do not remove this Code no clue what it does but it works
+            Transactions newTransaction = new Transactions();
             // Meny
             bool MenuActive = true;
             do
@@ -88,7 +91,7 @@ namespace KoalaBankApp
                 {
                     case 1:
                         Transfer Transaction = new Transfer();
-                        Transaction.transferMenu(ActiveUser.BankAccountList, ActiveUser, Accounts);
+                        Transaction.transferMenu(ActiveUser.BankAccountList, ActiveUser, Accounts, newTransaction );   
                         break;
                     case 2:
                         ActiveUser.PrintAccountInfo(ActiveUser,Rates);
