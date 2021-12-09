@@ -10,6 +10,7 @@ namespace KoalaBankApp
         public double _Balance;
         public string _Type;
 
+
         public BankAccount(string accountName = "Private-Account", double balance = 25000,string type = "Default")
         {
             this._AccountName = accountName;

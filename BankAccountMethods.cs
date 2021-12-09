@@ -9,7 +9,6 @@ namespace KoalaBankApp
 
         public static void InternationalTransfer(List<User> Accounts,User ActiveUser, CurrencyRates Rates)
         {
-
             
             bool MenuLoop1 = false;
             int index1 = 0;
@@ -144,22 +143,15 @@ namespace KoalaBankApp
                 x++;
             }
 
-
             List<BankAccount> PrintUSD = ActiveUser.BankAccountList.FindAll(c => c.Type == "USD");
             foreach (var i in PrintUSD)
-
             {
                 double BalanceUSD = i.Balance;
                 Console.WriteLine(x + ". {0}: ${1:f2}", i.AccountName, BalanceUSD);
                 Console.WriteLine();
                 x++;
             }
-            List<SavingsAccount> savingsAccounts = ActiveUser.SavingsAccountList;
-            foreach (var item in savingsAccounts)
-            {
-                Console.WriteLine("{0}: {1}", item.AccountName, item.Balance);
-                Console.WriteLine("Interest: {0:f2}%", item.Interest);
-            }
+
         }
         public void AccountManagement(User ActiveUser, List<User> Accounts, CurrencyRates Rates)
         {
