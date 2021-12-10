@@ -38,7 +38,7 @@ namespace KoalaBankApp
 
             BankAccount BAccount4 = new BankAccount("Privat-Konto", 2000000,"SEK");
             BankAccount BAccount5 = new BankAccount("Extra-Konto", 1000000,"SEK");
-            User Account3 = new User("Elias", "hejhej123", "Eliasl", "Lövdinger");
+            User Account3 = new User("Elias", "hejhej123", "Eliasl", "Lövdinger", "elias.lovdinger@xX13Cool37Xx", BAList3, SavingsList3, false);
 
             //user 1 ADD
             Account1.BankAccountList.Add(BAccount1);
