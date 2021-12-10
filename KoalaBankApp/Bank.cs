@@ -9,72 +9,73 @@ namespace KoalaBankApp
     {
         public void Run()
         {
-            //welcome();
-            List<User> Accounts = new List<User>();
+            welcome();
+            List<User> Users = new List<User>();
             List<CurrencyRates> Rates = new List<CurrencyRates>();
-            CurrencyRates USDRates = new CurrencyRates("USD",9.02);
-            CurrencyRates SEKRates = new CurrencyRates("SEK",0);
+            CurrencyRates USDRates = new CurrencyRates("USD", 9.02);
+            CurrencyRates SEKRates = new CurrencyRates("SEK", 0);
             Rates.Add(USDRates);
             Rates.Add(SEKRates);
 
             //user 1
             List<BankAccount> BAList1 = new List<BankAccount>();
             List<SavingsAccount> SavingsList1 = new List<SavingsAccount>();
-            
-            BankAccount DAccount1 = new BankAccount("Private-USD-Account",2500,"USD");
-            BankAccount BAccount1 = new BankAccount("Privat-Konto", 25000,"SEK");
+            List<Transactions> TransactionsList1 = new List<Transactions>();
 
-            User Account1 = new User("Lukke", "hejhej123", "Lucas", "Narfgren", "narfgren@hotmail.com", BAList1, SavingsList1, true);
+            BankAccount DAccount1 = new BankAccount("Private-USD-Account", 2500, "USD");
+            BankAccount BAccount1 = new BankAccount("Privat-Konto", 25000, "SEK");
+
+            User Account1 = new User("Lukke", "hejhej123", "Lucas", "Narfgren", "narfgren@hotmail.com", BAList1, SavingsList1, TransactionsList1, true);
             //user 2
             List<BankAccount> BAList2 = new List<BankAccount>();
             List<SavingsAccount> SavingsList2 = new List<SavingsAccount>();
+            List<Transactions> TransactionsList2 = new List<Transactions>();
 
-            BankAccount BAccount2 = new BankAccount("Privat-Konto", 25000,"SEK");
-            BankAccount BAccount3 = new BankAccount("Extra-Konto", 2925000,"USD");
-            User Account2 = new User("Ludde", "hemlis", "Ludwig", "Oleby", "Ludwig1337@live.se", BAList2, SavingsList2, false);
+            BankAccount BAccount2 = new BankAccount("Privat-Konto", 25000, "SEK");
+            BankAccount BAccount3 = new BankAccount("Extra-Konto", 2925000, "USD");
+            User Account2 = new User("Ludde", "hemlis", "Ludwig", "Oleby", "Ludwig1337@live.se", BAList2, SavingsList2, TransactionsList2, false);
             //user 3
             List<BankAccount> BAList3 = new List<BankAccount>();
             List<SavingsAccount> SavingsList3 = new List<SavingsAccount>();
+            List<Transactions> TransactionsList3 = new List<Transactions>();
 
-            BankAccount BAccount4 = new BankAccount("Privat-Konto", 2000000,"SEK");
-            BankAccount BAccount5 = new BankAccount("Extra-Konto", 1000000,"SEK");
-            User Account3 = new User("Elias", "hejhej123", "Eliasl", "Lövdinger", "elias.lovdinger@xX13Cool37Xx", BAList3, SavingsList3, false);
+            BankAccount BAccount4 = new BankAccount("Privat-Konto", 2000000, "SEK");
+            BankAccount BAccount5 = new BankAccount("Extra-Konto", 1000000, "SEK");
+            User Account3 = new User("Elias", "hejhej123", "Eliasl", "Lövdinger", "elias.lovdinger@xX13Cool37Xx", BAList3, SavingsList3, TransactionsList3, false);
 
             //user 1 ADD
             Account1.BankAccountList.Add(BAccount1);
             Account1.BankAccountList.Add(DAccount1);
-            Accounts.Add(Account1);
+
+            Users.Add(Account1);
             //user 2 ADD
             Account2.BankAccountList.Add(BAccount2);
             Account2.BankAccountList.Add(BAccount3);
-            Accounts.Add(Account2);
+            Users.Add(Account2);
             //user 3 ADD
             Account3.BankAccountList.Add(BAccount4);
             Account3.BankAccountList.Add(BAccount5);
-            Accounts.Add(Account3);
+            Users.Add(Account3);
 
-            login inlog = new login();
-            inlog.userLogin(Accounts,USDRates);
+            Login login = new Login();
+            login.userLogin(Users, USDRates);
         }
-        public static void userMenu(List<User> Accounts, User ActiveUser , CurrencyRates Rates)
+        public static void userMenu(List<User> Users, User ActiveUser, CurrencyRates Rates)
         {
-            //Do not remove this Code no clue what it does but it works
-            Transactions newTransaction = new Transactions();
             // Meny
             bool MenuActive = true;
             do
             {
                 Console.Clear();
-                Console.WriteLine("Welcome " +/*Name*/ " To KoalaBank!");
+                Console.WriteLine("Welcome " + ActiveUser.Firstname + " " + ActiveUser.Lastname + " To KoalaBank! ʕ •🠵•ʔ"); // Fix ASCII
                 Console.WriteLine();
                 Console.WriteLine("1. Transfer" +
                     "\n2. Account information" +
-                    "\n3. Search user" +
-                    "\n4. Account Management" +
-                    "\n5. Loans" +
+                    "\n3. Account management" +
+                    "\n4. Loans" +
+                    "\n5. PLACEHOLDER" +
                     "\n6. PLACEHOLDER" +
-                    "\n7. PLACEHOLDER" +
-                    "\n8. Logout");
+                    "\n7. Logout");
 
                 int menuChoice = 0;
                 try
@@ -83,52 +84,38 @@ namespace KoalaBankApp
                 }
                 catch (Exception)
                 {
-                    Console.WriteLine("Please input a number instead");
+                    Console.WriteLine("Please input a valid number!");
                     Console.ReadKey();
                 }
                 switch (menuChoice)
                 {
                     case 1:
                         Transfer Transaction = new Transfer();
-                        Transaction.transferMenu(ActiveUser.BankAccountList, ActiveUser, Accounts, newTransaction );   
+                        Transaction.transferMenu(ActiveUser.BankAccountList, ActiveUser, Users, ActiveUser.UserTransactionsList,Rates);
                         break;
                     case 2:
-                        ActiveUser.PrintAccountInfo(ActiveUser,Rates);
+                        ActiveUser.PrintAccountInfo(ActiveUser, Rates);
                         break;
                     case 3:
-                        Console.Write("Enter a valid username: ");
-                        string userinput = Console.ReadLine();
-                        User Check = Accounts.Find(c => c.Username == userinput);
-                        if (Check == null)
-                        {
-                            Console.WriteLine("User does not exist.");
-                        }
-                        else
-                        {
-                            Console.WriteLine("User {0} exists in the database.", Check.Username);
-                        }
-                        Console.ReadKey();
+                        BankAccount B = new BankAccount();
+                        B.AccountManagement(ActiveUser, Users, Rates);
                         break;
                     case 4:
-                        BankAccount B = new BankAccount();
-                        B.AccountManagement(ActiveUser,Accounts,Rates);
-                        break;
-                    case 5:
                         Console.Clear();
                         Loans loans = new Loans();
                         loans.Loan(ActiveUser);
                         break;
+                    case 5:
+                        break;
                     case 6:
                         break;
                     case 7:
-                        break;
-                    case 8:
-                        login logout = new login();
-                        logout.userLogin(Accounts,Rates);
+                        Login logout = new Login();
+                        logout.userLogin(Users, Rates);
                         break;
                 }
             } while (MenuActive);
-            //No more meny
+            //No more menu
         }
 
         public void welcome()
@@ -211,6 +198,7 @@ namespace KoalaBankApp
             }
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Green;
+            Console.Beep();
             Console.WriteLine("100%");
             Console.WriteLine("Koalabank.exe loading complete! ");
             Thread.Sleep(2000);
@@ -238,8 +226,9 @@ namespace KoalaBankApp
             Console.WriteLine(@"               \        \ /         /           ");
             Console.WriteLine(@"                '.   ==' ^ '==    .'            ");
             Console.WriteLine(@"                  `'------------'`              ");
-
+            Console.WriteLine();
             Console.WriteLine("Press any key to start the application. . .");
+
             Console.ReadKey();
 
         }

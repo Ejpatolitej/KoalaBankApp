@@ -6,30 +6,34 @@ namespace KoalaBankApp
 {
     public class Transactions
     {
-        List<double> TranscationList1 = new List<double>();
-        List<string> TranscationList2 = new List<string>();
-        List<string> TranscationList3 = new List<string>();
-        public void AddTransactions1(double trans)
+        public Transactions(double transAmount, string acntFrom, string acntTo)
         {
-            TranscationList1.Add(trans);
-
+            this.transferAmount = transAmount;
+            this.accountFrom = acntFrom;
+            this.accountTo = acntTo;
         }
-        public void AddTransactions2(string accountName)
+        public double transferAmount { get; set; }
+        public string accountFrom { get; set; }
+        public string accountTo { get; set; }
+       
+        public static void AddTransaction(User activeUser, double trans, string accountFrom, string accountTo)
         {
-            TranscationList2.Add(accountName);
+            Transactions activeTransaction = new Transactions(trans, accountFrom, accountTo);
+            activeUser.UserTransactionsList.Add(activeTransaction);
         }
-        public void AddTransactions3(string accountName)
+        public static void printTransactions(List<Transactions> myTransactions)
         {
-            TranscationList3.Add(accountName);
-        }
-        public void printTransactions()
-        {
+            myTransactions.Reverse();
+            Console.WriteLine("Latest transaction at the top");
             int nr = 1;
-            for (int i = 0; i < TranscationList1.Count; i++)
+            int integer = myTransactions.Count;
+            integer = integer - 1;
+            foreach (var item in myTransactions)
             {
-                Console.WriteLine("Transaction "+nr+": "+"You have transferd amount: {0} from account {1} to account {2}",TranscationList1[i],TranscationList2[i],TranscationList3[i]);
+                Console.WriteLine("Transaction " + nr + ": " + "You have transferd amount: {0} from account {1} to account {2}", item.transferAmount, item.accountFrom, item.accountTo);
                 nr++;
             }
+            myTransactions.Reverse();
         }
 
     }

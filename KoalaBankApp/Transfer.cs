@@ -15,13 +15,13 @@ public class Transfer
     public double amountLeft = 0;
     public double amountAdd = 0;
 
-    public void transferMenu(List<BankAccount> AccountsTransfer, User ActiveUserTransfer, List<User> Accounts, Transactions ActiveTransaction)
+    public void transferMenu(List<BankAccount> AccountsTransfer, User activeUser, List<User> Accounts, List <Transactions> ActiveTransaction,CurrencyRates Rates)
     {
         bool MenuActive = true;
         do
         {
             Console.Clear();
-            Console.WriteLine("1. Transfer between personal accounts \n2. Transfer to other users\n3. See Transaction log\n4. Go Back");
+            Console.WriteLine("1. Transfer between personal accounts \n2. Transfer to other users\n3. International transfer \n4. See Transaction log\n5. Go Back");
             int menuChoice = 0;
             try
             {
@@ -35,25 +35,28 @@ public class Transfer
             switch (menuChoice)
             {
                 case 1:
-                    TransferMoney(AccountsTransfer, ActiveUserTransfer, ActiveTransaction);
+                    TransferMoney(AccountsTransfer, activeUser, ActiveTransaction);
                     break;
                 case 2:
-                    transferToOtherUser(AccountsTransfer, ActiveUserTransfer, Accounts);
+                    transferToOtherUser(AccountsTransfer, activeUser, Accounts);
                     break;
                 case 3:
+                    BankAccount.InternationalTransfer(Accounts,activeUser,Rates);
+                    break;
+                case 4:
                     Console.Clear();
-                    ActiveTransaction.printTransactions();
+                    Transactions.printTransactions(activeUser.UserTransactionsList);
                     Console.WriteLine("\nPress any key to return to transfer menu");
                     Console.ReadKey();
                     //Transaction log
                     break;
-                case 4:
+                case 5:
                     MenuActive = false;
                     break;
             }
         } while (MenuActive);
     }
-    public void TransferMoney(List<BankAccount> AccountsTransfer, User ActiveUserTransfer,Transactions ActiveTransaction)
+    public void TransferMoney(List<BankAccount> AccountsTransfer, User activeUser, List<Transactions> ActiveTransaction)
     {
         int maxAccounts = AccountsTransfer.Count;
 
@@ -63,16 +66,16 @@ public class Transfer
         {
             Console.WriteLine("From what account you wanna move money from?");
             int nr = 1;
-            foreach (BankAccount item in ActiveUserTransfer.BankAccountList)
+            foreach (BankAccount item in activeUser.BankAccountList)
             {
                 Console.WriteLine("----------------------");
                 Console.WriteLine(nr + ". Account name: {0} Balance: {1}", item.AccountName, item.Balance);
                 nr++;
             }
-            if (ActiveUserTransfer.SavingsAccountList.Count > 0)
+            if (activeUser.SavingsAccountList.Count > 0)
             {
                 Console.WriteLine("\nSavings Accounts:\n");
-                foreach (var item in ActiveUserTransfer.SavingsAccountList)
+                foreach (var item in activeUser.SavingsAccountList)
                 {
                     Console.WriteLine("----------------------");
                     Console.WriteLine(nr + ". Account name: {0} Balance: {1}", item.AccountName, item.Balance);
@@ -103,16 +106,16 @@ public class Transfer
         {
             Console.WriteLine("To what account you wanna move money to?");
             int nr = 1;
-            foreach (BankAccount item in ActiveUserTransfer.BankAccountList)
+            foreach (BankAccount item in activeUser.BankAccountList)
             {
                 Console.WriteLine("----------------------");
                 Console.WriteLine(nr + ". Account name: {0} Balance: {1}", item.AccountName, item.Balance);
                 nr++;
             }
-            if (ActiveUserTransfer.SavingsAccountList.Count > 0)
+            if (activeUser.SavingsAccountList.Count > 0)
             {
                 Console.WriteLine("\nSavings Accounts:\n");
-                foreach (var item in ActiveUserTransfer.SavingsAccountList)
+                foreach (var item in activeUser.SavingsAccountList)
                 {
                     Console.WriteLine("----------------------");
                     Console.WriteLine(nr + ". Account name: {0} Balance: {1}", item.AccountName, item.Balance);
@@ -167,9 +170,11 @@ public class Transfer
         int coverage = 0;
         if (AccountsTransfer[accountFrom].Balance >= amountTotransfer)
         {
-            ActiveTransaction.AddTransactions1(amountTotransfer);
-            ActiveTransaction.AddTransactions2(AccountsTransfer[accountFrom].AccountName);
-            ActiveTransaction.AddTransactions3(AccountsTransfer[accountTo].AccountName);
+            Transactions.AddTransaction(activeUser, amountTotransfer, AccountsTransfer[accountFrom].AccountName, AccountsTransfer[accountTo].AccountName);
+
+            //ActiveTransaction.AddTransactions1(amountTotransfer);
+            //ActiveTransaction.AddTransactions2(AccountsTransfer[accountFrom].AccountName);
+            //ActiveTransaction.AddTransactions3(AccountsTransfer[accountTo].AccountName);
 
             AccountsTransfer[accountFrom].Balance -= amountTotransfer;
             AccountsTransfer[accountTo].Balance += amountTotransfer;

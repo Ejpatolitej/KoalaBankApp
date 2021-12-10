@@ -10,7 +10,7 @@ namespace KoalaBankApp
         public double _Balance;
         public string _Type;
 
-        public BankAccount(string accountName = "Private-Account", double balance = 25000,string type = "Default")
+        public BankAccount(string accountName = "Private Account", double balance = 0,string type = "SEK")
         {
             this._AccountName = accountName;
             this._Balance = balance;
@@ -33,7 +33,6 @@ namespace KoalaBankApp
         }
         public static void InternationalTransfer(List<User> Accounts, User ActiveUser, CurrencyRates Rates)
         {
-            
             bool MenuLoop1 = false;
             int index1 = 0;
             double transfer = 0;
@@ -46,7 +45,7 @@ namespace KoalaBankApp
                     do
                     {
                         Console.Clear();
-                        Console.WriteLine("From which Account do you want to send from?");
+                        Console.WriteLine("From which Account do you want to send money from?");
                         foreach (var item in ActiveUser.BankAccountList)
                         {
 
@@ -102,7 +101,7 @@ namespace KoalaBankApp
                     do
                     {
                         Console.Clear();
-                        Console.WriteLine("Which user do you want to transfer to?");
+                        Console.WriteLine("Which user do you want to transfer money to?");
                         foreach (var item in Accounts)
                         {
                             Console.WriteLine(y + ". " + item.Username);
@@ -165,70 +164,6 @@ namespace KoalaBankApp
                     Console.ReadKey();
                 }
             }
-
-            //
-            //int index2 = 0;
-            //bool MenuLoop3 = false;
-
-            //while (MenuLoop3 == false)
-            //{
-            //    int i = 1;
-            //    try
-            //    {
-            //        Console.Clear();
-            //        Console.WriteLine("Which Account do you want to transfer to?");
-            //        foreach (var item in ActiveUser.BankAccountList)
-            //        {
-            //            Console.WriteLine(i + ". " + item.AccountName + " {0:f2}", item.Balance);
-            //            i++;
-            //        }
-
-            //        index2 = int.Parse(Console.ReadLine());
-
-
-            //        if (index2 <= ActiveUser.BankAccountList.Count && index2 >= 0)
-            //        {
-            //            if (ActiveUser.BankAccountList[index1 - 1].Type == "SEK")
-            //            {
-            //                if (ActiveUser.BankAccountList[index2 - 1].Type == "SEK")
-            //                {
-            //                    ActiveUser.BankAccountList[index2 - 1].Balance += transfer;
-            //                    MenuLoop3 = true;
-            //                }
-            //                else if (ActiveUser.BankAccountList[index2 - 1].Type == "USD")
-            //                {
-            //                    ActiveUser.BankAccountList[index2 - 1].Balance += transfer / Rates._Rate;
-            //                    MenuLoop3 = true;
-            //                }
-            //            }
-            //            else if (ActiveUser.BankAccountList[index1 - 1].Type == "USD")
-            //            {
-            //                if (ActiveUser.BankAccountList[index2 - 1].Type == "SEK")
-            //                {
-            //                    ActiveUser.BankAccountList[index2 - 1].Balance += transfer * Rates._Rate;
-            //                    MenuLoop3 = true;
-            //                }
-            //                else if (ActiveUser.BankAccountList[index2 - 1].Type == "USD")
-            //                {
-            //                    ActiveUser.BankAccountList[index2 - 1].Balance += transfer;
-            //                    MenuLoop3 = true;
-            //                }
-            //            }
-            //        }
-            //        else if (index2 > ActiveUser.BankAccountList.Count - 1 && index2 < 1)
-            //        {
-            //            Console.WriteLine("Please choose an account in the list.");
-            //            Console.ReadKey();
-            //            continue;
-            //        }
-            //    }
-            //    catch (FormatException)
-            //    {
-            //        Console.WriteLine("Please use a number to choose from the list.");
-            //        Console.ReadKey();
-            //        continue;
-            //    }
-            //}
             Console.Clear();
             Console.WriteLine("Transaction Complete.");
             Console.ReadKey();
@@ -244,11 +179,8 @@ namespace KoalaBankApp
                 Console.WriteLine();
                 x++;
             }
-
-
             List<BankAccount> PrintUSD = ActiveUser.BankAccountList.FindAll(c => c.Type == "USD");
             foreach (var i in PrintUSD)
-
             {
                 double BalanceUSD = i.Balance;
                 Console.WriteLine(x + ". {0}: ${1:f2}", i.AccountName, BalanceUSD);
@@ -272,8 +204,7 @@ namespace KoalaBankApp
                     Console.Clear();
                     Console.WriteLine("1. Create new Bank Account(SEK)");
                     Console.WriteLine("2. Create new Bank Account(USD)");
-                    Console.WriteLine("3. International Transfer");
-                    Console.WriteLine("4. Go Back");
+                    Console.WriteLine("3. Go Back");
                     int menu = int.Parse(Console.ReadLine());
 
                     switch (menu)
@@ -302,10 +233,8 @@ namespace KoalaBankApp
                             Console.WriteLine("Press any key to continue.");
                             Console.ReadKey();
                             break;
-                        case 3:
-                            BankAccount.InternationalTransfer(Accounts, ActiveUser, Rates);
                             break;
-                        case 4:
+                        case 3:
                             active = false;
                             break;
                         default:

@@ -13,10 +13,11 @@ namespace KoalaBankApp
         private string _Email;
         private List<BankAccount> _BankAccountList;
         private List<SavingsAccount> _SavingsAccountList;
+        private List<Transactions> _UserTransactionsList;
         private bool _IsAdmin;
 
         public User(string username = "Default Username", string password = "password123", string firstname = "Default First Name", string lastname = "Default Last Name", string email = "Default@Email.com",
-            List<BankAccount> bankAccountList = null, List<SavingsAccount> savingsAccountList= null, bool isAdmin = false)
+            List<BankAccount> bankAccountList = null, List<SavingsAccount> savingsAccountList= null,List<Transactions> userTransactionsList= null, bool isAdmin = false)
         {
             this._UserName = username;
             this._PassWord = password;
@@ -25,6 +26,7 @@ namespace KoalaBankApp
             this._Email = email;
             this._BankAccountList = bankAccountList;
             this._SavingsAccountList = savingsAccountList;
+            this._UserTransactionsList = userTransactionsList;
             this._IsAdmin = isAdmin;
         }
         public string Username
@@ -62,6 +64,11 @@ namespace KoalaBankApp
             get { return _SavingsAccountList; }
             set { _SavingsAccountList = value; }
         }
+        public List<Transactions> UserTransactionsList
+        {
+            get { return _UserTransactionsList; }
+            set { _UserTransactionsList = value; }
+        }
         public bool IsAdmin
         {
             get { return _IsAdmin; }
@@ -77,7 +84,7 @@ namespace KoalaBankApp
                 i++;
             }
             Console.ReadKey();
-            login back = new login();
+            Login back = new Login();
             back.loginAdmin(Accounts, ActiveUser, ObjRates);
         }
         public static List<User> CreateUser(List<User> Accounts, bool isadmin, User ActiveUser, CurrencyRates Rates)
@@ -145,12 +152,13 @@ namespace KoalaBankApp
 
                 List<BankAccount> NewBankAcc = new List<BankAccount>();
                 List<SavingsAccount> NewSavingsAcc = new List<SavingsAccount>();
+                List<Transactions> NewTransactionsList = new List<Transactions>();
                 BankAccount NewAcc = new BankAccount("Private Account",0,"SEK");
-                User NewAccount = new User(UserName, PassWord, FirstName, LastName, Email, NewBankAcc, NewSavingsAcc, Isadmin);
+                User NewAccount = new User(UserName, PassWord, FirstName, LastName, Email, NewBankAcc, NewSavingsAcc,NewTransactionsList, Isadmin);
                 NewAccount.BankAccountList.Add(NewAcc);
                 Accounts.Add(NewAccount);
 
-                login back = new login();
+                Login back = new Login();
                 back.loginAdmin(Accounts, ActiveUser, Rates);
 
                 return Accounts;

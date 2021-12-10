@@ -4,7 +4,7 @@ using System.Text;
 
 namespace KoalaBankApp
 {
-    public class login
+    public class Login
     {
         public bool loginSuccess = false;
         public int loginAttempts = 2;
@@ -85,7 +85,7 @@ namespace KoalaBankApp
                         ActiveUser.PrintAllUsers(Accounts,ActiveUser,ObjRates);
                         break;
                     case 4:
-                        login logout = new login();
+                        Login logout = new Login();
                         logout.userLogin(Accounts,ObjRates);
                         break;
                     default:
