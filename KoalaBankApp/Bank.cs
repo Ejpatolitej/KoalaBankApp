@@ -9,7 +9,7 @@ namespace KoalaBankApp
     {
         public void Run()
         {
-            welcome();
+            //welcome();
             List<User> Accounts = new List<User>();
             List<CurrencyRates> Rates = new List<CurrencyRates>();
             CurrencyRates USDRates = new CurrencyRates("USD",9.02);

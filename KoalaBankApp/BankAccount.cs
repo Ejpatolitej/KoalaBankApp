@@ -33,8 +33,7 @@ namespace KoalaBankApp
         }
         public static void InternationalTransfer(List<User> Accounts, User ActiveUser, CurrencyRates Rates)
         {
-
-
+            
             bool MenuLoop1 = false;
             int index1 = 0;
             double transfer = 0;
@@ -55,6 +54,7 @@ namespace KoalaBankApp
                             x++;
                         }
                         index1 = int.Parse(Console.ReadLine());
+
                     } while (index1 > ActiveUser.BankAccountList.Count - 1 && index1 < 1);
 
                     Console.Clear();
@@ -89,69 +89,146 @@ namespace KoalaBankApp
                     continue;
                 }
             }
+            //
 
-            int index2 = 1;
+            int index3 = 0;
             bool MenuLoop2 = false;
-
             while (MenuLoop2 == false)
             {
-                int i = 1;
+                int y = 1;
+                int o = 1;
                 try
                 {
-                    Console.Clear();
-                    Console.WriteLine("Which Account do you want to transfer to?");
-                    foreach (var item in ActiveUser.BankAccountList)
+                    do
                     {
-                        Console.WriteLine(i + ". " + item.AccountName + " {0:f2}", item.Balance);
-                        i++;
-                    }
-
-                    index2 = int.Parse(Console.ReadLine());
-
-
-                    if (index2 <= ActiveUser.BankAccountList.Count && index2 >= 0)
-                    {
-                        if (ActiveUser.BankAccountList[index1 - 1].Type == "SEK")
+                        Console.Clear();
+                        Console.WriteLine("Which user do you want to transfer to?");
+                        foreach (var item in Accounts)
                         {
-                            if (ActiveUser.BankAccountList[index2 - 1].Type == "SEK")
+                            Console.WriteLine(y + ". " + item.Username);
+                            y++;
+                        }
+                        Console.Write("Username: ");
+                        string userinput = Console.ReadLine();
+                        User AccountRecieve = Accounts.Find(t => t.Username == userinput);
+
+                        Console.Clear();
+                        Console.WriteLine("Which bank account do you want to transfer to?");
+                        foreach (var item in AccountRecieve.BankAccountList)
+                        {
+                            Console.WriteLine(o + ". " + item.AccountName + " {0:f2}", item.Balance);
+                            o++;
+                        }
+                        index3 = int.Parse(Console.ReadLine());
+                        if (index3 <= ActiveUser.BankAccountList.Count && index3 >= 0)
+                        {
+                            if (ActiveUser.BankAccountList[index1 - 1].Type == "SEK")
                             {
-                                ActiveUser.BankAccountList[index2 - 1].Balance += transfer;
-                                MenuLoop2 = true;
+                                if (AccountRecieve.BankAccountList[index3 - 1].Type == "SEK")
+                                {
+                                    AccountRecieve.BankAccountList[index3 - 1].Balance += transfer;
+                                    MenuLoop2 = true;
+                                }
+                                else if (ActiveUser.BankAccountList[index3 - 1].Type == "USD")
+                                {
+                                    AccountRecieve.BankAccountList[index3 - 1].Balance += transfer / Rates._Rate;
+                                    MenuLoop2 = true;
+                                }
                             }
-                            else if (ActiveUser.BankAccountList[index2 - 1].Type == "USD")
+                            else if (ActiveUser.BankAccountList[index1 - 1].Type == "USD")
                             {
-                                ActiveUser.BankAccountList[index2 - 1].Balance += transfer / Rates._Rate;
-                                MenuLoop2 = true;
+                                if (AccountRecieve.BankAccountList[index3 - 1].Type == "SEK")
+                                {
+                                    AccountRecieve.BankAccountList[index3 - 1].Balance += transfer * Rates._Rate;
+                                    MenuLoop2 = true;
+                                }
+                                else if (ActiveUser.BankAccountList[index3 - 1].Type == "USD")
+                                {
+                                    AccountRecieve.BankAccountList[index3 - 1].Balance += transfer;
+                                    MenuLoop2 = true;
+                                }
                             }
                         }
-                        else if (ActiveUser.BankAccountList[index1 - 1].Type == "USD")
+                        else if (index3 > ActiveUser.BankAccountList.Count - 1 && index3 < 1)
                         {
-                            if (ActiveUser.BankAccountList[index2 - 1].Type == "SEK")
-                            {
-                                ActiveUser.BankAccountList[index2 - 1].Balance += transfer * Rates._Rate;
-                                MenuLoop2 = true;
-                            }
-                            else if (ActiveUser.BankAccountList[index2 - 1].Type == "USD")
-                            {
-                                ActiveUser.BankAccountList[index2 - 1].Balance += transfer;
-                                MenuLoop2 = true;
-                            }
+                            Console.WriteLine("Please choose an account in the list.");
+                            Console.ReadKey();
+                            continue;
                         }
-                    }
-                    else if (index2 > ActiveUser.BankAccountList.Count - 1 && index2 < 1)
-                    {
-                        Console.WriteLine("Please choose an account in the list.");
-                        Console.ReadKey();
-                        continue;
-                    }
+
+                    } while (index3 > Accounts.Count - 1 && index3 < 1);
+
                 }
                 catch (FormatException)
                 {
                     Console.WriteLine("Please use a number to choose from the list.");
                     Console.ReadKey();
-                    continue;
                 }
             }
+
+            //
+            //int index2 = 0;
+            //bool MenuLoop3 = false;
+
+            //while (MenuLoop3 == false)
+            //{
+            //    int i = 1;
+            //    try
+            //    {
+            //        Console.Clear();
+            //        Console.WriteLine("Which Account do you want to transfer to?");
+            //        foreach (var item in ActiveUser.BankAccountList)
+            //        {
+            //            Console.WriteLine(i + ". " + item.AccountName + " {0:f2}", item.Balance);
+            //            i++;
+            //        }
+
+            //        index2 = int.Parse(Console.ReadLine());
+
+
+            //        if (index2 <= ActiveUser.BankAccountList.Count && index2 >= 0)
+            //        {
+            //            if (ActiveUser.BankAccountList[index1 - 1].Type == "SEK")
+            //            {
+            //                if (ActiveUser.BankAccountList[index2 - 1].Type == "SEK")
+            //                {
+            //                    ActiveUser.BankAccountList[index2 - 1].Balance += transfer;
+            //                    MenuLoop3 = true;
+            //                }
+            //                else if (ActiveUser.BankAccountList[index2 - 1].Type == "USD")
+            //                {
+            //                    ActiveUser.BankAccountList[index2 - 1].Balance += transfer / Rates._Rate;
+            //                    MenuLoop3 = true;
+            //                }
+            //            }
+            //            else if (ActiveUser.BankAccountList[index1 - 1].Type == "USD")
+            //            {
+            //                if (ActiveUser.BankAccountList[index2 - 1].Type == "SEK")
+            //                {
+            //                    ActiveUser.BankAccountList[index2 - 1].Balance += transfer * Rates._Rate;
+            //                    MenuLoop3 = true;
+            //                }
+            //                else if (ActiveUser.BankAccountList[index2 - 1].Type == "USD")
+            //                {
+            //                    ActiveUser.BankAccountList[index2 - 1].Balance += transfer;
+            //                    MenuLoop3 = true;
+            //                }
+            //            }
+            //        }
+            //        else if (index2 > ActiveUser.BankAccountList.Count - 1 && index2 < 1)
+            //        {
+            //            Console.WriteLine("Please choose an account in the list.");
+            //            Console.ReadKey();
+            //            continue;
+            //        }
+            //    }
+            //    catch (FormatException)
+            //    {
+            //        Console.WriteLine("Please use a number to choose from the list.");
+            //        Console.ReadKey();
+            //        continue;
+            //    }
+            //}
             Console.Clear();
             Console.WriteLine("Transaction Complete.");
             Console.ReadKey();
