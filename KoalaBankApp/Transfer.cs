@@ -1,8 +1,6 @@
 ﻿using KoalaBankApp;
 using System;
 using System.Collections.Generic;
-using System.Text;
-
 
 public class Transfer
 {
@@ -57,8 +55,7 @@ public class Transfer
     }
     public void TransferMoney(List<BankAccount> AccountsTransfer, User ActiveUserTransfer,Transactions ActiveTransaction)
     {
-        List<BankAccount> AllAccounts = AccountsTransfer.FindAll(a => a.Balance > 0);
-        int maxAccounts = AllAccounts.Count;
+        int maxAccounts = AccountsTransfer.Count;
 
         Console.Clear();
         bool transferLoop = true;
@@ -168,20 +165,20 @@ public class Transfer
         accountFrom = accountFrom - 1;
         accountTo = accountTo - 1;
         int coverage = 0;
-        if (AllAccounts[accountFrom].Balance >= amountTotransfer)
+        if (AccountsTransfer[accountFrom].Balance >= amountTotransfer)
         {
             ActiveTransaction.AddTransactions1(amountTotransfer);
-            ActiveTransaction.AddTransactions2(AllAccounts[accountFrom].AccountName);
-            ActiveTransaction.AddTransactions3(AllAccounts[accountTo].AccountName);
+            ActiveTransaction.AddTransactions2(AccountsTransfer[accountFrom].AccountName);
+            ActiveTransaction.AddTransactions3(AccountsTransfer[accountTo].AccountName);
 
-            AllAccounts[accountFrom].Balance -= amountTotransfer;
-            AllAccounts[accountTo].Balance += amountTotransfer;
+            AccountsTransfer[accountFrom].Balance -= amountTotransfer;
+            AccountsTransfer[accountTo].Balance += amountTotransfer;
             coverage = 1;
         }
         if (coverage == 1)
         {
-            double newAmountFrom = AllAccounts[accountFrom].Balance;
-            double newAmountTo = AllAccounts[accountTo].Balance;
+            double newAmountFrom = AccountsTransfer[accountFrom].Balance;
+            double newAmountTo = AccountsTransfer[accountTo].Balance;
 
             Console.WriteLine("New balance of the account money was moved from: " + Math.Round(newAmountFrom, 2));
             Console.WriteLine("New balance of the account money was moved to: " + Math.Round(newAmountTo, 2));
@@ -198,8 +195,7 @@ public class Transfer
         string accountToName = "";
         // LIST USER ACCOUNTS
         Console.Clear();
-        List<BankAccount> AllAccounts = ActiveUserTransfer.FindAll(a => a.Balance > 0);
-        int maxAccounts = AllAccounts.Count;
+        int maxAccounts = ActiveUserTransfer.Count;
         int nr = 1;
         // SELECT USERACCOUNT
         bool transferLoop = true;
@@ -208,7 +204,7 @@ public class Transfer
             Console.Clear();
             Console.WriteLine("Select the account you want to transfer money from: ");
             nr = 1;
-            foreach (BankAccount item in AllAccounts)
+            foreach (BankAccount item in ActiveUserTransfer)
             {
                 Console.WriteLine("----------------------");
                 Console.WriteLine(nr + ". Account name: {0} Balance: {1}", item.AccountName, item.Balance);
@@ -308,16 +304,16 @@ public class Transfer
         BankAccount name = namn.Find(c => c.Balance > 0);
         int coverage = 0;
 
-        if (AllAccounts[accountFrom].Balance >= amountTotransfer)
+        if (ActiveUserTransfer[accountFrom].Balance >= amountTotransfer)
 
         {
-            AllAccounts[accountFrom].Balance -= amountTotransfer;
+            ActiveUserTransfer[accountFrom].Balance -= amountTotransfer;
             namn[0].Balance += amountTotransfer;
             coverage = 1;
         }
         if (coverage == 1)
         {
-            double newAmountFrom = AllAccounts[accountFrom].Balance;
+            double newAmountFrom = ActiveUserTransfer[accountFrom].Balance;
             double newAmountTo = amountTotransfer;
 
             Console.WriteLine("New balance of the account money was moved from: " + Math.Round(newAmountFrom, 2));

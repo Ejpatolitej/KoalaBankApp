@@ -9,7 +9,7 @@ namespace KoalaBankApp
     {
         public void Run()
         {
-            //welcome();
+            welcome();
             List<User> Accounts = new List<User>();
             List<CurrencyRates> Rates = new List<CurrencyRates>();
             CurrencyRates USDRates = new CurrencyRates("USD",9.02);
@@ -23,9 +23,8 @@ namespace KoalaBankApp
             
             BankAccount DAccount1 = new BankAccount("Private-USD-Account",2500,"USD");
             BankAccount BAccount1 = new BankAccount("Privat-Konto", 25000,"SEK");
-            
 
-            User Account1 = new User("Lukke", "hejhej123", "Lucas", "Narfgren", "narfgren@hotmail.com", BAList1, SavingsList1, false);
+            User Account1 = new User("Lukke", "hejhej123", "Lucas", "Narfgren", "narfgren@hotmail.com", BAList1, SavingsList1, true);
             //user 2
             List<BankAccount> BAList2 = new List<BankAccount>();
             List<SavingsAccount> SavingsList2 = new List<SavingsAccount>();
@@ -36,9 +35,9 @@ namespace KoalaBankApp
             //user 3
             List<BankAccount> BAList3 = new List<BankAccount>();
             List<SavingsAccount> SavingsList3 = new List<SavingsAccount>();
+
             BankAccount BAccount4 = new BankAccount("Privat-Konto", 2000000,"SEK");
             BankAccount BAccount5 = new BankAccount("Extra-Konto", 1000000,"SEK");
-            User Account3 = new User("Elias", "hejhej123", "EliasL", "Lövdinger", "Eliasmail@mail.nu", BAList3, SavingsList3, false);
 
             //user 1 ADD
             Account1.BankAccountList.Add(BAccount1);
@@ -55,7 +54,6 @@ namespace KoalaBankApp
 
             login inlog = new login();
             inlog.userLogin(Accounts,USDRates);
-
         }
         public static void userMenu(List<User> Accounts, User ActiveUser , CurrencyRates Rates)
         {
