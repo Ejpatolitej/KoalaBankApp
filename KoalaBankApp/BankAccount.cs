@@ -4,13 +4,37 @@ using System.Text;
 
 namespace KoalaBankApp
 {
-    public partial class BankAccount
+    public class BankAccount
     {
+        public string _AccountName;
+        public double _Balance;
+        public string _Type;
 
-        public static void InternationalTransfer(List<User> Accounts,User ActiveUser, CurrencyRates Rates)
+        public BankAccount(string accountName = "Private-Account", double balance = 25000,string type = "Default")
+        {
+            this._AccountName = accountName;
+            this._Balance = balance;
+            this._Type = type;
+        }
+        public string AccountName
+        {
+            get { return _AccountName; }
+            set { _AccountName = value; }
+        }
+        public double Balance
+        {
+            get { return _Balance; }
+            set { _Balance = value; }
+        }
+        public string Type
+        {
+            get { return _Type; }
+            set { _Type = value; }
+        }
+        public static void InternationalTransfer(List<User> Accounts, User ActiveUser, CurrencyRates Rates)
         {
 
-            
+
             bool MenuLoop1 = false;
             int index1 = 0;
             double transfer = 0;
@@ -68,7 +92,7 @@ namespace KoalaBankApp
 
             int index2 = 1;
             bool MenuLoop2 = false;
-            
+
             while (MenuLoop2 == false)
             {
                 int i = 1;
@@ -78,7 +102,7 @@ namespace KoalaBankApp
                     Console.WriteLine("Which Account do you want to transfer to?");
                     foreach (var item in ActiveUser.BankAccountList)
                     {
-                        Console.WriteLine(i + ". " + item.AccountName + " {0:f2}",item.Balance);
+                        Console.WriteLine(i + ". " + item.AccountName + " {0:f2}", item.Balance);
                         i++;
                     }
 
@@ -202,7 +226,7 @@ namespace KoalaBankApp
                             Console.ReadKey();
                             break;
                         case 3:
-                            BankAccount.InternationalTransfer(Accounts,ActiveUser, Rates);
+                            BankAccount.InternationalTransfer(Accounts, ActiveUser, Rates);
                             break;
                         case 4:
                             active = false;
@@ -219,3 +243,4 @@ namespace KoalaBankApp
         }
     }
 }
+
