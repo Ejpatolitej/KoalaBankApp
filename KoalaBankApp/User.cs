@@ -145,7 +145,7 @@ namespace KoalaBankApp
 
                 List<BankAccount> NewBankAcc = new List<BankAccount>();
                 List<SavingsAccount> NewSavingsAcc = new List<SavingsAccount>();
-                BankAccount NewAcc = new BankAccount();
+                BankAccount NewAcc = new BankAccount("Private Account",0,"SEK");
                 User NewAccount = new User(UserName, PassWord, FirstName, LastName, Email, NewBankAcc, NewSavingsAcc, Isadmin);
                 NewAccount.BankAccountList.Add(NewAcc);
                 Accounts.Add(NewAccount);

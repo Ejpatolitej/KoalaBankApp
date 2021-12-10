@@ -36,8 +36,8 @@ namespace KoalaBankApp
             //user 3
             List<BankAccount> BAList3 = new List<BankAccount>();
             List<SavingsAccount> SavingsList3 = new List<SavingsAccount>();
-            BankAccount BAccount4 = new BankAccount("Privat-Konto", 2000000);
-            BankAccount BAccount5 = new BankAccount("Extra-Konto", 1000000);
+            BankAccount BAccount4 = new BankAccount("Privat-Konto", 2000000,"SEK");
+            BankAccount BAccount5 = new BankAccount("Extra-Konto", 1000000,"SEK");
             User Account3 = new User("Elias", "hejhej123", "EliasL", "Lövdinger", "Eliasmail@mail.nu", BAList3, SavingsList3, false);
 
             //user 1 ADD
