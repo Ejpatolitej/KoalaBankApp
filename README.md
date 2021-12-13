@@ -7,9 +7,6 @@ and have a simple Run Method where we have our usermenu and from there calling o
 User Class is where everything is stored and bundled up as an object for each User, like username, first name, last name, an emailadress. There are also several lists 
 connected to each user for further information being tied to the user. All these User objects are stored inside a List inside the Bank Class.
 
-From the program class we create an object of the class Bank, and have a simple Run Method where we have our usermenu and from there calling out different methods for the 
-functions of a bank.
-
 BankAccount Class, which is a class that stores information about a users bankaccounts and each bank account is an object that is being stored inside a list inside the 
 User Object, so the bankaccounts will always be linked to the specific user object.
 
