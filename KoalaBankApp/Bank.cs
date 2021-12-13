@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace KoalaBankApp
 {
@@ -9,7 +10,7 @@ namespace KoalaBankApp
     {
         public void Run()
         {
-            welcome();
+            //welcome();
             List<User> Users = new List<User>();
             List<CurrencyRates> Rates = new List<CurrencyRates>();
             CurrencyRates USDRates = new CurrencyRates("USD", 9.02);
@@ -106,6 +107,7 @@ namespace KoalaBankApp
                         loans.Loan(ActiveUser);
                         break;
                     case 5:
+                        Transactions.timeUntilTransaction();
                         break;
                     case 6:
                         break;

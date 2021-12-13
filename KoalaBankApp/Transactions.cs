@@ -18,8 +18,20 @@ namespace KoalaBankApp
        
         public static void AddTransaction(User activeUser, double trans, string accountFrom, string accountTo)
         {
-            Transactions activeTransaction = new Transactions(trans, accountFrom, accountTo);
-            activeUser.UserTransactionsList.Add(activeTransaction);
+            bool alarm = false;
+            while (alarm == false)
+            {
+                var transactionTimer = DateTime.Now;
+                if (transactionTimer.Minute == 20 || transactionTimer.Minute == 15 || transactionTimer.Minute == 30 || transactionTimer.Minute == 45)
+                {
+                    Transactions activeTransaction = new Transactions(trans, accountFrom, accountTo);
+                    activeUser.UserTransactionsList.Add(activeTransaction);
+                    alarm = true;
+                }
+            }
+            Console.WriteLine("Transaction complete!");
+            Console.ReadKey();
+            
         }
         public static void printTransactions(List<Transactions> myTransactions)
         {
@@ -34,6 +46,14 @@ namespace KoalaBankApp
                 nr++;
             }
             myTransactions.Reverse();
+        }
+
+        public static void timeUntilTransaction()
+        {
+            var count = DateTime.Now;
+            Console.WriteLine("Time left until next transaction:" );
+            
+
         }
 
     }

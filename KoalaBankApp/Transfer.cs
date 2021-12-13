@@ -1,6 +1,7 @@
 ﻿using KoalaBankApp;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 public class Transfer
 {
@@ -170,7 +171,11 @@ public class Transfer
         int coverage = 0;
         if (AccountsTransfer[accountFrom].Balance >= amountTotransfer)
         {
-            Transactions.AddTransaction(activeUser, amountTotransfer, AccountsTransfer[accountFrom].AccountName, AccountsTransfer[accountTo].AccountName);
+            // Transaction task
+            Task transactionTask = Task.Run(() =>
+            {
+                Transactions.AddTransaction(activeUser, amountTotransfer, AccountsTransfer[accountFrom].AccountName, AccountsTransfer[accountTo].AccountName); ;
+            });
 
             //ActiveTransaction.AddTransactions1(amountTotransfer);
             //ActiveTransaction.AddTransactions2(AccountsTransfer[accountFrom].AccountName);
@@ -304,6 +309,7 @@ public class Transfer
         }
         //calc for amount to be removed and added
         Console.Clear();
+
         User userTransfer = Accounts.Find(c => c.Username == accountToName);
         List<BankAccount> namn = userTransfer.BankAccountList.FindAll(c => c.Balance > 0);
         BankAccount name = namn.Find(c => c.Balance > 0);
