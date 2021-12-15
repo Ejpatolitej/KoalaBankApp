@@ -10,7 +10,7 @@ namespace KoalaBankApp
     {
         public void Run()
         {
-            welcome();
+            //welcome();
             List<User> Users = new List<User>();
             List<CurrencyRates> Rates = new List<CurrencyRates>();
             CurrencyRates USDRates = new CurrencyRates("USD", 9.02);
@@ -68,7 +68,14 @@ namespace KoalaBankApp
             do
             {
                 Console.Clear();
+
+                ////Clock
+                //Task clockTask = Task.Run(() =>
+                //{
+                //    Bank.Clock();
+                //});
                 Console.WriteLine("Welcome " + ActiveUser.Firstname + " " + ActiveUser.Lastname + " To KoalaBank! ʕ •🠵•ʔ"); // Fix ASCII
+
                 Console.WriteLine();
                 Console.WriteLine("1. Transfer" +
                     "\n2. Account information" +
@@ -119,6 +126,18 @@ namespace KoalaBankApp
             } while (MenuActive);
             //No more menu
         }
+        //public static void Clock()
+        //{
+        //    var clockTimer = DateTime.Now;
+        //    bool alarm = false;
+        //    while (DateTime.Now != clockTimer)
+        //    {
+        //        Console.WriteLine();
+        //        clockTimer = DateTime.Now;
+        //        Console.WriteLine("The clock is currently: "+clockTimer);
+        //        Thread.Sleep(5000);
+        //    }
+        //}
 
         public void welcome()
         {
