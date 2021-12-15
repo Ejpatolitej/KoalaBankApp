@@ -15,8 +15,10 @@ public class Transfer
     public double amountTotransfer = 0;
     public double amountLeft = 0;
     public double amountAdd = 0;
+    public string goBack;
+    public int stopTransaction = 0;
 
-    public void transferMenu(List<BankAccount> AccountsTransfer, User activeUser, List<User> Accounts, List <Transactions> ActiveTransaction,CurrencyRates Rates)
+    public void transferMenu(List<BankAccount> AccountsTransfer, User activeUser, List<User> Accounts, List<Transactions> ActiveTransaction, CurrencyRates Rates)
     {
         bool MenuActive = true;
         do
@@ -42,7 +44,7 @@ public class Transfer
                     transferToOtherUser(AccountsTransfer, activeUser, Accounts);
                     break;
                 case 3:
-                    BankAccount.InternationalTransfer(Accounts,activeUser,Rates);
+                    BankAccount.InternationalTransfer(Accounts, activeUser, Rates);
                     break;
                 case 4:
                     Console.Clear();
@@ -60,11 +62,13 @@ public class Transfer
     public void TransferMoney(List<BankAccount> AccountsTransfer, User activeUser, List<Transactions> ActiveTransaction)
     {
         int maxAccounts = AccountsTransfer.Count;
+        stopTransaction = 0;
 
-        Console.Clear();
+        //Account from
         bool transferLoop = true;
         while (transferLoop)
         {
+            Console.Clear();
             Console.WriteLine("From what account you wanna move money from?");
             int nr = 1;
             foreach (BankAccount item in activeUser.BankAccountList)
@@ -93,6 +97,18 @@ public class Transfer
                 else
                 {
                     Console.WriteLine("Please enter a active account");
+                    Console.WriteLine("----------------------");
+                    Console.WriteLine("Do you want to continue the transacation Yes/No?");
+                    goBack = Console.ReadLine();
+                    if (goBack.ToUpper() == "YES")
+                    {
+
+                    }
+                    else
+                    {
+                        stopTransaction = 1;
+                        break;
+                    }
                 }
             }
             catch (Exception)
@@ -101,10 +117,18 @@ public class Transfer
                 Console.WriteLine("Please input the accountnumber with a number/numbers");
             }
         }
-        Console.Clear();
-        transferLoop = true;
+        //Account to
+        if (stopTransaction == 1)
+        {
+            transferLoop = false;
+        }
+        else
+        {
+            transferLoop = true;
+        }
         while (transferLoop)
         {
+            Console.Clear();
             Console.WriteLine("To what account you wanna move money to?");
             int nr = 1;
             foreach (BankAccount item in activeUser.BankAccountList)
@@ -132,7 +156,19 @@ public class Transfer
                 }
                 else
                 {
-                    Console.WriteLine("please enter a valid account and not the same account you wanna move from");
+                    Console.WriteLine("Please enter a valid account and not the same account you wanna move from");
+                    Console.WriteLine("----------------------");
+                    Console.WriteLine("Do you want to continue the transacation Yes/No?");
+                    goBack = Console.ReadLine();
+                    if (goBack.ToUpper() == "YES")
+                    {
+
+                    }
+                    else
+                    {
+                        stopTransaction = 1;
+                        break;
+                    }
                 }
             }
             catch (Exception)
@@ -141,10 +177,19 @@ public class Transfer
                 Console.WriteLine("Please input the accountnumber with a number/numbers");
             }
         }
-        Console.Clear();
-        transferLoop = true;
+
+        //Amount
+        if (stopTransaction == 1)
+        {
+            transferLoop = false;
+        }
+        else
+        {
+            transferLoop = true;
+        }
         while (transferLoop)
         {
+            Console.Clear();
             Console.WriteLine("How much money would u like to transfer");
             try
             {
@@ -156,6 +201,17 @@ public class Transfer
                 else
                 {
                     Console.WriteLine("You can not transfer a amount below zero or equal to");
+                    Console.WriteLine("Do you Want to continue the transacation Yes/No?");
+                    goBack = Console.ReadLine();
+                    if (goBack.ToUpper() == "YES")
+                    {
+
+                    }
+                    else
+                    {
+                        stopTransaction = 1;
+                        break;
+                    }
                 }
             }
             catch (Exception)
@@ -169,7 +225,7 @@ public class Transfer
         accountFrom = accountFrom - 1;
         accountTo = accountTo - 1;
         int coverage = 0;
-        if (AccountsTransfer[accountFrom].Balance >= amountTotransfer)
+        if (AccountsTransfer[accountFrom].Balance >= amountTotransfer && stopTransaction != 1)
         {
             // Transaction task
             Task transactionTask = Task.Run(() =>
@@ -196,15 +252,16 @@ public class Transfer
         }
         else
         {
-            Console.WriteLine("The tranfer was terminated due to insufficent funds");
+            Console.WriteLine("The tranfer was terminated due to insufficent funds or a cancel");
             Console.ReadKey();
         }
     }
     public void transferToOtherUser(List<BankAccount> ActiveUserTransfer, User ActiveUser, List<User> Accounts)
     {
+        Console.Clear();
+        stopTransaction = 0;
         string accountToName = "";
         // LIST USER ACCOUNTS
-        Console.Clear();
         int maxAccounts = ActiveUserTransfer.Count;
         int nr = 1;
         // SELECT USERACCOUNT
@@ -232,6 +289,18 @@ public class Transfer
                 else
                 {
                     Console.WriteLine("Please enter a active account");
+                    Console.WriteLine("----------------------");
+                    Console.WriteLine("Do you want to continue the transacation Yes/No?");
+                    goBack = Console.ReadLine();
+                    if (goBack.ToUpper() == "YES")
+                    {
+
+                    }
+                    else
+                    {
+                        stopTransaction = 1;
+                        break;
+                    }
                 }
             }
             catch (Exception)
@@ -242,12 +311,18 @@ public class Transfer
                 Console.ReadLine();
             }
         }
-        transferLoop = true;
 
         //!
         //Change to index instead of name in future
         //!
-
+        if (stopTransaction == 1)
+        {
+            transferLoop = false;
+        }
+        else
+        {
+            transferLoop = true;
+        }
         while (transferLoop)
         {
             Console.Clear();
@@ -272,6 +347,18 @@ public class Transfer
                 else if (accountToName != userTransfer1.Username)
                 {
                     Console.WriteLine("User not found!");
+                    Console.WriteLine("----------------------");
+                    Console.WriteLine("Do you want to continue the transacation Yes/No?");
+                    goBack = Console.ReadLine();
+                    if (goBack.ToUpper() == "YES")
+                    {
+
+                    }
+                    else
+                    {
+                        stopTransaction = 1;
+                        break;
+                    }
                 }
             }
             catch (Exception)
@@ -282,7 +369,14 @@ public class Transfer
                 Console.ReadLine();
             }
         }
-        transferLoop = true;
+        if (stopTransaction == 1)
+        {
+            transferLoop = false;
+        }
+        else
+        {
+            transferLoop = true;
+        }
         while (transferLoop)
         {
             Console.Clear();
@@ -297,6 +391,18 @@ public class Transfer
                 else
                 {
                     Console.WriteLine("You can not transfer a amount below zero or equal to");
+                    Console.WriteLine("----------------------");
+                    Console.WriteLine("Do you want to continue the transacation Yes/No?");
+                    goBack = Console.ReadLine();
+                    if (goBack.ToUpper() == "YES")
+                    {
+
+                    }
+                    else
+                    {
+                        stopTransaction = 1;
+                        break;
+                    }
                 }
             }
             catch (Exception)
@@ -315,7 +421,7 @@ public class Transfer
         BankAccount name = namn.Find(c => c.Balance > 0);
         int coverage = 0;
 
-        if (ActiveUserTransfer[accountFrom].Balance >= amountTotransfer)
+        if (ActiveUserTransfer[accountFrom].Balance >= amountTotransfer && stopTransaction != 1)
 
         {
             ActiveUserTransfer[accountFrom].Balance -= amountTotransfer;
@@ -333,7 +439,7 @@ public class Transfer
         }
         else
         {
-            Console.WriteLine("The tranfer was terminated due to insufficent funds");
+            Console.WriteLine("The tranfer was terminated due to insufficent funds or a cancel");
             Console.ReadKey();
         }
     }
