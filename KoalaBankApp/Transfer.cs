@@ -220,19 +220,23 @@ public class Transfer
         }
         //calc for amount to be removed and added
         Console.Clear();
-        accountFrom = accountFrom - 1;
-        accountTo = accountTo - 1;
         int coverage = 0;
-        if (accountsTransfer[accountFrom].Balance >= amountTotransfer && stopTransaction != 1)
+        if (stopTransaction != 1)
         {
-            // Transaction task
-            Task transactionTask = Task.Run(() =>
+            accountFrom = accountFrom - 1;
+            accountTo = accountTo - 1;
+
+            if (accountsTransfer[accountFrom].Balance >= amountTotransfer && stopTransaction == 0)
             {
-                Transactions.AddTransaction(activeUser, amountTotransfer, accountsTransfer[accountFrom].AccountName, accountsTransfer[accountTo].AccountName); ;
-            });
-            accountsTransfer[accountFrom].Balance -= amountTotransfer;
-            accountsTransfer[accountTo].Balance += amountTotransfer;
-            coverage = 1;
+                // Transaction task
+                Task transactionTask = Task.Run(() =>
+                {
+                    Transactions.AddTransaction(activeUser, amountTotransfer, accountsTransfer[accountFrom].AccountName, accountsTransfer[accountTo].AccountName); ;
+                });
+                accountsTransfer[accountFrom].Balance -= amountTotransfer;
+                accountsTransfer[accountTo].Balance += amountTotransfer;
+                coverage = 1;
+            }
         }
         if (coverage == 1)
         {
@@ -248,6 +252,7 @@ public class Transfer
             Console.WriteLine("The tranfer was terminated. Have a nice day!");
             Console.ReadKey();
         }
+
     }
     public void TransferToOtherUser(List<BankAccount> accountsList, User activeUser, List<User> userList)
     {
