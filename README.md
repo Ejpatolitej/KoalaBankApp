@@ -38,3 +38,5 @@ Stores info about transfers that have been done in the transfer class. We have a
 ![Untitled](https://user-images.githubusercontent.com/91310995/146374036-2594f5be-3d83-4584-b9ce-a560d11100a9.png)
 
 ## [Link to UML](https://lucid.app/lucidchart/e88b86ce-305a-4ca2-b78b-092508cf6f0b/edit?invitationId=inv_e7343318-15a7-45b1-863b-34720ade90b8&page=0_0#)
+
+## [Kanban board](https://charmed-sneezeweed-192.notion.site/f26a22900a8b4118875612f76b9b3127?v=0fee3a7a921848988d86a50bf160d671)
