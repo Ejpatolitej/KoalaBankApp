@@ -10,7 +10,7 @@ namespace KoalaBankApp
     {
         public void Run()
         {
-            //Welcome();
+            welcome();
 
             List<User> Users = new List<User>();
             List<CurrencyRates> Rates = new List<CurrencyRates>();

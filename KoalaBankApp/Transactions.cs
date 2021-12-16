@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 
 namespace KoalaBankApp
 {
@@ -20,6 +21,8 @@ namespace KoalaBankApp
             bool alarm = false;
             while (alarm == false)
             {
+                Thread.Sleep(10000);
+                
                 var transactionTimer = DateTime.Now;
                 if (transactionTimer.Minute == 00 || transactionTimer.Minute == 15 || transactionTimer.Minute == 30 || transactionTimer.Minute == 45)
                 {
@@ -48,7 +51,7 @@ namespace KoalaBankApp
         public static void timeUntilTransaction()
         {
             var count = DateTime.Now;
-            Console.WriteLine("Time left until next transaction:");
+            Console.WriteLine("Time left until next transaction: ");
         }
     }
 }
