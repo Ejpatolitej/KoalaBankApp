@@ -39,7 +39,7 @@ namespace KoalaBankApp
                 }
             }
         }
-        //Takes balance from user account, adds the loan, and puts it back
+        //Takes balance from user account and adds the loan
         private static void NewAccountBalance(double loanAmount, User activeUser)
         {
             bool keepTrying = true;

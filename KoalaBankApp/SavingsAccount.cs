@@ -9,7 +9,7 @@ namespace KoalaBankApp
         public double _Interest;
         private static Random random = new Random();
 
-        public SavingsAccount(string accountName = "Savings-Account", double balance = 0, string type = "Default", double interest = 1.02)
+        public SavingsAccount(string accountName = "Savings Account", double balance = 0, string type = "SEK", double interest = 1.02)
         {
             this._AccountName = accountName;
             this._Balance = balance;
@@ -21,7 +21,7 @@ namespace KoalaBankApp
             get { return _Interest; }
             set { _Interest = value; }
         }
-        public double randomInterest()
+        public double RandomInterest()
         {
             double interest = RandomNumber(1.01, 1.25);
             interest = (interest - 1) * 100;

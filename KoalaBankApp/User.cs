@@ -17,7 +17,7 @@ namespace KoalaBankApp
         private bool _IsAdmin;
 
         public User(string username = "Default Username", string password = "password123", string firstname = "Default First Name", string lastname = "Default Last Name", string email = "Default@Email.com",
-            List<BankAccount> bankAccountList = null, List<SavingsAccount> savingsAccountList= null,List<Transactions> userTransactionsList= null, bool isAdmin = false)
+            List<BankAccount> bankAccountList = null, List<SavingsAccount> savingsAccountList = null, List<Transactions> userTransactionsList = null, bool isAdmin = false)
         {
             this._UserName = username;
             this._PassWord = password;
@@ -74,72 +74,72 @@ namespace KoalaBankApp
             get { return _IsAdmin; }
             set { _IsAdmin = value; }
         }
-        public void PrintAllUsers(List<User> Accounts, User ActiveUser, CurrencyRates ObjRates)
+        public void PrintAllUsers(List<User> accounts, User activeUser, CurrencyRates objRates)
         {
             Console.Clear();
             int i = 1;
-            foreach (var item in Accounts)
+            foreach (var item in accounts)
             {
                 Console.WriteLine("{0}. {1}", i, item.Username);
                 i++;
             }
             Console.ReadKey();
             Login back = new Login();
-            back.loginAdmin(Accounts, ActiveUser, ObjRates);
+            back.loginAdmin(accounts, activeUser, objRates);
         }
-        public static List<User> CreateUser(List<User> Accounts, bool isadmin, User ActiveUser, CurrencyRates Rates)
+        public static List<User> CreateUser(List<User> accounts, bool isadmin, User activeUser, CurrencyRates rates)
         {
             Console.Clear();
             if (isadmin == true)
             {
                 Console.Clear();
-                bool CheckUsers = false;
-                string UserName = string.Empty;
-                string UserInput = string.Empty;
+                bool checkUsers = false;
+                string username = string.Empty;
+                string userInput = string.Empty;
                 do
                 {
                     Console.Clear();
                     Console.WriteLine("Please enter information for the new user.");
                     Console.Write("Choose a username: ");
-                    UserInput = Console.ReadLine();
-                    CheckUsers = Accounts.Exists(cu => cu.Username == UserInput);
+                    userInput = Console.ReadLine();
+                    checkUsers = accounts.Exists(cu => cu.Username == userInput);
 
-                    if (CheckUsers == true)
+                    if (checkUsers == true)
                     {
                         Console.WriteLine("Username already exists, please choose another one.");
                         Console.ReadKey();
                     }
                     else
                     {
-                        UserName = UserInput;
+                        username = userInput;
                     }
-                } while (CheckUsers == true);
+                } while (checkUsers == true);
 
                 Console.Write("Choose a password: ");
-                string PassWord = Console.ReadLine();
+                string password = Console.ReadLine();
                 Console.Write("What is the first name: ");
-                string FirstName = Console.ReadLine().ToLower();
+                string firstName = Console.ReadLine().ToLower();
                 Console.Write("What is the last name: ");
-                string LastName = Console.ReadLine().ToLower();
+                string lastName = Console.ReadLine().ToLower();
                 Console.Write("Email Adress: ");
-                string Email = Console.ReadLine().ToLower();
+                string email = Console.ReadLine().ToLower();
 
-                string UserAdmin = string.Empty;
-                bool Isadmin = false;
+                string userAdmin = string.Empty;
+                bool isAdmin = false;
                 do
                 {
                     Console.Clear();
                     Console.WriteLine("Should this user be Administrator? (Yes/No):");
-                    UserAdmin = Console.ReadLine().ToLower();
+                    userAdmin = Console.ReadLine().ToLower();
 
-                    if (UserAdmin == "yes")
+                    if (userAdmin == "yes")
                     {
-                        Isadmin = true;
+                        isAdmin = true;
                         break;
                     }
-                    else if (UserAdmin == "no")
+                    else if (userAdmin == "no")
                     {
-                        Isadmin = false;
+                        isAdmin = false;
                         break;
                     }
                     else
@@ -150,18 +150,18 @@ namespace KoalaBankApp
                     }
                 } while (true);
 
-                List<BankAccount> NewBankAcc = new List<BankAccount>();
-                List<SavingsAccount> NewSavingsAcc = new List<SavingsAccount>();
-                List<Transactions> NewTransactionsList = new List<Transactions>();
-                BankAccount NewAcc = new BankAccount("Private Account",0,"SEK");
-                User NewAccount = new User(UserName, PassWord, FirstName, LastName, Email, NewBankAcc, NewSavingsAcc,NewTransactionsList, Isadmin);
-                NewAccount.BankAccountList.Add(NewAcc);
-                Accounts.Add(NewAccount);
+                List<BankAccount> newBankAcc = new List<BankAccount>();
+                List<SavingsAccount> newSavingsAcc = new List<SavingsAccount>();
+                List<Transactions> newTransactionsList = new List<Transactions>();
+                BankAccount newAcc = new BankAccount("Private Account", 0, "SEK");
+                User newAccount = new User(username, password, firstName, lastName, email, newBankAcc, newSavingsAcc, newTransactionsList, isAdmin);
+                newAccount.BankAccountList.Add(newAcc);
+                accounts.Add(newAccount);
 
                 Login back = new Login();
-                back.loginAdmin(Accounts, ActiveUser, Rates);
+                back.loginAdmin(accounts, activeUser, rates);
 
-                return Accounts;
+                return accounts;
             }
             else
             {
@@ -172,15 +172,15 @@ namespace KoalaBankApp
                 return null;
             }
         }
-        public void PrintAccountInfo(User ActiveUser, CurrencyRates Rates)
+        public void PrintAccountInfo(User activeUser, CurrencyRates rates)
         {
             Console.Clear();
-            Console.WriteLine("Username: {0}", ActiveUser.Username);
-            Console.WriteLine("Full Name: {0} {1}", ActiveUser.Firstname, ActiveUser.Lastname);
-            Console.WriteLine("Email Adress: {0}", ActiveUser.Email);
+            Console.WriteLine("Username: {0}", activeUser.Username);
+            Console.WriteLine("Full Name: {0} {1}", activeUser.Firstname, activeUser.Lastname);
+            Console.WriteLine("Email Adress: {0}", activeUser.Email);
             Console.WriteLine();
 
-            BankAccount.PrintAccounts(ActiveUser,Rates);
+            BankAccount.PrintAccounts(activeUser, rates);
 
             Console.ReadKey();
         }

@@ -16,7 +16,6 @@ namespace KoalaBankApp
         public double transferAmount { get; set; }
         public string accountFrom { get; set; }
         public string accountTo { get; set; }
-       
         public static void AddTransaction(User activeUser, double trans, string accountFrom, string accountTo)
         {
             bool alarm = false;
@@ -25,7 +24,7 @@ namespace KoalaBankApp
                 Thread.Sleep(10000);
                 
                 var transactionTimer = DateTime.Now;
-                if (transactionTimer.Minute == 20 || transactionTimer.Minute == 15 || transactionTimer.Minute == 30 || transactionTimer.Minute == 45)
+                if (transactionTimer.Minute == 00 || transactionTimer.Minute == 15 || transactionTimer.Minute == 30 || transactionTimer.Minute == 45)
                 {
                     Transactions activeTransaction = new Transactions(trans, accountFrom, accountTo);
                     activeUser.UserTransactionsList.Add(activeTransaction);
@@ -34,12 +33,11 @@ namespace KoalaBankApp
             }
             Console.WriteLine("Transaction complete!");
             Console.ReadKey();
-            
         }
         public static void printTransactions(List<Transactions> myTransactions)
         {
             myTransactions.Reverse();
-            Console.WriteLine("Latest transaction at the top");
+            Console.WriteLine("Sorted from most to least recent");
             int nr = 1;
             int integer = myTransactions.Count;
             integer = integer - 1;
@@ -50,13 +48,10 @@ namespace KoalaBankApp
             }
             myTransactions.Reverse();
         }
-
         public static void timeUntilTransaction()
         {
             var count = DateTime.Now;
-            Console.WriteLine("Time left until next transaction:" );
-
+            Console.WriteLine("Time left until next transaction: ");
         }
-
     }
 }
