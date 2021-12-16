@@ -20,7 +20,7 @@ The main method is the method the user gets to interact with. The user can only 
 SavingsAccount Class. The savings account inherits from BankAccount class. The Savings account is a regular bank account, but with interest. The interest is randomized for now,
 and does not affect the value of the account.
 
-Transfer Class
+Transfer Class A class that make it possbile to transfer amounts of money between diffrent accounts both your own and from your own to other users. You can also see a transaction log. Changes made here goes to the User class and stores itself in the correct users account so if u log out and in the changes is saved 
 
 Transaction Class
 
