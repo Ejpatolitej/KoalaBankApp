@@ -8,19 +8,18 @@ namespace KoalaBankApp
     {
         public string _Type;
         public double _Rate;
-        
-        public CurrencyRates(string Type,double Rate)
-        {
-            this._Rate = Rate;
-            this._Type = Type;
-        }
 
-        public static void UpdateCurrencyRate(CurrencyRates ObjRates)
+        public CurrencyRates(string type, double rate)
+        {
+            this._Rate = rate;
+            this._Type = type;
+        }
+        public static void UpdateCurrencyRate(CurrencyRates objRates)
         {
             double minValue = 8.5;
             Random R = new Random();
-            double NewRate = R.NextDouble();
-            ObjRates._Rate = NewRate + minValue;
+            double newRate = R.NextDouble();
+            objRates._Rate = newRate + minValue;
         }
     }
 }

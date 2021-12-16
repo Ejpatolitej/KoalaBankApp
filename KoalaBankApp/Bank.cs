@@ -10,7 +10,8 @@ namespace KoalaBankApp
     {
         public void Run()
         {
-            //welcome();
+            //Welcome();
+
             List<User> Users = new List<User>();
             List<CurrencyRates> Rates = new List<CurrencyRates>();
             CurrencyRates USDRates = new CurrencyRates("USD", 9.02);
@@ -22,46 +23,39 @@ namespace KoalaBankApp
             List<BankAccount> BAList1 = new List<BankAccount>();
             List<SavingsAccount> SavingsList1 = new List<SavingsAccount>();
             List<Transactions> TransactionsList1 = new List<Transactions>();
-
             BankAccount DAccount1 = new BankAccount("Private-USD-Account", 2500, "USD");
             BankAccount BAccount1 = new BankAccount("Privat-Konto", 25000, "SEK");
-
             User Account1 = new User("Lukke", "hejhej123", "Lucas", "Narfgren", "narfgren@hotmail.com", BAList1, SavingsList1, TransactionsList1, true);
+            Account1.BankAccountList.Add(BAccount1);
+            Account1.BankAccountList.Add(DAccount1);
+            Users.Add(Account1);
+
             //user 2
             List<BankAccount> BAList2 = new List<BankAccount>();
             List<SavingsAccount> SavingsList2 = new List<SavingsAccount>();
             List<Transactions> TransactionsList2 = new List<Transactions>();
-
             BankAccount BAccount2 = new BankAccount("Privat-Konto", 25000, "SEK");
             BankAccount BAccount3 = new BankAccount("Extra-Konto", 2925000, "USD");
             User Account2 = new User("Ludde", "hemlis", "Ludwig", "Oleby", "Ludwig1337@live.se", BAList2, SavingsList2, TransactionsList2, false);
+            Account2.BankAccountList.Add(BAccount2);
+            Account2.BankAccountList.Add(BAccount3);
+            Users.Add(Account2);
+
             //user 3
             List<BankAccount> BAList3 = new List<BankAccount>();
             List<SavingsAccount> SavingsList3 = new List<SavingsAccount>();
             List<Transactions> TransactionsList3 = new List<Transactions>();
-
             BankAccount BAccount4 = new BankAccount("Privat-Konto", 2000000, "SEK");
             BankAccount BAccount5 = new BankAccount("Extra-Konto", 1000000, "SEK");
             User Account3 = new User("Elias", "hejhej123", "Eliasl", "Lövdinger", "elias.lovdinger@xX13Cool37Xx", BAList3, SavingsList3, TransactionsList3, false);
-
-            //user 1 ADD
-            Account1.BankAccountList.Add(BAccount1);
-            Account1.BankAccountList.Add(DAccount1);
-
-            Users.Add(Account1);
-            //user 2 ADD
-            Account2.BankAccountList.Add(BAccount2);
-            Account2.BankAccountList.Add(BAccount3);
-            Users.Add(Account2);
-            //user 3 ADD
             Account3.BankAccountList.Add(BAccount4);
             Account3.BankAccountList.Add(BAccount5);
             Users.Add(Account3);
 
             Login login = new Login();
-            login.userLogin(Users, USDRates);
+            login.UserLogin(Users, USDRates);
         }
-        public static void userMenu(List<User> Users, User ActiveUser, CurrencyRates Rates)
+        public static void UserMenu(List<User> Users, User ActiveUser, CurrencyRates Rates)
         {
             // Meny
             bool MenuActive = true;
@@ -74,13 +68,13 @@ namespace KoalaBankApp
                 //{
                 //    Bank.Clock();
                 //});
-                Console.WriteLine("Welcome " + ActiveUser.Firstname + " " + ActiveUser.Lastname + " To KoalaBank! ʕ •🠵•ʔ"); // Fix ASCII
+                Console.WriteLine(@"Welcome " + ActiveUser.Firstname + " " + ActiveUser.Lastname + " To KoalaBank! O( ^ ■ ^)O");
 
                 Console.WriteLine();
                 Console.WriteLine("1. Transfer" +
                     "\n2. Account information" +
                     "\n3. Account management" +
-                    "\n4. Loans" +
+                    "\n4. Take new loan" +
                     "\n5. PLACEHOLDER" +
                     "\n6. PLACEHOLDER" +
                     "\n7. Logout");
@@ -120,7 +114,7 @@ namespace KoalaBankApp
                         break;
                     case 7:
                         Login logout = new Login();
-                        logout.userLogin(Users, Rates);
+                        logout.UserLogin(Users, Rates);
                         break;
                 }
             } while (MenuActive);
@@ -139,7 +133,7 @@ namespace KoalaBankApp
         //    }
         //}
 
-        public void welcome()
+        public void Welcome()
         {
             Console.ForegroundColor = ConsoleColor.DarkRed;
             Console.WriteLine("LOADING... ");
@@ -219,7 +213,6 @@ namespace KoalaBankApp
             }
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.Beep();
             Console.WriteLine("100%");
             Console.WriteLine("Koalabank.exe loading complete! ");
             Thread.Sleep(2000);
