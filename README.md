@@ -22,6 +22,6 @@ and does not affect the value of the account.
 
 Transfer Class A class that make it possbile to transfer amounts of money between diffrent accounts both your own and from your own to other users. You can also see a transaction log. Changes made here goes to the User class and stores itself in the correct users account so if u log out and in the changes is saved 
 
-Transaction Class
+Transaction Class A class that stores info about transfers that have been done in the transfer class. We have a task here that updates the transaction log in transfer class every 15 minutes example: 10:00 - 10:15 - 10:30 - 10:45.
 
 Login Class
