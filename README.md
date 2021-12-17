@@ -30,6 +30,7 @@ Makes it possbile to transfer money between different accounts. Both your own, a
 Stores info about transfers that have been done in the transfer class. We have a task here that updates the transaction log in transfer class every 15 minutes example: 10:00 - 10:15 - 10:30 - 10:45.
 
 ### Login Class
+Login class contains the method userLogin where the user is asked to enter their username and password. A if-statemenmt checks if the entered information is correct and if the user is a admin or not. When the user has entered the correct username and password the program will display either a user menu or a admin menu.
 
 
 
