@@ -40,12 +40,13 @@ namespace KoalaBankApp
             }
         }
         //Takes balance from user account and adds the loan
-        private static void NewAccountBalance(double loanAmount, User activeUser)
+        public void NewAccountBalance(double loanAmount, User activeUser)
         {
             bool keepTrying = true;
             do
             {
-                int index = Int32.Parse(Console.ReadLine()) - 1;
+                //int index = Int32.Parse(Console.ReadLine()) - 1;
+                int index = 0;
                 try
                 {
                     activeUser.BankAccountList[index].Balance += loanAmount;

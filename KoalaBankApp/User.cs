@@ -85,70 +85,77 @@ namespace KoalaBankApp
             }
             Console.ReadKey();
             Login back = new Login();
-            back.loginAdmin(accounts, activeUser, objRates);
+            //back.loginAdmin(accounts, activeUser, objRates);
         }
-        public static List<User> CreateUser(List<User> accounts, bool isadmin, User activeUser, CurrencyRates rates)
+        public List<User> CreateUser(List<User> accounts, bool isadmin, User activeUser, CurrencyRates rates)
         {
-            Console.Clear();
-            if (isadmin == true)
-            {
-                Console.Clear();
-                bool checkUsers = false;
-                string username = string.Empty;
-                string userInput = string.Empty;
-                do
-                {
-                    Console.Clear();
-                    Console.WriteLine("Please enter information for the new user.");
-                    Console.Write("Choose a username: ");
-                    userInput = Console.ReadLine();
-                    checkUsers = accounts.Exists(cu => cu.Username == userInput);
+            //Console.Clear();
+            //if (isadmin == true)
+            //{
+            //Console.Clear();
+            //bool checkUsers = false;
+            //string username = string.Empty;
+            //string userInput = string.Empty;
+            //do
+            //{
+            //    //Console.Clear();
+            //    Console.WriteLine("Please enter information for the new user.");
+            //    Console.Write("Choose a username: ");
+            //    userInput = Console.ReadLine();
+            //    checkUsers = accounts.Exists(cu => cu.Username == userInput);
 
-                    if (checkUsers == true)
-                    {
-                        Console.WriteLine("Username already exists, please choose another one.");
-                        Console.ReadKey();
-                    }
-                    else
-                    {
-                        username = userInput;
-                    }
-                } while (checkUsers == true);
+            //    if (checkUsers == true)
+            //    {
+            //        Console.WriteLine("Username already exists, please choose another one.");
+            //        Console.ReadKey();
+            //    }
+            //    else
+            //    {
+            //        username = userInput;
+            //    }
+            //} while (checkUsers == true);
 
-                Console.Write("Choose a password: ");
-                string password = Console.ReadLine();
-                Console.Write("What is the first name: ");
-                string firstName = Console.ReadLine().ToLower();
-                Console.Write("What is the last name: ");
-                string lastName = Console.ReadLine().ToLower();
-                Console.Write("Email Adress: ");
-                string email = Console.ReadLine().ToLower();
+            //Console.Write("Choose a password: ");
+            //string password = Console.ReadLine();
+            //Console.Write("What is the first name: ");
+            //string firstName = Console.ReadLine().ToLower();
+            //Console.Write("What is the last name: ");
+            //string lastName = Console.ReadLine().ToLower();
+            //Console.Write("Email Adress: ");
+            //string email = Console.ReadLine().ToLower();
 
-                string userAdmin = string.Empty;
+            //string userAdmin = string.Empty;
+            //bool isAdmin = false;
+            //do
+            //{
+            //    //Console.Clear();
+            //    Console.WriteLine("Should this user be Administrator? (Yes/No):");
+            //    userAdmin = Console.ReadLine().ToLower();
+
+            //    if (userAdmin == "yes")
+            //    {
+            //        isAdmin = true;
+            //        break;
+            //    }
+            //    else if (userAdmin == "no")
+            //    {
+            //        isAdmin = false;
+            //        break;
+            //    }
+            //    else
+            //    {
+            //        Console.WriteLine("Please write YES or NO.");
+            //        Console.ReadKey();
+            //        continue;
+            //    }
+            //} while (true);
+                string username = "";
+                string password = "";
+                string firstName = "";
+                string lastName = "";
+                string email = "";
                 bool isAdmin = false;
-                do
-                {
-                    Console.Clear();
-                    Console.WriteLine("Should this user be Administrator? (Yes/No):");
-                    userAdmin = Console.ReadLine().ToLower();
 
-                    if (userAdmin == "yes")
-                    {
-                        isAdmin = true;
-                        break;
-                    }
-                    else if (userAdmin == "no")
-                    {
-                        isAdmin = false;
-                        break;
-                    }
-                    else
-                    {
-                        Console.WriteLine("Please write YES or NO.");
-                        Console.ReadKey();
-                        continue;
-                    }
-                } while (true);
 
                 List<BankAccount> newBankAcc = new List<BankAccount>();
                 List<SavingsAccount> newSavingsAcc = new List<SavingsAccount>();
@@ -158,19 +165,19 @@ namespace KoalaBankApp
                 newAccount.BankAccountList.Add(newAcc);
                 accounts.Add(newAccount);
 
-                Login back = new Login();
-                back.loginAdmin(accounts, activeUser, rates);
+                //Login back = new Login();
+                //back.loginAdmin(accounts, activeUser, rates);
 
                 return accounts;
-            }
-            else
-            {
-                Console.Clear();
-                Console.WriteLine("You are not Admin.");
-                Console.WriteLine("Press any key to continue . . .");
-                Console.ReadKey();
-                return null;
-            }
+            //}
+            //else
+            //{
+            //    Console.Clear();
+            //    Console.WriteLine("You are not Admin.");
+            //    Console.WriteLine("Press any key to continue . . .");
+            //    Console.ReadKey();
+            //    return null;
+            //}
         }
         public void PrintAccountInfo(User activeUser, CurrencyRates rates)
         {

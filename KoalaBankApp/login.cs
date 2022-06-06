@@ -28,7 +28,7 @@ namespace KoalaBankApp
                         {
                             loginSuccess = true;
                             User Check = accounts.Find(s => s.Username == username);
-                            loginAdmin(accounts, Check, objRates);
+                            //loginAdmin(accounts, Check, objRates);
                             Console.ReadKey();
                         }
                         else if (users.IsAdmin == false)
@@ -56,36 +56,36 @@ namespace KoalaBankApp
                 }
             }
         }
-        public void loginAdmin(List<User> accounts, User activeUser, CurrencyRates objRates)
-        {
-            do
-            {
-                Console.Clear();
-                Console.WriteLine("1. Update Currency Rates (Current Rate: {0})", Math.Round(objRates._Rate, 2));
-                Console.WriteLine("2. Create Account");
-                Console.WriteLine("3. Show all Accounts");
-                Console.WriteLine("4. Log out");
-                int menu = int.Parse(Console.ReadLine());
+        //public void loginAdmin(List<User> accounts, User activeUser, CurrencyRates objRates)
+        //{
+        //    do
+        //    {
+        //        Console.Clear();
+        //        Console.WriteLine("1. Update Currency Rates (Current Rate: {0})", Math.Round(objRates._Rate, 2));
+        //        Console.WriteLine("2. Create Account");
+        //        Console.WriteLine("3. Show all Accounts");
+        //        Console.WriteLine("4. Log out");
+        //        int menu = int.Parse(Console.ReadLine());
 
-                switch (menu)
-                {
-                    case 1:
-                        CurrencyRates.UpdateCurrencyRate(objRates);
-                        break;
-                    case 2:
-                        User.CreateUser(accounts, true, activeUser, objRates);
-                        break;
-                    case 3:
-                        activeUser.PrintAllUsers(accounts, activeUser, objRates);
-                        break;
-                    case 4:
-                        Login logout = new Login();
-                        logout.UserLogin(accounts, objRates);
-                        break;
-                    default:
-                        break;
-                }
-            } while (true);
-        }
+        //        switch (menu)
+        //        {
+        //            case 1:
+        //                CurrencyRates.UpdateCurrencyRate(objRates);
+        //                break;
+        //            case 2:
+        //                //User.CreateUser(accounts, true, activeUser, objRates);
+        //                break;
+        //            case 3:
+        //                activeUser.PrintAllUsers(accounts, activeUser, objRates);
+        //                break;
+        //            case 4:
+        //                Login logout = new Login();
+        //                logout.UserLogin(accounts, objRates);
+        //                break;
+        //            default:
+        //                break;
+        //        }
+        //    } while (true);
+        //}
     }
 }

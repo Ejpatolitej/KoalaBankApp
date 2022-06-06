@@ -61,171 +61,175 @@ public class Transfer
     }
     public void TransferMoney(List<BankAccount> accountsTransfer, User activeUser, List<Transactions> activeTransaction)
     {
-        int maxAccounts = accountsTransfer.Count;
-        stopTransaction = 0;
-        //Account from
-        bool transferLoop = true;
-        while (transferLoop)
-        {
-            Console.Clear();
-            Console.WriteLine("Which account would you like to transfer money from?");
-            int nr = 1;
-            foreach (BankAccount item in activeUser.BankAccountList)
-            {
-                Console.WriteLine("----------------------");
-                Console.WriteLine(nr + ". Account name: {0} Balance: {1}", item.AccountName, item.Balance);
-                nr++;
-            }
-            //if (activeUser.SavingsAccountList.Count > 0)
-            //{
-            //    Console.WriteLine("\nSavings Accounts:\n");
-            //    foreach (var item in activeUser.SavingsAccountList)
-            //    {
-            //        Console.WriteLine("----------------------");
-            //        Console.WriteLine(nr + ". Account name: {0} Balance: {1}", item.AccountName, item.Balance);
-            //        nr++;
-            //    }
-            //}
-            try
-            {
-                accountFrom = int.Parse(Console.ReadLine());
-                if (accountFrom <= maxAccounts && accountFrom > 0)
-                {
-                    transferLoop = false;
-                }
-                else
-                {
-                    Console.WriteLine("Please enter an active account");
-                    Console.WriteLine("----------------------");
-                    Console.WriteLine("Would you like to continue with the transaction? Yes/No");
-                    goBack = Console.ReadLine();
-                    if (goBack.ToUpper() == "YES")
-                    {
+        //int maxAccounts = accountsTransfer.Count;
+        //stopTransaction = 0;
+        ////Account from
+        //bool transferLoop = true;
+        //while (transferLoop)
+        //{
+        //    Console.Clear();
+        //    Console.WriteLine("Which account would you like to transfer money from?");
+        //    int nr = 1;
+        //    foreach (BankAccount item in activeUser.BankAccountList)
+        //    {
+        //        Console.WriteLine("----------------------");
+        //        Console.WriteLine(nr + ". Account name: {0} Balance: {1}", item.AccountName, item.Balance);
+        //        nr++;
+        //    }
+        //    //if (activeUser.SavingsAccountList.Count > 0)
+        //    //{
+        //    //    Console.WriteLine("\nSavings Accounts:\n");
+        //    //    foreach (var item in activeUser.SavingsAccountList)
+        //    //    {
+        //    //        Console.WriteLine("----------------------");
+        //    //        Console.WriteLine(nr + ". Account name: {0} Balance: {1}", item.AccountName, item.Balance);
+        //    //        nr++;
+        //    //    }
+        //    //}
+        //    try
+        //    {
+        //        accountFrom = int.Parse(Console.ReadLine());
+        //        if (accountFrom <= maxAccounts && accountFrom > 0)
+        //        {
+        //            transferLoop = false;
+        //        }
+        //        else
+        //        {
+        //            Console.WriteLine("Please enter an active account");
+        //            Console.WriteLine("----------------------");
+        //            Console.WriteLine("Would you like to continue with the transaction? Yes/No");
+        //            goBack = Console.ReadLine();
+        //            if (goBack.ToUpper() == "YES")
+        //            {
 
-                    }
-                    else
-                    {
-                        stopTransaction = 1;
-                        break;
-                    }
-                }
-            }
-            catch (Exception)
-            {
-                Console.Clear();
-                Console.WriteLine("Please input the account number with a number/numbers");
-            }
-        }
-        //Account to
-        if (stopTransaction == 1)
-        {
-            transferLoop = false;
-        }
-        else
-        {
-            transferLoop = true;
-        }
-        while (transferLoop)
-        {
-            Console.Clear();
-            Console.WriteLine("Which account would like the money transferred to?");
-            int nr = 1;
-            foreach (BankAccount item in activeUser.BankAccountList)
-            {
-                Console.WriteLine("----------------------");
-                Console.WriteLine(nr + ". Account name: {0} Balance: {1}", item.AccountName, item.Balance);
-                nr++;
-            }
-            //if (activeUser.SavingsAccountList.Count > 0)
-            //{
-            //    Console.WriteLine("\nSavings Accounts:\n");
-            //    foreach (var item in activeUser.SavingsAccountList)
-            //    {
-            //        Console.WriteLine("----------------------");
-            //        Console.WriteLine(nr + ". Account name: {0} Balance: {1}", item.AccountName, item.Balance);
-            //        nr++;
-            //    }
-            //}
-            try
-            {
-                accountTo = int.Parse(Console.ReadLine());
-                if (accountTo <= maxAccounts && accountTo != accountFrom && accountTo > 0)
-                {
-                    transferLoop = false;
-                }
-                else
-                {
-                    Console.WriteLine("Please enter a valid account. You can not choose the withdraw account.");
-                    Console.WriteLine("----------------------");
-                    Console.WriteLine("Would you like to continue with the transaction? Yes/No");
-                    goBack = Console.ReadLine();
-                    if (goBack.ToUpper() == "YES")
-                    {
+        //            }
+        //            else
+        //            {
+        //                stopTransaction = 1;
+        //                break;
+        //            }
+        //        }
+        //    }
+        //    catch (Exception)
+        //    {
+        //        Console.Clear();
+        //        Console.WriteLine("Please input the account number with a number/numbers");
+        //    }
+        //}
+        ////Account to
+        //if (stopTransaction == 1)
+        //{
+        //    transferLoop = false;
+        //}
+        //else
+        //{
+        //    transferLoop = true;
+        //}
+        //while (transferLoop)
+        //{
+        //    Console.Clear();
+        //    Console.WriteLine("Which account would like the money transferred to?");
+        //    int nr = 1;
+        //    foreach (BankAccount item in activeUser.BankAccountList)
+        //    {
+        //        Console.WriteLine("----------------------");
+        //        Console.WriteLine(nr + ". Account name: {0} Balance: {1}", item.AccountName, item.Balance);
+        //        nr++;
+        //    }
+        //    //if (activeUser.SavingsAccountList.Count > 0)
+        //    //{
+        //    //    Console.WriteLine("\nSavings Accounts:\n");
+        //    //    foreach (var item in activeUser.SavingsAccountList)
+        //    //    {
+        //    //        Console.WriteLine("----------------------");
+        //    //        Console.WriteLine(nr + ". Account name: {0} Balance: {1}", item.AccountName, item.Balance);
+        //    //        nr++;
+        //    //    }
+        //    //}
+        //    try
+        //    {
+        //        accountTo = int.Parse(Console.ReadLine());
+        //        if (accountTo <= maxAccounts && accountTo != accountFrom && accountTo > 0)
+        //        {
+        //            transferLoop = false;
+        //        }
+        //        else
+        //        {
+        //            Console.WriteLine("Please enter a valid account. You can not choose the withdraw account.");
+        //            Console.WriteLine("----------------------");
+        //            Console.WriteLine("Would you like to continue with the transaction? Yes/No");
+        //            goBack = Console.ReadLine();
+        //            if (goBack.ToUpper() == "YES")
+        //            {
 
-                    }
-                    else
-                    {
-                        stopTransaction = 1;
-                        break;
-                    }
-                }
-            }
-            catch (Exception)
-            {
-                Console.Clear();
-                Console.WriteLine("Please input the account number with a number/numbers");
-            }
-        }
-        //Amount
-        if (stopTransaction == 1)
-        {
-            transferLoop = false;
-        }
-        else
-        {
-            transferLoop = true;
-        }
-        while (transferLoop)
-        {
-            Console.Clear();
-            Console.WriteLine("What amount would you like to transfer?");
-            try
-            {
-                amountTotransfer = double.Parse(Console.ReadLine());
-                if (amountTotransfer > 0)
-                {
-                    transferLoop = false;
-                }
-                else
-                {
-                    Console.WriteLine("You can not transfer an amount lesser than, or equal to zero.");
-                    Console.WriteLine("Would you like to continue with the transaction? Yes/No");
-                    goBack = Console.ReadLine();
-                    if (goBack.ToUpper() == "YES")
-                    {
+        //            }
+        //            else
+        //            {
+        //                stopTransaction = 1;
+        //                break;
+        //            }
+        //        }
+        //    }
+        //    catch (Exception)
+        //    {
+        //        Console.Clear();
+        //        Console.WriteLine("Please input the account number with a number/numbers");
+        //    }
+        //}
+        ////Amount
+        //if (stopTransaction == 1)
+        //{
+        //    transferLoop = false;
+        //}
+        //else
+        //{
+        //    transferLoop = true;
+        //}
+        //while (transferLoop)
+        //{
+        //    Console.Clear();
+        //    Console.WriteLine("What amount would you like to transfer?");
+        //    try
+        //    {
+        //        amountTotransfer = double.Parse(Console.ReadLine());
+        //        if (amountTotransfer > 0)
+        //        {
+        //            transferLoop = false;
+        //        }
+        //        else
+        //        {
+        //            Console.WriteLine("You can not transfer an amount lesser than, or equal to zero.");
+        //            Console.WriteLine("Would you like to continue with the transaction? Yes/No");
+        //            goBack = Console.ReadLine();
+        //            if (goBack.ToUpper() == "YES")
+        //            {
 
-                    }
-                    else
-                    {
-                        stopTransaction = 1;
-                        break;
-                    }
-                }
-            }
-            catch (Exception)
-            {
-                Console.Clear();
-                Console.WriteLine("Please input the amount with numbers");
-            }
-        }
-        //calc for amount to be removed and added
-        Console.Clear();
-        int coverage = 0;
-        if (stopTransaction != 1)
-        {
-            accountFrom = accountFrom - 1;
-            accountTo = accountTo - 1;
+        //            }
+        //            else
+        //            {
+        //                stopTransaction = 1;
+        //                break;
+        //            }
+        //        }
+        //    }
+        //    catch (Exception)
+        //    {
+        //        Console.Clear();
+        //        Console.WriteLine("Please input the amount with numbers");
+        //    }
+        //}
+        ////calc for amount to be removed and added
+        //Console.Clear();
+        //int coverage = 0;
+        //if (stopTransaction != 1)
+        //{
+        //accountFrom = accountFrom - 1;
+        //accountTo = accountTo - 1;
 
+            accountFrom = 0;
+            accountTo = 1;
+            amountTotransfer = 100;
+            stopTransaction = 0;
             if (accountsTransfer[accountFrom].Balance >= amountTotransfer && stopTransaction == 0)
             {
                 // Transaction task
@@ -235,25 +239,25 @@ public class Transfer
                 });
                 accountsTransfer[accountFrom].Balance -= amountTotransfer;
                 accountsTransfer[accountTo].Balance += amountTotransfer;
-                coverage = 1;
+                //coverage = 1;
             }
         }
-        if (coverage == 1)
-        {
-            double newAmountFrom = accountsTransfer[accountFrom].Balance;
-            double newAmountTo = accountsTransfer[accountTo].Balance;
+    //    if (coverage == 1)
+    //    {
+    //        double newAmountFrom = accountsTransfer[accountFrom].Balance;
+    //        double newAmountTo = accountsTransfer[accountTo].Balance;
 
-            Console.WriteLine("New balance of the account money was transferred from: " + Math.Round(newAmountFrom, 2));
-            Console.WriteLine("New balance of the account money was transferred to: " + Math.Round(newAmountTo, 2));
-            Console.ReadKey();
-        }
-        else
-        {
-            Console.WriteLine("The tranfer was terminated. Have a nice day!");
-            Console.ReadKey();
-        }
+    //        Console.WriteLine("New balance of the account money was transferred from: " + Math.Round(newAmountFrom, 2));
+    //        Console.WriteLine("New balance of the account money was transferred to: " + Math.Round(newAmountTo, 2));
+    //        Console.ReadKey();
+    //    }
+    //    else
+    //    {
+    //        Console.WriteLine("The tranfer was terminated. Have a nice day!");
+    //        Console.ReadKey();
+    //    }
 
-    }
+    //}
     public void TransferToOtherUser(List<BankAccount> accountsList, User activeUser, List<User> userList)
     {
         Console.Clear();
